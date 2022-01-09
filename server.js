@@ -1,4 +1,13 @@
-var app = require('express')(); app.route('/hello').get(function(req, res) { 
-    res.send('hello world !'); 
-}); 
-app.listen(8080);
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 8080;
+
+app.use(express.static(__dirname + '/website/style.css'))
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/website/index.html')
+})
+
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`)
+})
