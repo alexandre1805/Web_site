@@ -99,7 +99,7 @@ function Register(props) {
           onChange={handleConfirmPassword}
         />
         {verifyConfirmPassword()}
-        <button>Sign Up !</button>
+        <button type="submit">Sign Up !</button>
       </form>
     </div>
   );

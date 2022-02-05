@@ -74,12 +74,12 @@ button {
   text-decoration: none;
 }
 
-a {
+.login a {
   text-decoration: none;
   padding-bottom: 10px;
 }
 
-p {
+.login p {
   display: flex;
   align-items: center;
   justify-content: center;
