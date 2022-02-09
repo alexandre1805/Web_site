@@ -2,11 +2,13 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
+const bodyParser = require("body-parser");
 const router = require("./routes/routes");
 
 //app use
-app.use("*", router);
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use("/", router);
 
 //database connection
 mongoose.connect(process.env.MongoDB);
