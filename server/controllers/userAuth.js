@@ -6,8 +6,6 @@ exports.registerUser = async function (req, res) {
     username: req.body.username,
   });
   const emailFound = await userModel.findOne({ email: req.body.email });
-
-  console.log(usernameFound);
   if (usernameFound) res.json({ message: "Username already taken" });
   else if (emailFound) res.json({ message: "Email already taken" });
   else {
@@ -19,7 +17,7 @@ exports.registerUser = async function (req, res) {
 
     newUser.save();
 
-    res.json({ message: "Success" });
+    res.json({ message: "OK" });
   }
 };
 
@@ -36,25 +34,20 @@ exports.login = async function (req, res) {
       process.env.JWT_SECRET,
       { expiresIn: "30d" }
     );
-    res.header("Authorization", "Bearer " + token);
+    res.cookie("token", token, { httpOnly: true });
     res.json({ message: "Success" });
   }
 };
 
 exports.verifToken = function (req, res, next) {
-  let token = req.headers["Authorization"];
-  if (!!token && token.startsWith("Bearer ")) {
-    token = token.slice(7, token.length);
-  }
-
+  let token = req.cookie.token;
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
         res.status("401").json({ message: err.message });
       } else {
-        res.send("Success");
+        res.json({ message: "OK" });
       }
     });
-  }
-  res.status("401").json({ message: "No token" });
+  } else res.status("401").json({ message: "No token" });
 };

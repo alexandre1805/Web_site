@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/login.css";
 
 function Register(props) {
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [finalMsg, setFinalMsg] = useState("");
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -59,12 +63,38 @@ function Register(props) {
       return <li style={{ color: "#FF4136" }}>Passwords must correspond</li>;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      username === "" ||
+      !email.match(validEmail) ||
+      !password.match(validPassword) ||
+      password !== confirmPassword
+    )
+      return;
+    axios
+      .post("http://localhost:4000/register", {
+        username: username,
+        email: email,
+        password: password,
+      })
+      .then(
+        (res) => {
+          const msg = res.data.message;
+          if (msg === "OK") navigate("/login");
+        },
+        (error) => {
+          setFinalMsg("API not connected");
+        }
+      );
+  };
+
   return (
     <div className="login">
       <form>
         <h2 className="title">Sign Up</h2>
         Already a member ?
-        <a id="sign-up-btn" href="/">
+        <a id="sign-up-btn" href="/login">
           Sign In
         </a>
         Username :
@@ -99,7 +129,10 @@ function Register(props) {
           onChange={handleConfirmPassword}
         />
         {verifyConfirmPassword()}
-        <button type="submit">Sign Up !</button>
+        <button type="submit" onClick={handleSubmit}>
+          Sign Up !
+        </button>
+        <h3 style={{ color: "#FF4136" }}>{finalMsg}</h3>
       </form>
     </div>
   );
