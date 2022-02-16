@@ -24,10 +24,11 @@ function Login(props) {
       .post("http://localhost:4000/login", {
         username: username,
         password: password,
-      })
+      }, { withCredentials: true })
       .then(
         (res) => {
           const msg = res.data.message;
+          
           if (msg === "OK") navigate("/dashboard");
         },
         (error) => {
