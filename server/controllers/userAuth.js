@@ -28,31 +28,28 @@ exports.login = async function (req, res) {
   if (!user || user.password != password)
     res.json({ message: "Invalid login" });
   else {
-    const token = jwt.sign(
-      { username: username },
-      process.env.JWT_SECRET,
-      { expiresIn: "30d" }
-    );
-    res.cookie("token", token);
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+    res.cookie("token", token, {httpOnly: true, secure: true});
     res.json({ message: "OK" });
   }
 };
 
 exports.verifToken = function (req, res) {
-  var token;
-  console.log(req.cookies)
-  try {
-    token = req.cookies.token;
-  }
-  catch{res.status("200").json({ message: "No token" });}
+  var token = null;
+  token = req.cookies.token;
 
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
-        res.status("200").json({ message: err.message });
+        res.json({ message: err.message });
       } else {
-        res.json({ message: "OK" });
+        res.json({ username: verifiedJwt.username, message: "OK" });
       }
-    })
+    });
+  }
+  else{
+    res.json({ message: "No token" });
   }
 };

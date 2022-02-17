@@ -21,15 +21,22 @@ function Login(props) {
     e.preventDefault();
     if (username === "" || password === "") return;
     axios
-      .post("http://localhost:4000/login", {
-        username: username,
-        password: password,
-      }, { withCredentials: true })
+      .post(
+        "http://localhost:4000/login",
+        {
+          username: username,
+          password: password,
+        },
+        { withCredentials: true }
+      )
       .then(
         (res) => {
           const msg = res.data.message;
-          
-          if (msg === "OK") navigate("/dashboard");
+
+          if (msg === "OK") {
+            props.SetIsLogged(true);
+            navigate("/");
+          }
         },
         (error) => {
           setFinalMsg("API not connected");

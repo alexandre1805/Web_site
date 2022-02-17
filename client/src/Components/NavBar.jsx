@@ -10,7 +10,7 @@ function Navbar(props) {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/about'>About Us</Link></li>
             <li>Contact</li>
-            <li><Link to='/login'>Log In</Link></li>
+            <li><Link to='/dashboard'>Log In</Link></li>
         </ul>
         </header>
     )
