@@ -7,14 +7,24 @@ const io = require("socket.io")(server);
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const router = require("./routes/routes");
+const cors = require('cors');
 
 //app use
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/", router);
+app.use(cors());
 
-//database connection
+
+
+
+
+// **********************************
+// *                                *
+// *        DATABASE : MONGODB      *
+// *                                *
+// **********************************
 mongoose.connect(process.env.MongoDB);
 const db = mongoose.connection;
 db.on("error", (err) => {
@@ -22,6 +32,14 @@ db.on("error", (err) => {
 });
 db.on("connected", () => console.log("DB connected"));
 
+
+
+
+// **********************************
+// *                                *
+// *          SOCKET IO             *
+// *                                *
+// **********************************
 io.on("connection", (socket) => {
   console.log(`Connecté au client ${socket.id}`);
 
@@ -34,7 +52,8 @@ io.on("connection", (socket) => {
   });
 });
 
-const port = process.env.PORT || 2000;
+
+const port = process.env.PORT || 4000;
 server.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
