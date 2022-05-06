@@ -27,7 +27,7 @@ function App(props) {
               setUsername(response.data.username);
             }
             setLoading(false);
-          });
+          }).catch((err) =>{console.log(err)});
       } catch (e) {
         console.log(e);
       }

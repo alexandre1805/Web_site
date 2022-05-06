@@ -25,21 +25,22 @@ exports.login = async function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
   const user = await userModel.findOne({ username });
-  if (!user || user.password != password)
+  if (!user || user.password != password) {
+    res.status(401);
     res.json({ message: "Invalid login" });
-  else {
+  } else {
     const token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
-    res.cookie("token", token, {httpOnly: true, secure: true});
+    res.cookie("token", token, { httpOnly: true, secure: true });
     res.json({ message: "OK" });
+    res.status(200);
   }
 };
 
 exports.verifToken = function (req, res) {
   var token = null;
   token = req.cookies.token;
-
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
@@ -47,9 +48,10 @@ exports.verifToken = function (req, res) {
       } else {
         res.json({ username: verifiedJwt.username, message: "OK" });
       }
+      res.status(200);
     });
-  }
-  else{
+  } else {
     res.json({ message: "No token" });
+    res.status(401);
   }
 };

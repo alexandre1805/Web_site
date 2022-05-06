@@ -1,23 +1,33 @@
 import { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
+import axios from "axios";
+
 function Dashboard(props) {
   const [addFriendField, setAddFriendField] = useState("");
-  const [socket, setSocket] = useState(null)
-  const [message, setMessage] = useState("")
-  const [messages, setMessages] = useState([])
+  const [socket, setSocket] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     setSocket(socketIOClient.connect("http://localhost:4000"));
   }, []);
 
   useEffect(() => {
-    if(socket === null)
-      return
-    socket.on("new message", (elt) => {
-      setMessages(oldMessages => [...oldMessages, elt])
-    })
+    axios
+      .get("http://localhost:4000/getMsg", { withCredentials: true })
+      .then((res) => {
+        const messages = res.data.messages;
+        setMessages(messages);
+      });
+  }, []);
 
-  }, [socket])
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("new message", (elt) => {
+      console.log(elt);
+      setMessages((oldMessages) => [...oldMessages, elt]);
+    });
+  }, [socket]);
 
   const handleAddFriend = (e) => {
     e.preventDefault();
@@ -26,11 +36,11 @@ function Dashboard(props) {
 
   const handleSubmitMessage = (e) => {
     e.preventDefault();
-    if(message === "") return;
-    socket.emit("message", message)
+    if (message === "") return;
+    var args = { client: props.Username, msg: message };
+    socket.emit("message", args);
     setMessage("");
-
-  }
+  };
 
   return (
     <div className="Dashboard">
@@ -51,19 +61,20 @@ function Dashboard(props) {
       </div>
       <div className="Messages">
         Messages:
-          <div>
-            {messages.map((e) => {
-              return(<div key={e}>{e}</div>);
-              })
-            }
+        <div>
+          {messages.map((e) => {
+            return <div key={e._id}>{e.user + ": " + e.message}</div>;
+          })}
         </div>
         <input
-            type="text"
-            placeholder="New message..."
-            value={message}
-            onChange={(e) => {setMessage(e.target.value)}}
-            />
-            <button onClick={handleSubmitMessage}>Send</button>
+          type="text"
+          placeholder="New message..."
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <button onClick={handleSubmitMessage}>Send</button>
         <ul></ul>
       </div>
     </div>

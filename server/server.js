@@ -7,7 +7,8 @@ const io = require("socket.io")(server);
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const router = require("./routes/routes");
-const cors = require('cors');
+const cors = require("cors");
+const ioFunc = require("./controllers/userMsg.js");
 
 //app use
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,10 +16,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/", router);
 app.use(cors());
-
-
-
-
 
 // **********************************
 // *                                *
@@ -32,9 +29,6 @@ db.on("error", (err) => {
 });
 db.on("connected", () => console.log("DB connected"));
 
-
-
-
 // **********************************
 // *                                *
 // *          SOCKET IO             *
@@ -43,15 +37,15 @@ db.on("connected", () => console.log("DB connected"));
 io.on("connection", (socket) => {
   console.log(`Connecté au client ${socket.id}`);
 
-  socket.on("message", (msg) => {
-      io.emit("new message", msg)
+  socket.on("message", async (args) => {
+    var obj = await ioFunc.handleMsg(args);
+    io.emit("new message", obj);
   });
 
   socket.on("disconnect", () => {
     console.log(`Deconnecté au client ${socket.id}`);
   });
 });
-
 
 const port = process.env.PORT || 4000;
 server.listen(port, () => {
