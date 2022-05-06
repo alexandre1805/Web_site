@@ -81,10 +81,8 @@ function Register(props) {
       .then(
         (res) => {
           const msg = res.data.message;
-          if (msg === "OK")
-            navigate("/login");
-          else
-            setFinalMsg(msg);
+          if (msg === "OK") navigate("/login");
+          else setFinalMsg(msg);
         },
         (error) => {
           setFinalMsg("API not connected");

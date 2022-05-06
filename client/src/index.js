@@ -20,14 +20,17 @@ function App(props) {
     const fetchLogin = async () => {
       try {
         await axios
-          .get("http://localhost:4000/verifToken", { withCredentials: true})
+          .get("http://localhost:4000/verifToken", { withCredentials: true })
           .then((response) => {
             if (response.data.message === "OK") {
               setIsLogged(true);
               setUsername(response.data.username);
             }
             setLoading(false);
-          }).catch((err) =>{console.log(err)});
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } catch (e) {
         console.log(e);
       }
@@ -48,7 +51,13 @@ function App(props) {
         <Route path="/about" element={<About />} />
         <Route
           path="/login"
-          element={!isLogged ? <Login SetIsLogged={setIsLogged}/> : <Navigate to="/dashboard" />}
+          element={
+            !isLogged ? (
+              <Login SetIsLogged={setIsLogged} />
+            ) : (
+              <Navigate to="/dashboard" />
+            )
+          }
         />
         <Route path="/register" element={<Register />} />
         <Route

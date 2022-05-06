@@ -26,8 +26,7 @@ exports.login = async function (req, res) {
   const password = req.body.password;
   const user = await userModel.findOne({ username });
   if (!user || user.password != password) {
-    res.status(401);
-    res.json({ message: "Invalid login" });
+    res.status(500).json({ message: "Invalid login" });
   } else {
     const token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
       expiresIn: "30d",
@@ -51,7 +50,6 @@ exports.verifToken = function (req, res) {
       res.status(200);
     });
   } else {
-    res.json({ message: "No token" });
-    res.status(401);
+    res.status(500).json({ message: "No token" });
   }
 };
