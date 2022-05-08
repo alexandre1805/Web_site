@@ -43,34 +43,34 @@ function App(props) {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={isLogged ? <Navigate to="/dashboard" /> : <Home />}
-        />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/login"
-          element={
-            !isLogged ? (
-              <Login SetIsLogged={setIsLogged} />
-            ) : (
-              <Navigate to="/dashboard" />
-            )
-          }
-        />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/dashboard"
-          element={
-            isLogged ? (
-              <Dashboard Username={username} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-      </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={isLogged ? <Navigate to="/dashboard" /> : <Home />}
+          />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/login"
+            element={
+              !isLogged ? (
+                <Login SetIsLogged={setIsLogged} />
+              ) : (
+                <Navigate to="/dashboard" />
+              )
+            }
+          />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/dashboard"
+            element={
+              isLogged ? (
+                <Dashboard Username={username} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        </Routes>
     </BrowserRouter>
   );
 }

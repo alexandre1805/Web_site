@@ -5,6 +5,7 @@ exports.handleMsg = async function (args) {
   const newMessage = new messagesModel({
     message: args.msg,
     user: args.client,
+    room: args.room,
   });
 
   var id = await newMessage.save().then((obj) => {
@@ -15,6 +16,7 @@ exports.handleMsg = async function (args) {
     _id: id,
     message: args.msg,
     user: args.client,
+    room: args.room,
   };
 
   return obj;

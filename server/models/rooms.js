@@ -1,18 +1,15 @@
 const mongoose = require("mongoose");
 
-const MessagesSchema = new mongoose.Schema({
-  message: {
+const RoomSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
   },
-  user: {
-    type: String,
-    required: true,
-  },
-  room: {
-    type: String,
-    required: true,
-  }
+  users: [
+    {
+      type: String,
+    },
+  ],
 });
 const Messages = mongoose.model("Messages", MessagesSchema);
 module.exports = Messages;

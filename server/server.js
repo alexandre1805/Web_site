@@ -34,8 +34,10 @@ db.on("connected", () => console.log("DB connected"));
 // *          SOCKET IO             *
 // *                                *
 // **********************************
+let online_users = [];
+
 io.on("connection", (socket) => {
-  console.log(`Connecté au client ${socket.id}`);
+  online_users.push(socket)
 
   socket.on("message", async (args) => {
     var obj = await ioFunc.handleMsg(args);

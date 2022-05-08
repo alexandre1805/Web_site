@@ -14,10 +14,7 @@ body {
 #root {
   height: 100%;
   width: 100%;
-}
-
-header {
-  margin: 0;
+  overflow: hidden;
 }
 
 footer {
