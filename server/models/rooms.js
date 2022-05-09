@@ -11,5 +11,5 @@ const RoomSchema = new mongoose.Schema({
     },
   ],
 });
-const Messages = mongoose.model("Messages", MessagesSchema);
-module.exports = Messages;
+const Room = mongoose.model("Room", RoomSchema);
+module.exports = Room;

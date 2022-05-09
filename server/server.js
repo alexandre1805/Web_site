@@ -8,7 +8,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const router = require("./routes/routes");
 const cors = require("cors");
-const ioFunc = require("./controllers/userMsg.js");
+const userMsg = require("./controllers/userMsg.js");
+const userRoom = require("./controllers/userRoom");
 
 //app use
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,19 +35,18 @@ db.on("connected", () => console.log("DB connected"));
 // *          SOCKET IO             *
 // *                                *
 // **********************************
-let online_users = [];
 
 io.on("connection", (socket) => {
-  online_users.push(socket)
-
   socket.on("message", async (args) => {
-    var obj = await ioFunc.handleMsg(args);
+    var obj = await userMsg.handleMsg(args);
     io.emit("new message", obj);
   });
 
-  socket.on("disconnect", () => {
-    console.log(`Deconnecté au client ${socket.id}`);
+  socket.on("create room", async (args) => {
+    userRoom.createRoom(args);
   });
+
+  socket.on("disconnect", () => {});
 });
 
 const port = process.env.PORT || 4000;

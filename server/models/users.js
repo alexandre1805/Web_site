@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    rooms: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,

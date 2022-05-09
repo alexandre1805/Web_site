@@ -1,5 +1,5 @@
 const messagesModel = require("../models/messages");
-const jwt = require("jsonwebtoken");
+const userAuth = require("./userAuth");
 
 exports.handleMsg = async function (args) {
   const newMessage = new messagesModel({
@@ -23,7 +23,7 @@ exports.handleMsg = async function (args) {
 };
 
 exports.getMessages = async function (req, res) {
+  userAuth.checkAuth(req, res);
   const messages = await messagesModel.find({});
-  res.json({ messages: messages });
-  res.status(200);
+  res.status(200).json({ messages: messages });
 };

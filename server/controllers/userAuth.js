@@ -17,7 +17,7 @@ exports.registerUser = async function (req, res) {
 
     newUser.save();
 
-    res.json({ message: "OK" });
+    res.status(200).json({ message: "OK" });
   }
 };
 
@@ -32,8 +32,7 @@ exports.login = async function (req, res) {
       expiresIn: "30d",
     });
     res.cookie("token", token, { httpOnly: true, secure: true });
-    res.json({ message: "OK" });
-    res.status(200);
+    res.status(200).json({ message: "OK" });
   }
 };
 
@@ -43,13 +42,29 @@ exports.verifToken = function (req, res) {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
-        res.json({ message: err.message });
+        res.status(200).json({ message: err.message });
       } else {
-        res.json({ username: verifiedJwt.username, message: "OK" });
+        res.status(200).json({ username: verifiedJwt.username, message: "OK" });
       }
-      res.status(200);
     });
   } else {
     res.status(500).json({ message: "No token" });
+  }
+};
+
+exports.checkAuth = (req, res) => {
+  var token = null;
+  token = req.cookies.token;
+
+  if (token) {
+    return jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
+      if (err) {
+        res.status(401);
+      } else {
+        return verifiedJwt.username;
+      }
+    });
+  } else {
+    res.status(401);
   }
 };

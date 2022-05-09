@@ -12,14 +12,16 @@ function Dashboard(props) {
 
   //create a socket and connect to API
   useEffect(() => {
-    setSocket(socketIOClient.connect("http://localhost:4000"));
-  }, []);
+    setSocket(socketIOClient.connect("http://localhost:4000"), {
+      username: props.Username,
+    });
+  }, [props.Username]);
 
+  // <Friend username={props.Username} />
   return (
     <div className="Dashboard">
       <div className="Menu">
-        <Friend />
-        <Room />
+        <Room username={props.Username} socket={socket}/>
       </div>
       <Messages
         socket={socket}
