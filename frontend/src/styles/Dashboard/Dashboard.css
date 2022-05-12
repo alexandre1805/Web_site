@@ -1,3 +1,6 @@
+.Dashboard {
+  background-color: #444753;
+}
 .Message {
   height: 93vh;
   float: right;
@@ -76,7 +79,34 @@
   width: 40%;
   float: left;
 
-  background-color: red;
+  background-color: #92959E;
   display: flex;
   flex-direction: column;
+}
+.Room input {
+  border-radius: 3px;
+  border: none;
+  padding: 14px;
+  color: white;
+  background: #6A6C75;
+  width: 90%;
+  font-size: 14px;
+}
+.Room ul {
+  padding: 20px;
+}
+.Room img {
+  border-radius: 50%;
+  width: 10%;
+  background-color: #fff;
+}
+
+.Room li {
+  text-decoration: none;
+  padding: 10px;
+  display: flex;
+}
+
+.Room .content {
+  font-size: large;
 }

@@ -45,6 +45,7 @@ function Room(props) {
         {rooms.map((e) => {
           return (
             <li className="room" key={e._id}>
+              <img src="/room_image.png" alt="user_image" />
               <div className="content">{e.name}</div>
             </li>
           );
