@@ -10,13 +10,13 @@ This web app is able to play video games easily with your and even use this as a
 To run the back-end, run the following command:
 
 ```bash
-  cd back-end/
+  cd backend/
   node server.js
 ```
 
 To run the front-end, run the following command:
 
 ```bash
-  cd front-end/
+  cd frontend/
   npm start
 ```
