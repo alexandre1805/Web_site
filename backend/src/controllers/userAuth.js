@@ -5,9 +5,11 @@ exports.registerUser = async function (req, res) {
   const usernameFound = await userModel.findOne({
     username: req.body.username,
   });
+  if (usernameFound)
+    res.status(400).json({ message: "Username already taken" });
+
   const emailFound = await userModel.findOne({ email: req.body.email });
-  if (usernameFound) res.json({ message: "Username already taken" });
-  else if (emailFound) res.json({ message: "Email already taken" });
+  if (emailFound) res.status(400).json({ message: "Email already taken" });
   else {
     const newUser = new userModel({
       username: req.body.username,
@@ -42,7 +44,7 @@ exports.verifToken = function (req, res) {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
-        res.status(200).json({ message: err.message });
+        res.status(500).json({ message: err.message });
       } else {
         res.status(200).json({ username: verifiedJwt.username, message: "OK" });
       }
