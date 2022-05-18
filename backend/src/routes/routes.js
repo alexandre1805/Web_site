@@ -7,7 +7,7 @@ const userRoom = require("../controllers/userRoom");
 const router = express.Router();
 
 /**
- * @api {post} /register/ Request User regestration
+ * @api {post} /register Request User regestration
  * @apiName Register
  * @apiGroup User
  * @apiVersion 0.0.0
@@ -32,7 +32,7 @@ const router = express.Router();
  *     {
  *       "message" : "OK"
  *     }
- * @apiSampleRequest http://localhost:4000
+ * @apiSampleRequest http://localhost:4000/register
  */
 router.post("/register", userAuth.registerUser);
 
@@ -59,7 +59,7 @@ router.post("/register", userAuth.registerUser);
  *     {
  *       "message" : "OK"
  *     }
- * @apiSampleRequest http://localhost:4000
+ * @apiSampleRequest http://localhost:4000/login
  */
 router.post("/login", userAuth.login);
 /**
@@ -82,7 +82,7 @@ router.post("/login", userAuth.login);
  *       "message" : "OK"
  *     }
  *
- *  @apiSampleRequest http://localhost:4000
+ *  @apiSampleRequest http://localhost:4000/verifToken
  */
 router.get("/verifToken", userAuth.verifToken);
 /**
@@ -106,13 +106,56 @@ router.get("/verifToken", userAuth.verifToken);
  *          "titi"
  *      ]
  *     }
- *
+ * @apiSampleRequest http://localhost:4000/getFriends
  */
 router.get("/getFriends", userData.getFriends);
+/**
+ * @api {post} /addFriend Request User add friend
+ * @apiName Get Friend
+ * @apiGroup User
+ * @apiVersion 0.0.0
+ *
+ * @apiHeader {String} token the token previously set with login request
+ *
+ * @apiError InvalidToken
+ * @apiError NoToken
+ *
+ * @apiSuccess Not implemented
+ *
+ * @apiSampleRequest http://localhost:4000/addFriend
+ */
 router.post("/addFriend", userData.addFriend);
+/**
+ * @api {get} /getMsg Request User get messages
+ * @apiName Get Messages
+ * @apiGroup User
+ * @apiVersion 0.0.0
+ *
+ * @apiHeader {String} token the token previously set with login request
+ *
+ * @apiError InvalidToken
+ * @apiError NoToken
+ *
+ * @apiSuccess {String[]} messages return all the messages from the database
+ *
+ */
 router.get("/getMsg", async (req, res) => {
   await userMsg.getMessages(req, res);
 });
+/**
+ * @api {get} /getMsg Request User get rooms
+ * @apiName Get Rooms
+ * @apiGroup User
+ * @apiVersion 0.0.0
+ *
+ * @apiHeader {String} token the token previously set with login request
+ *
+ * @apiError InvalidToken
+ * @apiError NoToken
+ *
+ * @apiSuccess {String[]} rooms return all the roomes from the database
+ *
+ */
 router.get("/getRooms", async (req, res) => {
   await userRoom.getRooms(req, res);
 });
