@@ -36,7 +36,14 @@ db.on("connected", () => console.log("DB connected"));
 // *                                *
 // **********************************
 
-io.on("connection", (socket) => {
+let users = [];
+io.on("connection", async (socket) => {
+  // connect user to room
+  var rooms = await userRoom.getRoomsTab(socket.handshake.query.username);
+  rooms.forEach((element) => {
+    socket.join(element);
+  });
+
   socket.on("message", async (args) => {
     var obj = await userMsg.handleMsg(args);
     io.emit("new message", obj);
@@ -44,6 +51,7 @@ io.on("connection", (socket) => {
 
   socket.on("create room", async (args) => {
     userRoom.createRoom(args);
+    socket.emit("create room");
   });
 
   socket.on("disconnect", () => {});

@@ -27,3 +27,9 @@ exports.getRooms = async (req, res) => {
   var rooms = await roomModel.find({ _id: user_rooms });
   res.status(200).json({ rooms: rooms });
 };
+
+exports.getRoomsTab = async (username) => {
+  return await userModel.find({ username: username }).then((user) => {
+    return user[0].rooms;
+  });
+};

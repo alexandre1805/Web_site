@@ -17,6 +17,14 @@ function Room(props) {
       });
   }, [props.username]);
 
+  useEffect(() => {
+    if (props.socket === null) return;
+    props.socket.on("new message", (elt) => {
+      console.log(elt);
+      setRooms((oldMessages) => [...oldMessages, elt]);
+    });
+  }, [props.socket]);
+
   const handleCreateRoom = (e) => {
     if (search === "") return;
     e.preventDefault();
