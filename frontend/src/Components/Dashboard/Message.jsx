@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "../../styles/Dashboard/Message.css"
 
 function Messages(props) {
   const [message, setMessage] = useState("");

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "../../styles/Dashboard/Room.css"
 
 function Room(props) {
   const [search, setSearch] = useState("");
