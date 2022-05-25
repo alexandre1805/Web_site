@@ -24,6 +24,6 @@ exports.handleMsg = async function (args) {
 
 exports.getMessages = async function (req, res) {
   userAuth.checkAuth(req, res);
-  const messages = await messagesModel.find({});
+  const messages = await messagesModel.find({ room: req.query.room });
   res.status(200).json({ messages: messages });
 };

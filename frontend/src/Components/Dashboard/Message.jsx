@@ -8,12 +8,12 @@ function Messages(props) {
   //get all messages form API
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getMsg", { withCredentials: true })
+      .get("http://localhost:4000/getMsg", { params: { room: props.currentRoom } }, { withCredentials: true })
       .then((res) => {
         const messages = res.data.messages;
         setMessages(messages);
       });
-  }, []);
+  }, [props.currentRoom]);
 
   // get one message from socket
   useEffect(() => {

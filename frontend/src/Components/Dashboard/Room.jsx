@@ -14,14 +14,16 @@ function Room(props) {
       .then((res) => {
         const rooms = res.data.rooms;
         setRooms(rooms);
+        props.setRoom(rooms[0].name)
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.username]);
 
   useEffect(() => {
     if (props.socket === null) return;
-    props.socket.on("new message", (elt) => {
+    props.socket.on("new room", (elt) => {
       console.log(elt);
-      setRooms((oldMessages) => [...oldMessages, elt]);
+      setRooms((oldRooms) => [...oldRooms, elt]);
     });
   }, [props.socket]);
 
@@ -35,6 +37,10 @@ function Room(props) {
     });
     setSearch("");
   };
+
+  const handleChangeRoom = (e) => {
+    props.setRoom(e.target.innerText);
+  }
 
   return (
     <div className="Room">
@@ -54,7 +60,7 @@ function Room(props) {
           return (
             <li className="room" key={e._id}>
               <img src="/room_image.png" alt="user_image" />
-              <div className="content">{e.name}</div>
+              <button className="content" onClick={handleChangeRoom}>{e.name}</button>
             </li>
           );
         })}

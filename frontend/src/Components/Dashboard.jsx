@@ -6,7 +6,6 @@ import "../styles/Dashboard/Dashboard.css";
 
 function Dashboard(props) {
   const [socket, setSocket] = useState(null);
-  const [rooms, setRooms] = useState([]);
   const [currentRoom, setCurrentRoom] = useState("General");
 
   //create a socket and connect to API
@@ -24,7 +23,7 @@ function Dashboard(props) {
   return (
     <div className="Dashboard">
       <div className="Menu">
-        <Room username={props.Username} socket={socket} />
+        <Room username={props.Username} socket={socket} setRoom={setCurrentRoom}/>
       </div>
       <Messages
         socket={socket}
