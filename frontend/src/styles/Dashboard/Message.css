@@ -7,7 +7,7 @@
 }
 
 .Message .chat {
-  height: 94%;
+  height: 90%;
   display: inline-block;
   padding-left: 0;
   margin: 0;
@@ -71,31 +71,35 @@
 }
 
 .Message .sending {
+  height: 10%;
+  position: fixed;
+  bottom: 0;
   display: flex;
-  flex-direction: row;
   width: 100%;
-  height: 5%;
-  background-color: lightgray;
+  background-color: #eee;;
 }
 
-.Message .sending button {
-  width: 20%;
+.Message .sending img {
+  border-radius: 50%;
+  padding: 0.5rem;
+  min-width: 30px;
+  min-height: 30px;
+  margin: 20px 0 20px;
+}
 
-  border: none;
-  outline: none;
-  border-radius: 49px;
-  font-size: 16px;
+.Message .sending img:hover {
   background-color: #5995fd;
-  color: #fff;
-  text-transform: uppercase;
-  text-decoration: none;
 }
 
 .Message .sending input {
-  width: 80%;
-  outline: none;
-  padding: 0 1rem;
-  border-radius: 55px;
-  border-color: rgba(51, 51, 51, 0.5);
-  line-height: 1;
+  margin: auto 20px;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 200px;
+  height: 55px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border: none;
 }

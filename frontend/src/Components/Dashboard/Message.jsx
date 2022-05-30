@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/Dashboard/Message.css"
+import "../../styles/Dashboard/Message.css";
 
 function Messages(props) {
   const [message, setMessage] = useState("");
@@ -9,7 +9,11 @@ function Messages(props) {
   //get all messages form API
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getMsg", { params: { room: props.currentRoom } }, { withCredentials: true })
+      .get(
+        "http://localhost:4000/getMsg",
+        { params: { room: props.currentRoom } },
+        { withCredentials: true }
+      )
       .then((res) => {
         const messages = res.data.messages;
         setMessages(messages);
@@ -61,7 +65,11 @@ function Messages(props) {
             setMessage(e.target.value);
           }}
         />
-        <button onClick={handleSubmitMessage}>Send</button>
+        <img
+          src="/send_button.png"
+          onClick={handleSubmitMessage}
+          alt="send_button"
+        ></img>
       </div>
     </div>
   );
