@@ -6,7 +6,7 @@ import "../styles/Dashboard/Dashboard.css";
 
 function Dashboard(props) {
   const [socket, setSocket] = useState(null);
-  const [currentRoom, setCurrentRoom] = useState("General");
+  const [currentRoom, setCurrentRoom] = useState("");
 
   //create a socket and connect to API
   useEffect(() => {

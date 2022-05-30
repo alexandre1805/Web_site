@@ -30,6 +30,7 @@ exports.getRooms = async (req, res) => {
 
 exports.getRoomsTab = async (username) => {
   return await userModel.find({ username: username }).then((user) => {
-    return user[0].rooms;
+    if (user.length == 0) return [];
+    else return user[0].rooms;
   });
 };
