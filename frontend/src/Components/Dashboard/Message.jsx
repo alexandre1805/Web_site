@@ -43,6 +43,10 @@ function Messages(props) {
 
   return (
     <div className="Message">
+      <div className="Header">
+        <img src="/room_image.png" alt="user_image" />
+        <div className="Container">{props.currentRoom}</div>
+      </div>
       <ul className="chat">
         {messages.map((e) => {
           return (

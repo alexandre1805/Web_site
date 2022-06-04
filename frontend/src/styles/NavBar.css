@@ -1,7 +1,7 @@
 .navigation {
   position: relative;
-  width: 100%;
-  height: 7vh;
+  width: 100vw;
+  height: 8vh;
   top: 0;
   background-color: #5995fd;
   display: flex;

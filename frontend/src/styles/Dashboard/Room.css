@@ -1,14 +1,37 @@
+.Room {
+  width: 40%;
+  float: left;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  bottom: 0px;
+}
+
+.Room .Search {
+  padding: 1%;
+}
 .Room input {
-    border-radius: 3px;
-    border: none;
-    padding: 14px;
-    color: white;
-    background: #6A6C75;
-    width: 90%;
-    font-size: 14px;
+  margin: auto 20px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 200px;
+  height: 55px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border-color: rgba(51, 51, 51, 0.5);
   }
   .Room ul {
-    padding: 20px;
+    width: 100%;
+    padding-top: 20px;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    overflow-y: scroll;
   }
   .Room img {
     border-radius: 50%;
@@ -17,9 +40,19 @@
   }
 
   .Room li {
-    text-decoration: none;
-    padding: 10px;
     display: flex;
+    padding: 2%;
+    width: 100%;
+    border-bottom: solid 1px #6A6C75;
+
+  }
+
+  .Room li span {
+    text-align: center;
+  }
+
+  .Room li:hover {
+    background-color: #bbb;
   }
 
   .Room .content {

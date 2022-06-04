@@ -22,9 +22,11 @@ function Dashboard(props) {
   // <Friend username={props.Username} />
   return (
     <div className="Dashboard">
-      <div className="Menu">
-        <Room username={props.Username} socket={socket} setRoom={setCurrentRoom}/>
-      </div>
+      <Room
+        username={props.Username}
+        socket={socket}
+        setRoom={setCurrentRoom}
+      />
       <Messages
         socket={socket}
         currentRoom={currentRoom}

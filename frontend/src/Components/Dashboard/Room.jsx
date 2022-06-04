@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/Dashboard/Room.css"
+import "../../styles/Dashboard/Room.css";
 
 function Room(props) {
   const [search, setSearch] = useState("");
@@ -8,16 +8,13 @@ function Room(props) {
 
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:4000/getRooms",
-        { withCredentials: true }
-      )
+      .get("http://localhost:4000/getRooms", { withCredentials: true })
       .then((res) => {
         const rooms = res.data.rooms;
         setRooms(rooms);
-        props.setRoom(rooms[0].name)
+        props.setRoom(rooms[0].name);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.username]);
 
   useEffect(() => {
@@ -41,7 +38,7 @@ function Room(props) {
 
   const handleChangeRoom = (e) => {
     props.setRoom(e.target.innerText);
-  }
+  };
 
   return (
     <div className="Room">
@@ -55,13 +52,12 @@ function Room(props) {
         ></input>
         <button onClick={handleCreateRoom}>Search</button>
       </div>
-      Rooms:
       <ul>
         {rooms.map((e) => {
           return (
-            <li className="room" key={e._id}>
+            <li className="room" key={e._id} onClick={handleChangeRoom}>
               <img src="/room_image.png" alt="user_image" />
-              <button className="content" onClick={handleChangeRoom}>{e.name}</button>
+              <span>{e.name}</span>
             </li>
           );
         })}
