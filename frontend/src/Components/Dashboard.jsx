@@ -19,7 +19,6 @@ function Dashboard(props) {
     );
   }, [props.Username]);
 
-  // <Friend username={props.Username} />
   return (
     <div className="Dashboard">
       <Room

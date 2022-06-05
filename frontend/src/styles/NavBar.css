@@ -73,3 +73,16 @@
   background-color: #00000042;
   border-color: black;
 }
+
+.navigation .Notification {
+  background-color: #fff;
+  border: solid 1px #6A6C75;
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  height: 60vh;
+  width: 30vw;
+  border-radius: 8%;
+  overflow-y: scroll;
+  z-index: 1;
+}
