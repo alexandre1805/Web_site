@@ -5,6 +5,7 @@ import "../../styles/Dashboard/Room.css";
 function Room(props) {
   const [search, setSearch] = useState("");
   const [rooms, setRooms] = useState([]);
+  const [openDialogBox, setOpenDialogBox] = useState(false);
 
   useEffect(() => {
     axios
@@ -51,7 +52,28 @@ function Room(props) {
           className="SearchBar"
           placeholder="Search..."
         ></input>
-        <img src="/plus.png" alt="plus" onClick={handleCreateRoom} />
+        <img
+          src="/plus.png"
+          alt="plus"
+          onClick={() => {
+            if (!openDialogBox) setOpenDialogBox(true);
+          }}
+        />
+        {openDialogBox && (
+          <div className="Dialog_box">
+            <div className="Container">
+              <img
+                src="/plus.png"
+                alt="plus"
+                onClick={() => {
+                  if (openDialogBox) setOpenDialogBox(false);
+                }}
+              ></img>
+              Add new friend :<input placeholder="Add friend..."></input>
+              <button>Send invitation</button>
+            </div>
+          </div>
+        )}
       </div>
       <ul>
         {rooms.map((e) => {

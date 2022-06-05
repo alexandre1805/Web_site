@@ -11,14 +11,14 @@ function Navbar(props) {
 
   if (props.isLogged)
     return (
-      <header className="navigation">
+      <div className="navigation">
         <h2>LOGO</h2>
         <div className="loged">
           <img src="/notification.png" alt="notif" onClick={handleOpenNotif} />
           <h3>Welcome {props.username} !</h3>
           {notificationOpen && <div className="Notification"></div>}
         </div>
-      </header>
+      </div>
     );
   else
     return (
