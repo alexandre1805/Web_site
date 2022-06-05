@@ -11,7 +11,7 @@ To run the back-end, run the following command:
 
 ```bash
   cd backend/
-  node server.js
+  npm start
 ```
 
 To run the front-end, run the following command:
