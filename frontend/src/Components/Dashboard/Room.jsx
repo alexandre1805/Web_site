@@ -49,8 +49,9 @@ function Room(props) {
             setSearch(e.target.value);
           }}
           className="SearchBar"
+          placeholder="Search..."
         ></input>
-        <button onClick={handleCreateRoom}>Search</button>
+        <img src="/plus.png" alt="plus" onClick={handleCreateRoom} />
       </div>
       <ul>
         {rooms.map((e) => {
