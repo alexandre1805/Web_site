@@ -9,6 +9,8 @@ exports.getFriends = async function (req, res) {
   res.status(200).json(user.friends);
 };
 
-exports.addFriend = async function (req, res) {
-  var username = req.data;
+exports.addFriend = function (req, res) {
+  var username = req.body;
+  console.log(username);
+  res.status(200);
 };

@@ -36,10 +36,10 @@ function Login(props) {
           if (msg === "OK") {
             props.SetIsLogged(true);
             navigate("/");
-          }
+          } else setFinalMsg(msg);
         },
         (error) => {
-          setFinalMsg("API not connected");
+          setFinalMsg(error);
         }
       );
   };

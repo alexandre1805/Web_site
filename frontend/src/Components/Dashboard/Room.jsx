@@ -4,6 +4,8 @@ import "../../styles/Dashboard/Room.css";
 
 function Room(props) {
   const [search, setSearch] = useState("");
+  const [addFriend, setAddFriend] = useState("");
+  const [friendMsg, setFriendMsg] = useState("");
   const [rooms, setRooms] = useState([]);
   const [openDialogBox, setOpenDialogBox] = useState(false);
 
@@ -26,15 +28,26 @@ function Room(props) {
     });
   }, [props.socket]);
 
-  const handleCreateRoom = (e) => {
-    if (search === "") return;
+  const handleAddFriend = (e) => {
     e.preventDefault();
-
-    props.socket.emit("create room", {
-      search: search,
-      username: props.username,
-    });
-    setSearch("");
+    if (addFriend === "") return;
+    axios
+      .post(
+        "http://localhost:4000/addFriend",
+        { username: props.username, friend: addFriend },
+        { withCredentials: true }
+      )
+      .then(
+        (res) => {
+          if (res.msg === "OK") {
+            setAddFriend("");
+            setOpenDialogBox(false);
+          } else setFriendMsg(res.msg);
+        },
+        (error) => {
+          setFriendMsg(error.message);
+        }
+      );
   };
 
   const handleChangeRoom = (e) => {
@@ -69,8 +82,15 @@ function Room(props) {
                   if (openDialogBox) setOpenDialogBox(false);
                 }}
               ></img>
-              Add new friend :<input placeholder="Add friend..."></input>
-              <button>Send invitation</button>
+              Add new friend :
+              <input
+                placeholder="Add friend..."
+                onChange={(e) => {
+                  setAddFriend(e.target.value);
+                }}
+              ></input>
+              <button onClick={handleAddFriend}>Send invitation</button>
+              {friendMsg}
             </div>
           </div>
         )}

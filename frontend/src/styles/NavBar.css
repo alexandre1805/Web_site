@@ -1,7 +1,9 @@
 .navigation {
   position: relative;
-  width: 100vw;
-  height: 8vh;
+  width: 100%;
+  min-width: 800px;
+  height: 8%;
+  min-height: 50px;
   top: 0;
   background-color: #5995fd;
   display: flex;
@@ -30,7 +32,6 @@
 .navigation .loged {
   display: flex;
   height: 100%;
-
 }
 
 .navigation .loged img {
@@ -76,7 +77,7 @@
 
 .navigation .Notification {
   background-color: #fff;
-  border: solid 1px #6A6C75;
+  border: solid 1px #6a6c75;
   position: absolute;
   top: 100%;
   right: 10px;

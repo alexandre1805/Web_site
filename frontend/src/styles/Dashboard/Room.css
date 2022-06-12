@@ -1,5 +1,6 @@
 .Room {
   width: 40%;
+  min-width: 300px;
   float: left;
   background-color: #eee;
   display: flex;
@@ -12,6 +13,7 @@
 .Room .Search {
   padding: 1%;
   height: 10%;
+  min-height: 75px;
   display: flex;
 }
 .Room input {
@@ -105,18 +107,25 @@
 .Room li {
   display: flex;
   padding: 2%;
+  min-height: 80px;
   width: 100%;
   border-bottom: solid 1px #6a6c75;
+  align-items: center;
 }
 
 .Room li img {
   border-radius: 50%;
   width: 10%;
+  height: 10%;
+  min-width: 40px;
+  min-height: 40px;
   background-color: #fff;
 }
 
 .Room li span {
   text-align: center;
+  font-size: large;
+  margin-left: 20px;
 }
 
 .Room li:hover {
