@@ -10,11 +10,12 @@ import Register from "./Components/Register";
 import About from "./Components/About";
 import Dashboard from "./Components/Dashboard";
 import "./styles/index.css";
+import io from "socket.io-client";
 
 function App(props) {
   const [isLogged, setIsLogged] = useState(false);
   const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState("");
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const fetchLogin = async () => {
@@ -25,8 +26,14 @@ function App(props) {
             if (response.data.message === "OK") {
               setIsLogged(true);
               setUsername(response.data.username);
+              setSocket(
+                io("http://localhost:4000", {
+                  query: {
+                    username: username,
+                  },
+                })
+              );
             }
-            setLoading(false);
           })
           .catch((err) => {
             console.log(err);
@@ -38,11 +45,9 @@ function App(props) {
     fetchLogin();
   }, [isLogged]);
 
-  if (loading) return <h1>Loading...</h1>;
-
   return (
     <BrowserRouter>
-      <Navbar isLogged={isLogged} username={username} />
+      <Navbar isLogged={isLogged} username={username} socket={socket} />
       <Routes>
         <Route
           path="/"
@@ -64,7 +69,7 @@ function App(props) {
           path="/dashboard"
           element={
             isLogged ? (
-              <Dashboard Username={username} />
+              <Dashboard Username={username} socket={socket} />
             ) : (
               <Navigate to="/login" />
             )

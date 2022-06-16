@@ -39,18 +39,14 @@ db.on("connected", () => console.log("DB connected"));
 
 let users = [];
 io.on("connection", async (socket) => {
-  // connect user to room
+  //----------------------SOCKET INITIALISATION---------------------------------
   var rooms = await userRoom.getRoomsTab(socket.handshake.query.username);
   rooms.forEach((element) => {
     socket.join(element);
   });
   users.push({ socket: socket.id, username: socket.handshake.query.username });
 
-  socket.on("message", async (args) => {
-    var obj = await userMsg.handleMsg(args);
-    io.emit("new message", obj);
-  });
-
+  //----------------------FRIEND MANAGEMENT-------------------------------------
   socket.on("add Friend", async (args) => {
     const new_notif = await userData.addFriend(socket, args);
     const friend = users.filter((elm) => elm.username === args);
@@ -58,9 +54,19 @@ io.on("connection", async (socket) => {
       io.to(friend[0].socket).emit("notification", new_notif);
   });
 
+  socket.on("accept invitation", async (args) => {
+    userData.acceptInvation(args);
+  });
+
+  //----------------------ROOM MANAGEMENT---------------------------------------
   socket.on("create room", async (args) => {
     userRoom.createRoom(args);
     socket.emit("create room");
+  });
+  //----------------------MESSAGE MANAGEMENT------------------------------------
+  socket.on("message", async (args) => {
+    var obj = await userMsg.handleMsg(args);
+    io.emit("new message", obj);
   });
 
   socket.on("disconnect", () => {

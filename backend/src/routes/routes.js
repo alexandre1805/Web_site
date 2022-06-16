@@ -110,22 +110,6 @@ router.get("/verifToken", userAuth.verifToken);
  */
 router.get("/getFriends", userData.getFriends);
 /**
- * @api {post} /addFriend Request User add friend
- * @apiName Get Friend
- * @apiGroup User
- * @apiVersion 0.0.0
- *
- * @apiHeader {String} token the token previously set with login request
- *
- * @apiError InvalidToken
- * @apiError NoToken
- *
- * @apiSuccess Not implemented
- *
- * @apiSampleRequest http://localhost:4000/addFriend
- */
-router.post("/addFriend", userData.addFriend);
-/**
  * @api {get} /getMsg Request User get messages
  * @apiName Get Messages
  * @apiGroup User
@@ -158,6 +142,23 @@ router.get("/getMsg", async (req, res) => {
  */
 router.get("/getRooms", async (req, res) => {
   await userRoom.getRooms(req, res);
+});
+/**
+ * @api {get} /getNotif Request User get rooms
+ * @apiName Get Notifications
+ * @apiGroup User
+ * @apiVersion 0.0.0
+ *
+ * @apiHeader {String} token the token previously set with login request
+ *
+ * @apiError InvalidToken
+ * @apiError NoToken
+ *
+ * @apiSuccess {String[]} Notifications return all the Notifications from the database
+ *
+ */
+router.get("/getNotif", async (req, res) => {
+  await userData.getNotif(req, res);
 });
 
 module.exports = router;
