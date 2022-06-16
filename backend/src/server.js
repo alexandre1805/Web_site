@@ -10,6 +10,7 @@ const router = require("./routes/routes");
 const cors = require("cors");
 const userMsg = require("./controllers/userMsg.js");
 const userRoom = require("./controllers/userRoom");
+const userData = require("./controllers/userData");
 
 //app use
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,10 +44,18 @@ io.on("connection", async (socket) => {
   rooms.forEach((element) => {
     socket.join(element);
   });
+  users.push({ socket: socket.id, username: socket.handshake.query.username });
 
   socket.on("message", async (args) => {
     var obj = await userMsg.handleMsg(args);
     io.emit("new message", obj);
+  });
+
+  socket.on("add Friend", async (args) => {
+    const new_notif = await userData.addFriend(socket, args);
+    const friend = users.filter((elm) => elm.username === args);
+    if (friend.length !== 0)
+      io.to(friend[0].socket).emit("notification", new_notif);
   });
 
   socket.on("create room", async (args) => {
@@ -54,7 +63,9 @@ io.on("connection", async (socket) => {
     socket.emit("create room");
   });
 
-  socket.on("disconnect", () => {});
+  socket.on("disconnect", () => {
+    users = users.filter((elm) => elm.socket !== socket.id);
+  });
 });
 
 const port = process.env.PORT || 4000;

@@ -26,28 +26,17 @@ function Room(props) {
       console.log(elt);
       setRooms((oldRooms) => [...oldRooms, elt]);
     });
+
+    props.socket.on("add Friend return", (msg) => {
+      setFriendMsg(msg);
+    });
   }, [props.socket]);
 
   const handleAddFriend = (e) => {
     e.preventDefault();
     if (addFriend === "") return;
-    axios
-      .post(
-        "http://localhost:4000/addFriend",
-        { username: props.username, friend: addFriend },
-        { withCredentials: true }
-      )
-      .then(
-        (res) => {
-          if (res.msg === "OK") {
-            setAddFriend("");
-            setOpenDialogBox(false);
-          } else setFriendMsg(res.msg);
-        },
-        (error) => {
-          setFriendMsg(error.message);
-        }
-      );
+    props.socket.emit("add Friend", addFriend);
+    setAddFriend("");
   };
 
   const handleChangeRoom = (e) => {
@@ -85,6 +74,7 @@ function Room(props) {
               Add new friend :
               <input
                 placeholder="Add friend..."
+                value={addFriend}
                 onChange={(e) => {
                   setAddFriend(e.target.value);
                 }}
