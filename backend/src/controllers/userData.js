@@ -9,7 +9,7 @@ exports.getFriends = async function (req, res) {
   let friends = [];
   for (const friend in user.friends) {
     const f = await userModel.findOne({ username: user.friends[friend] });
-    friends.push(f);
+    friends.push({ _id: f._id, username: f.username });
   }
   res.status(200).json({ friends: friends });
 };

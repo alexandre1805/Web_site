@@ -16,6 +16,7 @@ function NewRoom(props) {
     <div className="Dialog_box">
       <div className="Container">
         <img
+          className="close_button"
           src="/plus.png"
           alt="plus"
           onClick={() => {
@@ -27,12 +28,14 @@ function NewRoom(props) {
           {friendList.map((e) => {
             return (
               <li className="room" key={e._id}>
+                <input id="check" type="checkbox"></input>
                 <img src="/room_image.png" alt="user_image" />
-                <span>{e.name}</span>
+                <span>{e.username}</span>
               </li>
             );
           })}
         </ul>
+        <button>Create Room</button>
       </div>
     </div>
   );

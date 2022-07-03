@@ -22,6 +22,7 @@ function Newfriend(props) {
     <div className="Dialog_box">
       <div className="Container">
         <img
+          className="close_button"
           src="/plus.png"
           alt="plus"
           onClick={() => {
