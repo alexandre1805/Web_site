@@ -5,8 +5,13 @@ const notificationModel = require("../models/notification");
 
 exports.getFriends = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
-  const user = await userModel.findOne({ username });
-  res.status(200).json(user.friends);
+  const user = await userModel.findOne({ username: username });
+  let friends = [];
+  for (const friend in user.friends) {
+    const f = await userModel.findOne({ username: user.friends[friend] });
+    friends.push(f);
+  }
+  res.status(200).json({ friends: friends });
 };
 
 exports.getNotif = async function (req, res) {
@@ -20,7 +25,7 @@ exports.addFriend = async (socket, friend) => {
     username: socket.handshake.query.username,
   });
 
-  if (db_user.friends.includes[friend]) {
+  if (db_user.friends.includes(friend)) {
     socket.emit("add Friend return", "the user is already your friend");
     return;
   }
@@ -42,4 +47,16 @@ exports.addFriend = async (socket, friend) => {
 
   socket.emit("add Friend return", "Demand sended");
   return new_notification;
+};
+
+exports.acceptInvation = async (args) => {
+  const user = await userModel.findOne({ username: args.username });
+  const friend = await userModel.findOne({ username: args.from });
+
+  user.friends.push(friend.username);
+  friend.friends.push(user.username);
+
+  await user.save();
+  await friend.save();
+  await notificationModel.deleteOne({ _id: args._id });
 };

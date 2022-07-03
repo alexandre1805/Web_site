@@ -8,7 +8,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import About from "./Components/About";
-import Dashboard from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import "./styles/index.css";
 import io from "socket.io-client";
 
@@ -26,17 +26,7 @@ function App(props) {
             if (response.data.message === "OK") {
               setIsLogged(true);
               setUsername(response.data.username);
-              setSocket(
-                io("http://localhost:4000", {
-                  query: {
-                    username: username,
-                  },
-                })
-              );
             }
-          })
-          .catch((err) => {
-            console.log(err);
           });
       } catch (e) {
         console.log(e);
@@ -44,6 +34,17 @@ function App(props) {
     };
     fetchLogin();
   }, [isLogged]);
+
+  useEffect(() => {
+    if (username === "") return;
+    setSocket(
+      io("http://localhost:4000", {
+        query: {
+          username: username,
+        },
+      })
+    );
+  }, [username]);
 
   return (
     <BrowserRouter>

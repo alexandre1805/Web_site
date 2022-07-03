@@ -55,7 +55,7 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("accept invitation", async (args) => {
-    userData.acceptInvation(args);
+    await userData.acceptInvation(args);
   });
 
   //----------------------ROOM MANAGEMENT---------------------------------------

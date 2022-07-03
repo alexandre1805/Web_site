@@ -8,6 +8,7 @@ function Messages(props) {
 
   //get all messages form API
   useEffect(() => {
+    if (props.currentRoom === "") return;
     axios
       .get(
         "http://localhost:4000/getMsg",

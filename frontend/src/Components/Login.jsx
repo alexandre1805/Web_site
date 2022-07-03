@@ -39,7 +39,7 @@ function Login(props) {
           } else setFinalMsg(msg);
         },
         (error) => {
-          setFinalMsg(error);
+          setFinalMsg(error.response.data.message);
         }
       );
   };

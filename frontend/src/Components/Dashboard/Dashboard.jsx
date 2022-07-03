@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import "../styles/Dashboard/Dashboard.css";
-import Messages from "./Dashboard/Message";
-import Room from "./Dashboard/Room";
+import { useState } from "react";
+import "../../styles/Dashboard/Dashboard.css";
+import Messages from "./Message";
+import Room from "./Room";
 
 function Dashboard(props) {
   const [currentRoom, setCurrentRoom] = useState("");

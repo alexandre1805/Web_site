@@ -50,7 +50,7 @@ exports.verifToken = function (req, res) {
       }
     });
   } else {
-    res.status(500).json({ message: "No token" });
+    res.status(404).json({ message: "No token" });
   }
 };
 

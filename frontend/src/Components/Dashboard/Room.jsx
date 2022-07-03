@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/Dashboard/Room.css";
+import Newfriend from "./New_friend";
+import NewRoom from "./New_room";
 
 function Room(props) {
   const [search, setSearch] = useState("");
-  const [addFriend, setAddFriend] = useState("");
-  const [friendMsg, setFriendMsg] = useState("");
   const [rooms, setRooms] = useState([]);
-  const [openDialogBox, setOpenDialogBox] = useState(false);
+  const [openDialogBoxFriend, setOpenDialogBoxFriend] = useState(false);
+  const [openDialogBoxRoom, setOpenDialogBoxRoom] = useState(false);
 
   useEffect(() => {
     axios
@@ -15,7 +16,7 @@ function Room(props) {
       .then((res) => {
         const rooms = res.data.rooms;
         setRooms(rooms);
-        props.setRoom(rooms[0].name);
+        if (rooms.length !== 0) props.setRoom(rooms[0].name);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.username]);
@@ -26,18 +27,7 @@ function Room(props) {
       console.log(elt);
       setRooms((oldRooms) => [...oldRooms, elt]);
     });
-
-    props.socket.on("add Friend return", (msg) => {
-      setFriendMsg(msg);
-    });
   }, [props.socket]);
-
-  const handleAddFriend = (e) => {
-    e.preventDefault();
-    if (addFriend === "") return;
-    props.socket.emit("add Friend", addFriend);
-    setAddFriend("");
-  };
 
   const handleChangeRoom = (e) => {
     props.setRoom(e.target.innerText);
@@ -55,34 +45,28 @@ function Room(props) {
           placeholder="Search..."
         ></input>
         <img
+          src="/message.png"
+          alt="plus"
+          onClick={() => {
+            if (!openDialogBoxRoom) setOpenDialogBoxRoom(true);
+          }}
+        />
+        <img
           src="/plus.png"
           alt="plus"
           onClick={() => {
-            if (!openDialogBox) setOpenDialogBox(true);
+            if (!openDialogBoxFriend) setOpenDialogBoxFriend(true);
           }}
         />
-        {openDialogBox && (
-          <div className="Dialog_box">
-            <div className="Container">
-              <img
-                src="/plus.png"
-                alt="plus"
-                onClick={() => {
-                  if (openDialogBox) setOpenDialogBox(false);
-                }}
-              ></img>
-              Add new friend :
-              <input
-                placeholder="Add friend..."
-                value={addFriend}
-                onChange={(e) => {
-                  setAddFriend(e.target.value);
-                }}
-              ></input>
-              <button onClick={handleAddFriend}>Send invitation</button>
-              {friendMsg}
-            </div>
-          </div>
+        {openDialogBoxFriend && (
+          <Newfriend
+            setOpenDialogBox={setOpenDialogBoxFriend}
+            socket={props.socket}
+          />
+        )}
+
+        {openDialogBoxRoom && (
+          <NewRoom setOpenDialogBox={setOpenDialogBoxRoom} />
         )}
       </div>
       <ul>
