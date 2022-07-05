@@ -34,7 +34,7 @@ function NewRoom(props) {
 
   const handleNewRoom = (e) => {
     if (listNewRoom.length === 1) return;
-    props.socket.emit("new Room", listNewRoom);
+    props.socket.emit("create Room", listNewRoom);
   };
 
   useEffect(() => {

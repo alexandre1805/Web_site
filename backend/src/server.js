@@ -59,9 +59,8 @@ io.on("connection", async (socket) => {
   });
 
   //----------------------ROOM MANAGEMENT---------------------------------------
-  socket.on("create room", async (args) => {
-    userRoom.createRoom(args);
-    socket.emit("create room");
+  socket.on("create Room", async (args) => {
+    userRoom.createRoom(socket, args);
   });
   //----------------------MESSAGE MANAGEMENT------------------------------------
   socket.on("message", async (args) => {

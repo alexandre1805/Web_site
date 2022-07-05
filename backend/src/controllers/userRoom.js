@@ -2,20 +2,30 @@ const roomModel = require("../models/rooms");
 const userModel = require("../models/users");
 const userAuth = require("./userAuth");
 
-exports.createRoom = async (args) => {
+exports.createRoom = async (socket, args) => {
+  var room = roomModel.find({ users: args });
+  console.log(room);
+  if (room !== null) {
+    socket.emit("new Room return", "Room already created");
+    return;
+  }
   const newRoom = new roomModel({
-    name: args.search,
-    users: [args.username],
+    name: args.join(),
+    users: args,
   });
 
   var id = await newRoom.save().then((obj) => {
     return obj._id;
   });
 
-  userModel.findOne({ username: args.username }).then((user) => {
-    user.rooms.push(id);
-    user.save();
+  args.foreach((username) => {
+    userModel.findOne({ username: username }).then((user) => {
+      user.rooms.push(id);
+      user.save();
+    });
   });
+
+  socket.emit("new Room return", "Room created");
 };
 
 exports.getRooms = async (req, res) => {
