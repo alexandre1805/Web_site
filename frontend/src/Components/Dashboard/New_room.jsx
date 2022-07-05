@@ -3,7 +3,9 @@ import axios from "axios";
 
 function NewRoom(props) {
   const [friendList, setFriendList] = useState([]);
-  const [listNewRoom, setListNewRoom] = useState([]);
+  const [listNewRoom, setListNewRoom] = useState([props.username]);
+  const [finalMsg, setFinalMsg] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/getFriends", { withCredentials: true })
@@ -26,8 +28,21 @@ function NewRoom(props) {
       else checkbox.checked = false;
       state = checkbox.checked;
     } else state = e.target.checked;
-    if (state) console.log(state);
+    if (state) setListNewRoom((oldList) => [...oldList, obj.textContent]);
+    else setListNewRoom(listNewRoom.filter((elm) => elm !== obj.textContent));
   };
+
+  const handleNewRoom = (e) => {
+    if (listNewRoom.length === 1) return;
+    props.socket.emit("new Room", listNewRoom);
+  };
+
+  useEffect(() => {
+    if (props.socket === null) return;
+    props.socket.on("new Room return", (msg) => {
+      setFinalMsg(msg);
+    });
+  }, [props.socket]);
 
   return (
     <div className="Dialog_box">
@@ -44,7 +59,12 @@ function NewRoom(props) {
         <ul>
           {friendList.map((e) => {
             return (
-              <li className="room" key={e._id} onClick={handleClickFriend}>
+              <li
+                className="room"
+                key={e._id}
+                id={e._id}
+                onClick={handleClickFriend}
+              >
                 <input type="checkbox"></input>
                 <img src="/room_image.png" alt="user_image" />
                 <span>{e.username}</span>
@@ -52,7 +72,8 @@ function NewRoom(props) {
             );
           })}
         </ul>
-        <button>Create Room</button>
+        <button onClick={handleNewRoom}>Create Room</button>
+        {finalMsg}
       </div>
     </div>
   );

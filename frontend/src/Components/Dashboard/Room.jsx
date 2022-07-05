@@ -66,7 +66,11 @@ function Room(props) {
         )}
 
         {openDialogBoxRoom && (
-          <NewRoom setOpenDialogBox={setOpenDialogBoxRoom} />
+          <NewRoom
+            setOpenDialogBox={setOpenDialogBoxRoom}
+            username={props.username}
+            socket={props.socket}
+          />
         )}
       </div>
       <ul>
