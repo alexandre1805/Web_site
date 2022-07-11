@@ -3,9 +3,8 @@ const userModel = require("../models/users");
 const userAuth = require("./userAuth");
 
 exports.createRoom = async (socket, args) => {
-  var room = roomModel.find({ users: args });
-  console.log(room);
-  if (room !== null) {
+  var room = await roomModel.findOne({ users: args });
+  if (room) {
     socket.emit("new Room return", "Room already created");
     return;
   }
@@ -18,13 +17,12 @@ exports.createRoom = async (socket, args) => {
     return obj._id;
   });
 
-  args.foreach((username) => {
-    userModel.findOne({ username: username }).then((user) => {
+  for (const index in args) {
+    userModel.findOne({ username: args[index] }).then((user) => {
       user.rooms.push(id);
       user.save();
     });
-  });
-
+  }
   socket.emit("new Room return", "Room created");
 };
 

@@ -26,9 +26,10 @@ function Messages(props) {
     if (props.socket === null) return;
     props.socket.on("new message", (elt) => {
       console.log(elt);
-      setMessages((oldMessages) => [...oldMessages, elt]);
+      if (elt.room === props.currentRoom)
+        setMessages((oldMessages) => [...oldMessages, elt]);
     });
-  }, [props.socket]);
+  }, [props.currentRoom, props.socket]);
 
   const handleSubmitMessage = (e) => {
     e.preventDefault();
