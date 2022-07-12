@@ -37,8 +37,8 @@ exports.getRooms = async (req, res) => {
 };
 
 exports.getRoomsTab = async (username) => {
-  return await userModel.find({ username: username }).then((user) => {
-    if (user.length == 0) return [];
-    else return user[0].rooms;
+  return await userModel.findOne({ username: username }).then((user) => {
+    if (!user) return [];
+    else return user.rooms;
   });
 };

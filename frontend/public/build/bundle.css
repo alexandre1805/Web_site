@@ -1,0 +1,477 @@
+.login {
+  height: 100%;
+  position: relative;
+  z-index: 0;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+}
+
+.login form {
+  position: relative;
+  width: auto;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #333;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  height: 55px;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  border-radius: 55px;
+  padding: 0 1rem;
+  background: none;
+  outline: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  border-color: rgba(51, 51, 51, 0.5);
+}
+
+.login .input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.login button {
+  width: 150px;
+  height: 49px;
+  border: none;
+  outline: none;
+  border-radius: 49px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5995fd;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: 0.5s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.login a {
+  text-decoration: none;
+  padding-bottom: 10px;
+}
+
+.login p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#login {
+  border: 2px solid #fff;
+}
+.navigation {
+  position: relative;
+  width: 100%;
+  min-width: 800px;
+  height: 8%;
+  min-height: 50px;
+  top: 0;
+  background-color: #5995fd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation h2 {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.navigation h3 {
+  margin-right: 10px;
+  color: #fff;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.navigation .loged {
+  display: flex;
+  height: 100%;
+}
+
+.navigation .loged img {
+  height: 60%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  padding: 0.3rem;
+  border-radius: 50%;
+}
+
+.navigation .loged img:hover {
+  background-color: #bbb;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation li {
+  display: flex;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 2px 15px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.navigation a {
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+}
+
+.navigation li:hover {
+  background-color: #00000042;
+  border-color: black;
+}
+
+.navigation .Notification {
+  background-color: #fff;
+  border: solid 1px #6a6c75;
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  height: 60vh;
+  width: 30vw;
+  border-radius: 8%;
+  overflow-y: scroll;
+  z-index: 1;
+}
+.Dashboard {
+  width: 100%;
+  height: 92%;
+  display: flex;
+}
+.Room {
+  width: 40%;
+  min-width: 300px;
+  float: left;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  bottom: 0px;
+}
+
+.Room .Search {
+  padding: 1%;
+  height: 10%;
+  min-height: 75px;
+  display: flex;
+}
+.Room .SearchBar {
+  margin: auto 20px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 150px;
+  height: 55px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border-color: #6a6c75;
+}
+
+.Room .Search img {
+  height: 70%;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 50%;
+  padding: 0.7rem;
+}
+
+.Room .Search img:hover {
+  background-color: #bbb;
+}
+
+.Room .Dialog_box {
+  position: absolute;
+  top: -8vh;
+  left: 0;
+  background-color: rgba(187, 187, 187, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Room .Dialog_box .Container {
+  border: solid 1px #6a6c75;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Room .Dialog_box .Container img {
+  width: 10%;
+}
+
+.Room .Dialog_box .Container .close_button {
+  transform: rotate(45deg);
+  margin: auto;
+  margin-right: 2px;
+}
+
+.Room .Dialog_box .Container input {
+  margin: 10px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border-color: rgba(51, 51, 51, 0.5);
+  min-height: 50px;
+}
+
+.Room .Dialog_box .Container button {
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 49px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5995fd;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: 0.5s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+/* Create new room*/
+.Room .Dialog_box .Container .room input {
+  width: 25px;
+  height: 25px;
+}
+.Room .Dialog_box .Container .room img {
+  margin-left: 2px;
+}
+
+.Room .Dialog_box .Container .room span {
+  margin-left: 5px;
+}
+.Room ul {
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  overflow-y: scroll;
+  border-top: solid 1px #6a6c75;
+}
+
+.Room li {
+  display: flex;
+  padding: 2%;
+  min-height: 80px;
+  width: 100%;
+  border-bottom: solid 1px #6a6c75;
+  align-items: center;
+}
+
+.Room li img {
+  border-radius: 50%;
+  width: 10%;
+  height: 10%;
+  min-width: 40px;
+  min-height: 40px;
+  background-color: #fff;
+}
+
+.Room li span {
+  text-align: center;
+  font-size: large;
+  margin-left: 20px;
+}
+
+.Room li:hover {
+  background-color: #bbb;
+}
+
+.Room .content {
+  font-size: large;
+}
+.Message {
+  height: 100%;
+  float: right;
+  width: 60%;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-left: solid 1px #6a6c75;
+}
+
+.Message .Header {
+  background-color: #eee;
+  text-align: center;
+  display: flex;
+  height: 10%;
+  min-height: 50px;
+}
+
+.Message .Header .Container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.Message .Header img {
+  margin: 1%;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.Message .chat {
+  display: inline-block;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.Message .chat li {
+  padding: 10px 30px;
+  position: relative;
+}
+
+.Message .msg .content {
+  padding: 20px;
+  color: #fff;
+  line-height: 25px;
+  max-width: 90%;
+  display: inline-block;
+  text-align: left;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  position: relative;
+}
+
+.Message .me {
+  text-align: right;
+}
+
+.Message .me .content::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #5995fd;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #5995fd;
+  border-bottom: 10px solid transparent;
+  right: -20px;
+  top: 6px;
+}
+
+.Message .me .content {
+  background-color: #5995fd;
+}
+
+.Message .other .content {
+  background-color: darkgray;
+}
+
+.Message .other .content::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid darkgray;
+  border-right: 10px solid transparent;
+  border-top: 10px solid darkgray;
+  border-bottom: 10px solid transparent;
+  right: -20px;
+  top: 6px;
+}
+
+.Message .sending {
+  height: 10%;
+  min-height: 50px;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #eee;
+}
+
+.Message .sending img {
+  border-radius: 50%;
+  padding: 0.6rem;
+  min-width: 30px;
+  min-height: 30px;
+  width: 10%;
+  max-width: 70px;
+  max-height: 70px;
+  margin: 1px 0 1px;
+}
+
+.Message .sending img:hover {
+  background-color: #bbb;
+}
+
+.Message .sending input {
+  margin: auto 20px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 200px;
+  height: 60%;
+  min-height: 40px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border: none;
+}

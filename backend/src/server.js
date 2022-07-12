@@ -65,7 +65,7 @@ io.on("connection", async (socket) => {
   //----------------------MESSAGE MANAGEMENT------------------------------------
   socket.on("message", async (args) => {
     var obj = await userMsg.handleMsg(args);
-    io.emit("new message", obj);
+    io.to(args.room).emit("new message", obj);
   });
 
   socket.on("disconnect", () => {
