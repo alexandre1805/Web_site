@@ -3,22 +3,23 @@ const userModel = require("../models/users");
 const userAuth = require("./userAuth");
 
 exports.createRoom = async (socket, args) => {
-  var room = await roomModel.findOne({ users: args });
+  let users = args.sort();
+  var room = await roomModel.findOne({ users: users });
   if (room) {
     socket.emit("new Room return", "Room already created");
     return;
   }
   const newRoom = new roomModel({
-    name: args.join(),
-    users: args,
+    name: users.join(),
+    users: users,
   });
 
   var id = await newRoom.save().then((obj) => {
     return obj._id;
   });
 
-  for (const index in args) {
-    userModel.findOne({ username: args[index] }).then((user) => {
+  for (const index in users) {
+    userModel.findOne({ username: users[index] }).then((user) => {
       user.rooms.push(id);
       user.save();
     });

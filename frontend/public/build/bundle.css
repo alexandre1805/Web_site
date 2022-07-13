@@ -402,38 +402,12 @@
   text-align: right;
 }
 
-.Message .me .content::before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid #5995fd;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #5995fd;
-  border-bottom: 10px solid transparent;
-  right: -20px;
-  top: 6px;
-}
-
 .Message .me .content {
   background-color: #5995fd;
 }
 
 .Message .other .content {
   background-color: darkgray;
-}
-
-.Message .other .content::before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 10px solid darkgray;
-  border-right: 10px solid transparent;
-  border-top: 10px solid darkgray;
-  border-bottom: 10px solid transparent;
-  right: -20px;
-  top: 6px;
 }
 
 .Message .sending {

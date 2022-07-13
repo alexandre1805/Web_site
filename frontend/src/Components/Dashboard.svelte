@@ -2,7 +2,7 @@
   import Room from "./Dashboard/Room.svelte";
   import Messages from "./Dashboard/Messages.svelte";
   import "../styles/Dashboard/Dashboard.css";
-  let current_room = "";
+  let current_room = { name: "" };
   function setCurrentRoom(room) {
     current_room = room;
   }

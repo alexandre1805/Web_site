@@ -6096,7 +6096,7 @@ var app = (function () {
     			t = space();
     			create_component(messages.$$.fragment);
     			attr_dev(div, "class", "Dashboard");
-    			add_location(div, file, 10, 0, 254);
+    			add_location(div, file, 10, 0, 264);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6145,7 +6145,7 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Dashboard', slots, []);
-    	let current_room = "";
+    	let current_room = { name: "" };
 
     	function setCurrentRoom(room) {
     		$$invalidate(0, current_room = room);
