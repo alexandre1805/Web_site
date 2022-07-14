@@ -37,24 +37,20 @@ function app() {
   // *                                *
   // **********************************
 
-  let users = [];
+  const users = new Map();
   io.on("connection", async (socket) => {
     //----------------------SOCKET INITIALISATION---------------------------------
     var rooms = await userRoom.getRoomsTab(socket.handshake.query.username);
     rooms.forEach((element) => {
       socket.join(element);
     });
-    users.push({
-      socket: socket.id,
-      username: socket.handshake.query.username,
-    });
+    users.set(socket.handshake.query.username, socket.id);
 
     //----------------------FRIEND MANAGEMENT-------------------------------------
     socket.on("add Friend", async (args) => {
       const new_notif = await userData.addFriend(socket, args);
-      const friend = users.filter((elm) => elm.username === args);
-      if (friend.length !== 0)
-        io.to(friend[0].socket).emit("notification", new_notif);
+      const friend = users.get(elm.username);
+      if (friend !== undefined) io.to(friend).emit("notification", new_notif);
     });
 
     socket.on("accept invitation", async (args) => {
@@ -63,7 +59,17 @@ function app() {
 
     //----------------------ROOM MANAGEMENT---------------------------------------
     socket.on("create Room", async (args) => {
-      userRoom.createRoom(socket, args);
+      const new_room = await userRoom.createRoom(socket, args);
+      if (new_room !== undefined) {
+        for (let user in new_room.users) {
+          if (users.get(new_room.users[user]) !== undefined) {
+            io.sockets.sockets
+              .get(users.get(new_room.users[user]))
+              .join(new_room._id);
+          }
+        }
+        io.to(new_room._id).emit("new room", new_room);
+      }
     });
     //----------------------MESSAGE MANAGEMENT------------------------------------
     socket.on("message", async (args) => {
@@ -72,7 +78,7 @@ function app() {
     });
 
     socket.on("disconnect", () => {
-      users = users.filter((elm) => elm.socket !== socket.id);
+      users.delete(socket.handshake.query.username);
     });
   });
 

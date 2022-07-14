@@ -3,19 +3,31 @@
   import "../../styles/Dashboard/Room.css";
   import NewFriend from "./New_friend.svelte";
   import NewRoom from "./New_room.svelte";
+  import { socket } from "../../store";
 
   export let setCurrentRoom;
+  let socketValue;
+  socket.subscribe((val) => (socketValue = val));
   let search = "";
   let rooms = [];
   let openDialogBoxFriend = false;
   let openDialogBoxRoom = false;
 
   axios
-    .get("http://localhost:4000/getRooms", { withCredentials: true })
+    .get(
+      "http://" + process.env.URI + ":" + process.env.API_PORT + "/getRooms",
+      { withCredentials: true }
+    )
     .then((res) => {
       const Rooms = res.data.rooms;
       rooms = Rooms;
       if (rooms.length !== 0) setCurrentRoom(rooms[0]);
+    });
+
+  if (socketValue !== null)
+    socketValue.on("new room", (elt) => {
+      console.log("socket recevied");
+      rooms = [...rooms, elt];
     });
 
   function handleChangeRoom(e) {

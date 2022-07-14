@@ -12,7 +12,10 @@
   let finalMsg = "";
 
   axios
-    .get("http://localhost:4000/getFriends", { withCredentials: true })
+    .get(
+      "http://" + process.env.URI + ":" + process.env.API_PORT + "/getFriends",
+      { withCredentials: true }
+    )
     .then((res) => {
       friendList = res.data.friends;
     });
@@ -32,7 +35,6 @@
     } else state = e.target.checked;
     if (state) listNewRoom = [...listNewRoom, obj.innerText];
     else listNewRoom = listNewRoom.filter((elm) => elm !== obj.innerText);
-    console.log(listNewRoom);
   }
 
   function handleNewRoom(e) {
@@ -40,7 +42,7 @@
     socketValue.emit("create Room", listNewRoom);
   }
 
-  socketValue.on("new Room return", (msg) => {
+  socketValue.on("create Room return", (msg) => {
     finalMsg = msg;
   });
 </script>

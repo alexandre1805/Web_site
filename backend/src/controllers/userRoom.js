@@ -6,7 +6,7 @@ exports.createRoom = async (socket, args) => {
   let users = args.sort();
   var room = await roomModel.findOne({ users: users });
   if (room) {
-    socket.emit("new Room return", "Room already created");
+    socket.emit("create Room return", "Room already exists.");
     return;
   }
   const newRoom = new roomModel({
@@ -24,7 +24,8 @@ exports.createRoom = async (socket, args) => {
       user.save();
     });
   }
-  socket.emit("new Room return", "Room created");
+  socket.emit("create Room return", "Room created");
+  return { _id: id, name: users.join(), users: users };
 };
 
 exports.getRooms = async (req, res) => {

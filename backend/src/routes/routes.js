@@ -4,6 +4,7 @@ const userAuth = require("../controllers/userAuth");
 const userData = require("../controllers/userData");
 const userMsg = require("../controllers/userMsg");
 const userRoom = require("../controllers/userRoom");
+const games = require("../controllers/games");
 const router = express.Router();
 
 /**
@@ -159,6 +160,10 @@ router.get("/getRooms", async (req, res) => {
  */
 router.get("/getNotif", async (req, res) => {
   await userData.getNotif(req, res);
+});
+
+router.get("/getGames", async (req, res) => {
+  await games.getGames(req, res);
 });
 
 module.exports = router;
