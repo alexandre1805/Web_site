@@ -48,9 +48,13 @@ function app() {
 
     //----------------------FRIEND MANAGEMENT-------------------------------------
     socket.on("add Friend", async (args) => {
+      if (args === "" || args === undefined) {
+        socket.emit("add Friend return", "You must specify a friend.");
+        return;
+      }
       const new_notif = await userData.addFriend(socket, args);
-      const friend = users.get(elm.username);
-      if (friend !== undefined) io.to(friend).emit("notification", new_notif);
+      const friend = users.get(args);
+      io.to(friend).emit("notification", new_notif);
     });
 
     socket.on("accept invitation", async (args) => {

@@ -3,7 +3,10 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const userModel = require("../src/models/users");
 
-const server = app();
+let server;
+beforeAll(() => {
+  server = app();
+});
 
 describe("Authentification", () => {
   describe("Registration", () => {

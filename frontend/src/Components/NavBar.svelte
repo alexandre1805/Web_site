@@ -13,7 +13,7 @@
 
   $: if (usernameValue !== "")
     axios
-      .get("http://localhost:4000/getNotif", {
+      .get("http://localhost:4000/getNotifs", {
         params: { username: usernameValue },
         withCredentials: true,
       })

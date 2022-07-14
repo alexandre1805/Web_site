@@ -46,7 +46,7 @@ exports.registerUser = async function (req, res) {
     password: req.body.password,
   });
 
-  newUser.save();
+  await newUser.save();
 
   res.status(200).json({ message: "OK" });
 };
@@ -105,11 +105,13 @@ exports.checkAuth = (req, res) => {
     return jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
         res.status(401);
+        return;
       } else {
         return verifiedJwt.username;
       }
     });
   } else {
-    res.status(401);
+    res.status(404).json({ message: "No token" });
+    return;
   }
 };

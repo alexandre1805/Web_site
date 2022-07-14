@@ -5,6 +5,7 @@ const notificationModel = require("../models/notification");
 
 exports.getFriends = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
+  if (username === undefined) return;
   const user = await userModel.findOne({ username: username });
   let friends = [];
   for (const friend in user.friends) {
@@ -16,6 +17,8 @@ exports.getFriends = async function (req, res) {
 
 exports.getNotif = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
+  if (username === undefined) return;
+
   const notifs = await notificationModel.find({ username: username });
   res.status(200).json(notifs);
 };
@@ -26,7 +29,7 @@ exports.addFriend = async (socket, friend) => {
   });
 
   if (db_user.friends.includes(friend)) {
-    socket.emit("add Friend return", "the user is already your friend");
+    socket.emit("add Friend return", friend + " is already your friend.");
     return;
   }
 
@@ -45,7 +48,7 @@ exports.addFriend = async (socket, friend) => {
 
   await new_notification.save();
 
-  socket.emit("add Friend return", "Demand sended");
+  socket.emit("add Friend return", "Invitation sended.");
   return new_notification;
 };
 

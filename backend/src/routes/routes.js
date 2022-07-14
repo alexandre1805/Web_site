@@ -158,7 +158,7 @@ router.get("/getRooms", async (req, res) => {
  * @apiSuccess {String[]} Notifications return all the Notifications from the database
  *
  */
-router.get("/getNotif", async (req, res) => {
+router.get("/getNotifs", async (req, res) => {
   await userData.getNotif(req, res);
 });
 

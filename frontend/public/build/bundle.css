@@ -181,6 +181,149 @@
   height: 92%;
   display: flex;
 }
+.Message {
+  height: 100%;
+  float: right;
+  width: 60%;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-left: solid 1px #6a6c75;
+}
+
+.Message .Header {
+  background-color: #eee;
+  text-align: center;
+  display: flex;
+  height: 10%;
+  min-height: 50px;
+}
+
+.Message .Header .Container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.Message .Header img {
+  margin: 1%;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.Message .chat {
+  display: inline-block;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.Message .chat li {
+  padding: 10px 30px;
+  position: relative;
+}
+
+.Message .msg .content {
+  padding: 20px;
+  color: #fff;
+  line-height: 25px;
+  max-width: 90%;
+  display: inline-block;
+  text-align: left;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+  position: relative;
+}
+
+.Message .me {
+  text-align: right;
+}
+
+.Message .me .content {
+  background-color: #5995fd;
+}
+
+.Message .other .content {
+  background-color: darkgray;
+}
+
+.Message .sending {
+  height: 10%;
+  min-height: 50px;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #eee;
+}
+
+.Message .sending img {
+  padding: 0.7rem;
+  margin-bottom: auto;
+  margin-top: auto;
+  min-width: 30px;
+  min-height: 30px;
+  width: 10%;
+  max-width: 70px;
+  max-height: 70px;
+}
+
+.Message .sending img:hover {
+  border-radius: 50%;
+  background-color: #bbb;
+}
+
+.Message .sending input {
+  margin: auto 20px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 200px;
+  height: 60%;
+  min-height: 40px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.Message .sending .Games {
+  background-color: #fff;
+  border: solid 1px #6a6c75;
+  position: absolute;
+  left: 41%;
+  bottom: 9%;
+  height: 60vh;
+  width: 30vh;
+  border-radius: 8%;
+  overflow-y: scroll;
+  z-index: 1;
+}
+
+.Message .sending .Game {
+  display: flex;
+  padding: 2%;
+  min-height: 80px;
+  width: 100%;
+  border-bottom: solid 1px #6a6c75;
+  align-items: center;
+}
+
+.Message .sending .Game:hover {
+  background-color: #bbb;
+}
+
+@media all and (max-width: 800px) {
+  .Message .sending .Games {
+    left: 310px;
+  }
+}
 .Room {
   width: 40%;
   min-width: 300px;
@@ -338,147 +481,4 @@
 
 .Room .content {
   font-size: large;
-}
-.Message {
-  height: 100%;
-  float: right;
-  width: 60%;
-  min-width: 500px;
-  display: flex;
-  flex-direction: column;
-  border-left: solid 1px #6a6c75;
-}
-
-.Message .Header {
-  background-color: #eee;
-  text-align: center;
-  display: flex;
-  height: 10%;
-  min-height: 50px;
-}
-
-.Message .Header .Container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8rem;
-}
-
-.Message .Header img {
-  margin: 1%;
-  border-radius: 50%;
-  background-color: #fff;
-}
-
-.Message .chat {
-  display: inline-block;
-  padding-left: 0;
-  margin: 0;
-  list-style-type: none;
-  overflow-y: scroll;
-  height: 80%;
-}
-
-.Message .chat li {
-  padding: 10px 30px;
-  position: relative;
-}
-
-.Message .msg .content {
-  padding: 20px;
-  color: #fff;
-  line-height: 25px;
-  max-width: 90%;
-  display: inline-block;
-  text-align: left;
-  overflow-wrap: break-word;
-  border-radius: 10px;
-  position: relative;
-}
-
-.Message .me {
-  text-align: right;
-}
-
-.Message .me .content {
-  background-color: #5995fd;
-}
-
-.Message .other .content {
-  background-color: darkgray;
-}
-
-.Message .sending {
-  height: 10%;
-  min-height: 50px;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background-color: #eee;
-}
-
-.Message .sending img {
-  padding: 0.7rem;
-  margin-bottom: auto;
-  margin-top: auto;
-  min-width: 30px;
-  min-height: 30px;
-  width: 10%;
-  max-width: 70px;
-  max-height: 70px;
-}
-
-.Message .sending img:hover {
-  border-radius: 50%;
-  background-color: #bbb;
-}
-
-.Message .sending input {
-  margin: auto 20px;
-  padding: 0 1rem;
-  color: #333;
-  background-color: #fff;
-  max-width: 800px;
-  width: 50%;
-  min-width: 200px;
-  height: 60%;
-  min-height: 40px;
-  border-radius: 49px;
-  font-size: 1.1rem;
-  border: none;
-}
-
-.Message .sending .Games {
-  background-color: #fff;
-  border: solid 1px #6a6c75;
-  position: absolute;
-  left: 42%;
-  bottom: 9%;
-  height: 60vh;
-  width: 30vh;
-  border-radius: 8%;
-  overflow-y: scroll;
-  z-index: 1;
-}
-
-.Message .sending .Game {
-  display: flex;
-  padding: 2%;
-  min-height: 80px;
-  width: 100%;
-  border-bottom: solid 1px #6a6c75;
-  align-items: center;
-}
-
-.Message .sending .Game:hover {
-  background-color: #bbb;
-}
-
-@media all and (max-width: 980px) {
-  .Message .sending .Games {
-    left: 310px;
-  }
 }

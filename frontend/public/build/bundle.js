@@ -2816,7 +2816,7 @@ var app = (function () {
     const { Error: Error_1, Object: Object_1, console: console_1$1 } = globals;
 
     // (251:0) {:else}
-    function create_else_block$1(ctx) {
+    function create_else_block$2(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -2901,7 +2901,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$1.name,
+    		id: create_else_block$2.name,
     		type: "else",
     		source: "(251:0) {:else}",
     		ctx
@@ -3013,7 +3013,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$3, create_else_block$1];
+    	const if_block_creators = [create_if_block$3, create_else_block$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -3752,7 +3752,7 @@ var app = (function () {
     }
 
     // (68:2) {:else}
-    function create_else_block(ctx) {
+    function create_else_block$1(ctx) {
     	let ul;
     	let each_value_1 = /*default_routes*/ ctx[4];
     	validate_each_argument(each_value_1);
@@ -3812,7 +3812,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block.name,
+    		id: create_else_block$1.name,
     		type: "else",
     		source: "(68:2) {:else}",
     		ctx
@@ -3834,7 +3834,7 @@ var app = (function () {
     	let t4;
     	let mounted;
     	let dispose;
-    	let if_block = /*notificationsOpen*/ ctx[2] && create_if_block_1$1(ctx);
+    	let if_block = /*notificationsOpen*/ ctx[2] && create_if_block_1$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -3877,7 +3877,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_1$1(ctx);
+    					if_block = create_if_block_1$2(ctx);
     					if_block.c();
     					if_block.m(div, null);
     				}
@@ -3956,7 +3956,7 @@ var app = (function () {
     }
 
     // (49:6) {#if notificationsOpen}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	let div;
     	let each_value = /*notifications*/ ctx[1];
     	validate_each_argument(each_value);
@@ -4017,7 +4017,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
     		source: "(49:6) {#if notificationsOpen}",
     		ctx
@@ -4027,7 +4027,7 @@ var app = (function () {
     }
 
     // (52:12) {#if e.type === "add_friend"}
-    function create_if_block_2(ctx) {
+    function create_if_block_2$1(ctx) {
     	let div;
     	let span;
     	let t0_value = /*e*/ ctx[8].message + "";
@@ -4095,7 +4095,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_2$1.name,
     		type: "if",
     		source: "(52:12) {#if e.type === \\\"add_friend\\\"}",
     		ctx
@@ -4107,7 +4107,7 @@ var app = (function () {
     // (51:10) {#each notifications as e}
     function create_each_block$3(ctx) {
     	let if_block_anchor;
-    	let if_block = /*e*/ ctx[8].type === "add_friend" && create_if_block_2(ctx);
+    	let if_block = /*e*/ ctx[8].type === "add_friend" && create_if_block_2$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -4123,7 +4123,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_2(ctx);
+    					if_block = create_if_block_2$1(ctx);
     					if_block.c();
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
@@ -4156,7 +4156,7 @@ var app = (function () {
 
     	function select_block_type(ctx, dirty) {
     		if (/*usernameValue*/ ctx[0] !== "") return create_if_block$2;
-    		return create_else_block;
+    		return create_else_block$1;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -5530,7 +5530,7 @@ var app = (function () {
     }
 
     // (73:4) {#if openDialogBoxFriend}
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	let newfriend;
     	let current;
 
@@ -5566,7 +5566,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$1.name,
     		type: "if",
     		source: "(73:4) {#if openDialogBoxFriend}",
     		ctx
@@ -5706,7 +5706,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*openDialogBoxFriend*/ ctx[2] && create_if_block_1(ctx);
+    	let if_block0 = /*openDialogBoxFriend*/ ctx[2] && create_if_block_1$1(ctx);
     	let if_block1 = /*openDialogBoxRoom*/ ctx[3] && create_if_block$1(ctx);
     	let each_value = /*rooms*/ ctx[1];
     	validate_each_argument(each_value);
@@ -5799,7 +5799,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_1(ctx);
+    					if_block0 = create_if_block_1$1(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(div0, t3);
@@ -6030,76 +6030,226 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[13] = list[i];
+    	child_ctx[14] = list[i];
     	return child_ctx;
     }
 
-    // (59:4) {#each messages as msg}
-    function create_each_block_1(ctx) {
-    	let li;
+    // (78:8) {:else}
+    function create_else_block(ctx) {
+    	let div2;
     	let div0;
-    	let t0_value = /*msg*/ ctx[13].user + "";
+    	let t0_value = /*msg*/ ctx[14].message + "";
     	let t0;
     	let t1;
     	let div1;
-    	let t2_value = /*msg*/ ctx[13].message + "";
+    	let t2_value = /*msg*/ ctx[14].game + "";
     	let t2;
     	let t3;
-    	let li_class_value;
-    	let li_key_value;
+    	let if_block = /*msg*/ ctx[14].state === "not started" && create_if_block_2(ctx);
 
     	const block = {
     		c: function create() {
-    			li = element("li");
+    			div2 = element("div");
     			div0 = element("div");
     			t0 = text(t0_value);
     			t1 = space();
     			div1 = element("div");
     			t2 = text(t2_value);
     			t3 = space();
-    			attr_dev(div0, "class", "header");
-    			add_location(div0, file$1, 63, 8, 1683);
-    			attr_dev(div1, "class", "content");
-    			add_location(div1, file$1, 64, 8, 1728);
+    			if (if_block) if_block.c();
+    			attr_dev(div0, "class", "intro");
+    			add_location(div0, file$1, 79, 12, 2168);
+    			attr_dev(div1, "class", "name");
+    			add_location(div1, file$1, 80, 12, 2219);
+    			attr_dev(div2, "class", "content");
+    			add_location(div2, file$1, 78, 10, 2134);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div0, t0);
+    			append_dev(div2, t1);
+    			append_dev(div2, div1);
+    			append_dev(div1, t2);
+    			append_dev(div2, t3);
+    			if (if_block) if_block.m(div2, null);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*messages*/ 2 && t0_value !== (t0_value = /*msg*/ ctx[14].message + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*messages*/ 2 && t2_value !== (t2_value = /*msg*/ ctx[14].game + "")) set_data_dev(t2, t2_value);
 
-    			attr_dev(li, "class", li_class_value = `msg ${/*msg*/ ctx[13].user === /*usernameValue*/ ctx[3]
+    			if (/*msg*/ ctx[14].state === "not started") {
+    				if (if_block) ; else {
+    					if_block = create_if_block_2(ctx);
+    					if_block.c();
+    					if_block.m(div2, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(78:8) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (76:8) {#if msg.type === "regular"}
+    function create_if_block_1(ctx) {
+    	let div;
+    	let t_value = /*msg*/ ctx[14].message + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = text(t_value);
+    			attr_dev(div, "class", "content");
+    			add_location(div, file$1, 76, 10, 2067);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*messages*/ 2 && t_value !== (t_value = /*msg*/ ctx[14].message + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(76:8) {#if msg.type === \\\"regular\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (82:12) {#if msg.state === "not started"}
+    function create_if_block_2(ctx) {
+    	let button;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "Start";
+    			add_location(button, file$1, 82, 14, 2314);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(82:12) {#if msg.state === \\\"not started\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (70:4) {#each messages as msg}
+    function create_each_block_1(ctx) {
+    	let li;
+    	let div;
+    	let t0_value = /*msg*/ ctx[14].user + "";
+    	let t0;
+    	let t1;
+    	let t2;
+    	let li_class_value;
+    	let li_key_value;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*msg*/ ctx[14].type === "regular") return create_if_block_1;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			div = element("div");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			if_block.c();
+    			t2 = space();
+    			attr_dev(div, "class", "header");
+    			add_location(div, file$1, 74, 8, 1983);
+
+    			attr_dev(li, "class", li_class_value = `msg ${/*msg*/ ctx[14].user === /*usernameValue*/ ctx[3]
 			? "me"
 			: "other"}`);
 
-    			attr_dev(li, "key", li_key_value = /*msg*/ ctx[13]._id);
-    			add_location(li, file$1, 59, 6, 1572);
+    			attr_dev(li, "key", li_key_value = /*msg*/ ctx[14]._id);
+    			add_location(li, file$1, 70, 6, 1872);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
-    			append_dev(li, div0);
-    			append_dev(div0, t0);
+    			append_dev(li, div);
+    			append_dev(div, t0);
     			append_dev(li, t1);
-    			append_dev(li, div1);
-    			append_dev(div1, t2);
-    			append_dev(li, t3);
+    			if_block.m(li, null);
+    			append_dev(li, t2);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*messages*/ 2 && t0_value !== (t0_value = /*msg*/ ctx[13].user + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*messages*/ 2 && t2_value !== (t2_value = /*msg*/ ctx[13].message + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*messages*/ 2 && t0_value !== (t0_value = /*msg*/ ctx[14].user + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*messages, usernameValue*/ 10 && li_class_value !== (li_class_value = `msg ${/*msg*/ ctx[13].user === /*usernameValue*/ ctx[3]
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(li, t2);
+    				}
+    			}
+
+    			if (dirty & /*messages, usernameValue*/ 10 && li_class_value !== (li_class_value = `msg ${/*msg*/ ctx[14].user === /*usernameValue*/ ctx[3]
 			? "me"
 			: "other"}`)) {
     				attr_dev(li, "class", li_class_value);
     			}
 
-    			if (dirty & /*messages*/ 2 && li_key_value !== (li_key_value = /*msg*/ ctx[13]._id)) {
+    			if (dirty & /*messages*/ 2 && li_key_value !== (li_key_value = /*msg*/ ctx[14]._id)) {
     				attr_dev(li, "key", li_key_value);
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
+    			if_block.d();
     		}
     	};
 
@@ -6107,14 +6257,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(59:4) {#each messages as msg}",
+    		source: "(70:4) {#each messages as msg}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (70:4) {#if gamesOpen}
+    // (91:4) {#if gamesOpen}
     function create_if_block(ctx) {
     	let div;
     	let each_value = /*games*/ ctx[5];
@@ -6134,7 +6284,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "Games");
-    			add_location(div, file$1, 70, 6, 1851);
+    			add_location(div, file$1, 91, 6, 2468);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -6144,7 +6294,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*games*/ 32) {
+    			if (dirty & /*handleCreateGame, games*/ 160) {
     				each_value = /*games*/ ctx[5];
     				validate_each_argument(each_value);
     				let i;
@@ -6178,35 +6328,44 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(70:4) {#if gamesOpen}",
+    		source: "(91:4) {#if gamesOpen}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (72:8) {#each games as game}
+    // (93:8) {#each games as game}
     function create_each_block(ctx) {
     	let div;
-    	let t_value = /*game*/ ctx[10].name + "";
+    	let t_value = /*game*/ ctx[11].name + "";
     	let t;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			t = text(t_value);
     			attr_dev(div, "class", "Game");
-    			add_location(div, file$1, 72, 10, 1911);
+    			add_location(div, file$1, 93, 10, 2528);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, t);
+
+    			if (!mounted) {
+    				dispose = listen_dev(div, "click", /*handleCreateGame*/ ctx[7], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*games*/ 32 && t_value !== (t_value = /*game*/ ctx[10].name + "")) set_data_dev(t, t_value);
+    			if (dirty & /*games*/ 32 && t_value !== (t_value = /*game*/ ctx[11].name + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -6214,7 +6373,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(72:8) {#each games as game}",
+    		source: "(93:8) {#each games as game}",
     		ctx
     	});
 
@@ -6280,27 +6439,27 @@ var app = (function () {
     			img2 = element("img");
     			if (!src_url_equal(img0.src, img0_src_value = "/room_image.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "user_image");
-    			add_location(img0, file$1, 54, 4, 1409);
+    			add_location(img0, file$1, 65, 4, 1709);
     			attr_dev(div0, "class", "Container");
-    			add_location(div0, file$1, 55, 4, 1460);
+    			add_location(div0, file$1, 66, 4, 1760);
     			attr_dev(div1, "class", "Header");
-    			add_location(div1, file$1, 53, 2, 1384);
+    			add_location(div1, file$1, 64, 2, 1684);
     			attr_dev(ul, "class", "chat");
-    			add_location(ul, file$1, 57, 2, 1520);
+    			add_location(ul, file$1, 68, 2, 1820);
     			if (!src_url_equal(img1.src, img1_src_value = "/games.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "games");
-    			add_location(img1, file$1, 76, 4, 1990);
+    			add_location(img1, file$1, 97, 4, 2635);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "New message...");
     			input.value = /*current_message*/ ctx[2];
-    			add_location(input, file$1, 83, 4, 2112);
+    			add_location(input, file$1, 104, 4, 2757);
     			if (!src_url_equal(img2.src, img2_src_value = "/send_button.png")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "send_button");
-    			add_location(img2, file$1, 91, 4, 2290);
+    			add_location(img2, file$1, 112, 4, 2935);
     			attr_dev(div2, "class", "sending");
-    			add_location(div2, file$1, 68, 2, 1803);
+    			add_location(div2, file$1, 89, 2, 2420);
     			attr_dev(div3, "class", "Message");
-    			add_location(div3, file$1, 52, 0, 1360);
+    			add_location(div3, file$1, 63, 0, 1660);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6331,8 +6490,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(img1, "click", /*click_handler*/ ctx[7], false, false, false),
-    					listen_dev(input, "change", /*change_handler*/ ctx[8], false, false, false),
+    					listen_dev(img1, "click", /*click_handler*/ ctx[8], false, false, false),
+    					listen_dev(input, "change", /*change_handler*/ ctx[9], false, false, false),
     					listen_dev(img2, "click", /*handleSubmitMessage*/ ctx[6], false, false, false)
     				];
 
@@ -6427,12 +6586,24 @@ var app = (function () {
     		if (current_message === "" || current_room.name === "") return;
 
     		socketValue.emit("message", {
-    			client: usernameValue,
-    			msg: current_message,
+    			type: "regular",
+    			user: usernameValue,
+    			message: current_message,
     			room: current_room._id
     		});
 
     		$$invalidate(2, current_message = "");
+    	}
+
+    	function handleCreateGame(e) {
+    		socketValue.emit("message", {
+    			type: "game",
+    			user: usernameValue,
+    			message: usernameValue + " want to start a game : ",
+    			room: current_room._id,
+    			game: e.target.innerText,
+    			state: "not started"
+    		});
     	}
 
     	const writable_props = ['current_room'];
@@ -6464,7 +6635,8 @@ var app = (function () {
     		usernameValue,
     		gamesOpen,
     		games,
-    		handleSubmitMessage
+    		handleSubmitMessage,
+    		handleCreateGame
     	});
 
     	$$self.$inject_state = $$props => {
@@ -6503,6 +6675,7 @@ var app = (function () {
     		gamesOpen,
     		games,
     		handleSubmitMessage,
+    		handleCreateGame,
     		click_handler,
     		change_handler
     	];

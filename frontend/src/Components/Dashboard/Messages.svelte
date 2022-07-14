@@ -42,11 +42,22 @@
     e.preventDefault();
     if (current_message === "" || current_room.name === "") return;
     socketValue.emit("message", {
-      client: usernameValue,
-      msg: current_message,
+      type: "regular",
+      user: usernameValue,
+      message: current_message,
       room: current_room._id,
     });
     current_message = "";
+  }
+  function handleCreateGame(e) {
+    socketValue.emit("message", {
+      type: "game",
+      user: usernameValue,
+      message: usernameValue + " want to start a game : ",
+      room: current_room._id,
+      game: e.target.innerText,
+      state: "not started",
+    });
   }
 </script>
 
@@ -62,7 +73,17 @@
         key={msg._id}
       >
         <div class="header">{msg.user}</div>
-        <div class="content">{msg.message}</div>
+        {#if msg.type === "regular"}
+          <div class="content">{msg.message}</div>
+        {:else}
+          <div class="content">
+            <div class="intro">{msg.message}</div>
+            <div class="name">{msg.game}</div>
+            {#if msg.state === "not started"}
+              <button>Start</button>
+            {/if}
+          </div>
+        {/if}
       </li>
     {/each}
   </ul>
@@ -70,7 +91,7 @@
     {#if gamesOpen}
       <div class="Games">
         {#each games as game}
-          <div class="Game">{game.name}</div>
+          <div class="Game" on:click={handleCreateGame}>{game.name}</div>
         {/each}
       </div>
     {/if}

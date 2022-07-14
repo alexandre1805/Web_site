@@ -114,7 +114,7 @@
   background-color: #fff;
   border: solid 1px #6a6c75;
   position: absolute;
-  left: 42%;
+  left: 41%;
   bottom: 9%;
   height: 60vh;
   width: 30vh;
@@ -136,7 +136,7 @@
   background-color: #bbb;
 }
 
-@media all and (max-width: 980px) {
+@media all and (max-width: 800px) {
   .Message .sending .Games {
     left: 310px;
   }

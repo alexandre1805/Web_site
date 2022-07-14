@@ -2,24 +2,13 @@ const messagesModel = require("../models/messages");
 const userAuth = require("./userAuth");
 
 exports.handleMsg = async function (args) {
-  const newMessage = new messagesModel({
-    message: args.msg,
-    user: args.client,
-    room: args.room,
-  });
-
+  const newMessage = new messagesModel(args);
   var id = await newMessage.save().then((obj) => {
     return obj._id;
   });
 
-  var obj = {
-    _id: id,
-    message: args.msg,
-    user: args.client,
-    room: args.room,
-  };
-
-  return obj;
+  args["_id"] = id;
+  return args;
 };
 
 exports.getMessages = async function (req, res) {
