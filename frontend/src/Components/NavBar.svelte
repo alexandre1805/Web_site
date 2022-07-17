@@ -13,10 +13,13 @@
 
   $: if (usernameValue !== "")
     axios
-      .get("http://localhost:4000/getNotifs", {
-        params: { username: usernameValue },
-        withCredentials: true,
-      })
+      .get(
+        "http://" + process.env.URI + ":" + process.env.API_PORT + "/getNotifs",
+        {
+          params: { username: usernameValue },
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         notifications = res.data;
       });

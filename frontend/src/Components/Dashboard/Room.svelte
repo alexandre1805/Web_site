@@ -33,7 +33,6 @@
   function handleChangeRoom(e) {
     let name = e.target.innerText;
     let tab = rooms.filter((elt) => elt.name === name);
-    console.log(tab);
     setCurrentRoom(tab[0]);
   }
 

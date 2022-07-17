@@ -2,15 +2,16 @@
   import axios from "axios";
   import NavBar from "./Components/NavBar.svelte";
   import { socket, username } from "./store";
-
   import Router, { push } from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
+  import io from "socket.io-client";
+
   import About from "./Components/About.svelte";
   import Home from "./Components/Home.svelte";
   import Register from "./Components/Register.svelte";
   import Login from "./Components/Login.svelte";
   import Dashboard from "./Components/Dashboard.svelte";
-  import io from "socket.io-client";
+  import TicTacToe from "./Components/Games/Tic-tac-toe.svelte";
 
   let logged = false;
   let usernameValue = "";
@@ -67,6 +68,7 @@
       component: Login,
       props: { fetchLogin: () => fetchLogin() },
     }),
+    "/tic-tac-toe": TicTacToe,
   }}
   on:conditionsFailed={conditionsFailed}
 />

@@ -19,6 +19,7 @@ const MessagesSchema = new mongoose.Schema({
   },
   game: { type: String },
   state: { type: String },
+  game_id: { type: String },
 });
 const Messages = mongoose.model("Messages", MessagesSchema);
 module.exports = Messages;

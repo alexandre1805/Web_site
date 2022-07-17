@@ -1,8 +1,8 @@
 <script>
   import axios from "axios";
-  import { socket, username } from "../../store";
+  import { socket, username, currentGame } from "../../store";
   import "../../styles/Dashboard/Messages.css";
-
+  import { push } from "svelte-spa-router";
   let messages = [];
   let current_message = "";
   export let current_room;
@@ -17,8 +17,7 @@
     axios
       .get(
         "http://" + process.env.URI + ":" + process.env.API_PORT + "/getMsg",
-        { params: { room: current_room._id } },
-        { withCredentials: true }
+        { params: { room: current_room._id }, withCredentials: true }
       )
       .then((res) => {
         messages = res.data.messages;
@@ -56,8 +55,14 @@
       message: usernameValue + " want to start a game : ",
       room: current_room._id,
       game: e.target.innerText,
-      state: "not started",
+      state: "Not started",
     });
+    gamesOpen = false;
+  }
+
+  function handleStartGame(id) {
+    currentGame.set(id);
+    push("/tic-tac-toe");
   }
 </script>
 
@@ -79,8 +84,10 @@
           <div class="content">
             <div class="intro">{msg.message}</div>
             <div class="name">{msg.game}</div>
-            {#if msg.state === "not started"}
-              <button>Start</button>
+            {#if msg.state === "Not started"}
+              <button on:click={() => handleStartGame(msg.game_id)}
+                >Start</button
+              >
             {/if}
           </div>
         {/if}

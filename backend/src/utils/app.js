@@ -5,11 +5,12 @@ const cors = require("cors");
 const userMsg = require("../controllers/userMsg.js");
 const userRoom = require("../controllers/userRoom");
 const userData = require("../controllers/userData");
+const games = require("../controllers/games");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 function app() {
-  const dotenv = require("dotenv").config();
+  require("dotenv").config();
   const app = express();
   const server = require("http").Server(app);
   const io = require("socket.io")(server);
@@ -39,14 +40,14 @@ function app() {
 
   const users = new Map();
   io.on("connection", async (socket) => {
-    //----------------------SOCKET INITIALISATION---------------------------------
+    //----------------------SOCKET INITIALISATION-------------------------------
     var rooms = await userRoom.getRoomsTab(socket.handshake.query.username);
     rooms.forEach((element) => {
       socket.join(element);
     });
     users.set(socket.handshake.query.username, socket.id);
 
-    //----------------------FRIEND MANAGEMENT-------------------------------------
+    //----------------------FRIEND MANAGEMENT-----------------------------------
     socket.on("add Friend", async (args) => {
       if (args === "" || args === undefined) {
         socket.emit("add Friend return", "You must specify a friend.");
@@ -61,7 +62,7 @@ function app() {
       await userData.acceptInvation(args);
     });
 
-    //----------------------ROOM MANAGEMENT---------------------------------------
+    //----------------------ROOM MANAGEMENT-------------------------------------
     socket.on("create Room", async (args) => {
       const new_room = await userRoom.createRoom(socket, args);
       if (new_room !== undefined) {
@@ -75,13 +76,23 @@ function app() {
         io.to(new_room._id).emit("new room", new_room);
       }
     });
-    //----------------------MESSAGE MANAGEMENT------------------------------------
+    //----------------------MESSAGE MANAGEMENT----------------------------------
     socket.on("message", async (args) => {
       var obj = await userMsg.handleMsg(args);
       io.to(args.room).emit("new message", obj);
     });
-
-    socket.on("disconnect", () => {
+    //----------------------GAME MANAGEMENT-------------------------------------
+    socket.on("join", async (args) => {
+      socket.join(args.id);
+      await games.join(io, args);
+    });
+    socket.on("disconnecting", () => {
+      let gameRooms = Array.from(socket.rooms).filter((elm) =>
+        elm.startsWith("game-")
+      );
+      gameRooms.forEach((elm) =>
+        games.leave(io, { id: elm, username: socket.handshake.query.username })
+      );
       users.delete(socket.handshake.query.username);
     });
   });

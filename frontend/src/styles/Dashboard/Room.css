@@ -44,11 +44,10 @@
 
 .Room .Dialog_box {
   position: absolute;
-  top: -8vh;
   left: 0;
   background-color: rgba(187, 187, 187, 0.5);
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   display: flex;
   justify-content: center;

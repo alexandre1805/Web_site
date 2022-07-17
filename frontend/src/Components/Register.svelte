@@ -17,7 +17,7 @@
   function verifyEmail() {
     if (!email.match(validEmail))
       emailMsg =
-        '<li style={{ color: "#FF4136" }}>Please put a valid email adress</li>';
+        '<li style="color: #FF4136">Please put a valid email adress</li>';
     else emailMsg = "";
   }
 
@@ -39,7 +39,7 @@
   function verifyConfirmPassword() {
     if (password !== confirmPassword)
       confirmPasswordMsg =
-        '<li style="color: "#FF4136">Passwords must correspond</li>';
+        '<li style="color: #FF4136">Passwords must correspond</li>';
     else confirmPasswordMsg = "";
   }
 
@@ -94,7 +94,7 @@
         username = e.target.value;
         if (username === "")
           usernameMsg =
-            '<li style={{ color: "#FF4136" }}>Please put a non-empty username</li>';
+            '<li style="color: #FF4136">Please put a non-empty username</li>';
         else usernameMsg = "";
       }}
     />
