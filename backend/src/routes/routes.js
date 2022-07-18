@@ -4,7 +4,7 @@ const userAuth = require("../controllers/userAuth");
 const userData = require("../controllers/userData");
 const userMsg = require("../controllers/userMsg");
 const userRoom = require("../controllers/userRoom");
-const games = require("../controllers/games");
+const games = require("../controllers/games-connection");
 const router = express.Router();
 
 /**

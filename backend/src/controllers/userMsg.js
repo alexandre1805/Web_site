@@ -1,7 +1,7 @@
 const messagesModel = require("../models/messages");
 const gamesModel = require("../models/games");
 const userAuth = require("./userAuth");
-const games = require("./games");
+const games = require("./games-connection");
 
 exports.handleMsg = async function (args) {
   if (args.type === "game") {

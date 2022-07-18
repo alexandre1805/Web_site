@@ -11,7 +11,7 @@
   import Register from "./Components/Register.svelte";
   import Login from "./Components/Login.svelte";
   import Dashboard from "./Components/Dashboard.svelte";
-  import TicTacToe from "./Components/Games/Tic-tac-toe.svelte";
+  import TicTacToe from "./Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
 
   let logged = false;
   let usernameValue = "";

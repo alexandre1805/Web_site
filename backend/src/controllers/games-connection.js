@@ -1,4 +1,5 @@
 const gameModel = require("../models/games");
+const Tictactoe = require("./Tic-tac-toe");
 const game_info = [{ name: "tic-tac-toe", max_players: 2 }];
 
 function convert_id(id) {
@@ -26,35 +27,37 @@ exports.createGame = async function (args) {
 };
 
 exports.join = async function (io, args) {
-  const game = await gameModel.findById(convert_id(args.id));
-  game.players.push(args.username);
-  game.nb_players++;
-  await game.save();
-  update(io, "Connection_status", args.id, game);
+  await gameModel.updateOne(
+    { _id: convert_id(args.id) },
+    { $push: { players: args.username }, $inc: { players: 1 } }
+  );
+  update(io, args.id);
 };
 
 exports.leave = async function (io, args) {
   const game = await gameModel.findById(convert_id(args.id));
   if ((game.state = "Not started")) {
-    game.nb_players--;
-    game.players = game.players.filter((elm) => elm !== args.username);
-    await game.save();
-    update(io, "Connection_status", args.id, game);
+    await gameModel.updateOne(
+      { _id: convert_id(args.id) },
+      { $pull: { players: args.username }, $inc: { players: -1 } }
+    );
+    update(io, args.id);
   }
 };
 
-async function update(io, type, id, game) {
-  let msg = { type: type };
-  if (type === "Connection_status") {
-    if (game.nb_players === game.max_players) msg["message"] = "";
-    else
-      msg["message"] =
-        "Waiting for other player ... (" +
-        game.nb_players +
-        "/" +
-        game.max_players +
-        ")";
-  }
+async function update(io, id) {
+  let game = await gameModel.findById(convert_id(args.id));
+  let msg;
+  if (game.nb_players === game.max_players) {
+    msg = "";
+    Tictactoe.create(io, id, game.players);
+  } else
+    msg =
+      "Waiting for other player ... (" +
+      game.nb_players +
+      "/" +
+      game.max_players +
+      ")";
 
-  io.to(id).emit("update", msg);
+  io.to(id).emit("Satus update", msg);
 }

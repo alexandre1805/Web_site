@@ -5,7 +5,8 @@ const cors = require("cors");
 const userMsg = require("../controllers/userMsg.js");
 const userRoom = require("../controllers/userRoom");
 const userData = require("../controllers/userData");
-const games = require("../controllers/games");
+const Tictactoe = require("../controllers/Tic-tac-toe");
+const games = require("../controllers/games-connection");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
@@ -85,6 +86,15 @@ function app() {
     socket.on("join", async (args) => {
       socket.join(args.id);
       await games.join(io, args);
+    });
+
+    socket.on("leave", async (args) => {
+      socket.leave(args.id);
+      await games.leave(io, args);
+    });
+
+    socket.on("Tic-tac-toe update-client", async (args) => {
+      await Tictactoe.update(io, args.id, args.game);
     });
     socket.on("disconnecting", () => {
       let gameRooms = Array.from(socket.rooms).filter((elm) =>
