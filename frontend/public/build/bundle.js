@@ -3835,7 +3835,7 @@ var app = (function () {
     	let t4;
     	let mounted;
     	let dispose;
-    	let if_block = /*notificationsOpen*/ ctx[2] && create_if_block_1$3(ctx);
+    	let if_block = /*notificationsOpen*/ ctx[2] && create_if_block_1$4(ctx);
 
     	const block = {
     		c: function create() {
@@ -3878,7 +3878,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block_1$3(ctx);
+    					if_block = create_if_block_1$4(ctx);
     					if_block.c();
     					if_block.m(div, null);
     				}
@@ -3957,7 +3957,7 @@ var app = (function () {
     }
 
     // (52:6) {#if notificationsOpen}
-    function create_if_block_1$3(ctx) {
+    function create_if_block_1$4(ctx) {
     	let div;
     	let each_value = /*notifications*/ ctx[1];
     	validate_each_argument(each_value);
@@ -4018,7 +4018,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$3.name,
+    		id: create_if_block_1$4.name,
     		type: "if",
     		source: "(52:6) {#if notificationsOpen}",
     		ctx
@@ -8873,7 +8873,7 @@ var app = (function () {
     }
 
     // (72:4) {#if openDialogBoxFriend}
-    function create_if_block_1$2(ctx) {
+    function create_if_block_1$3(ctx) {
     	let newfriend;
     	let current;
 
@@ -8909,7 +8909,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$2.name,
+    		id: create_if_block_1$3.name,
     		type: "if",
     		source: "(72:4) {#if openDialogBoxFriend}",
     		ctx
@@ -9049,7 +9049,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*openDialogBoxFriend*/ ctx[2] && create_if_block_1$2(ctx);
+    	let if_block0 = /*openDialogBoxFriend*/ ctx[2] && create_if_block_1$3(ctx);
     	let if_block1 = /*openDialogBoxRoom*/ ctx[3] && create_if_block$3(ctx);
     	let each_value = /*rooms*/ ctx[1];
     	validate_each_argument(each_value);
@@ -9142,7 +9142,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_1$2(ctx);
+    					if_block0 = create_if_block_1$3(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(div0, t3);
@@ -9457,7 +9457,7 @@ var app = (function () {
     }
 
     // (81:8) {#if msg.type === "regular"}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$2(ctx) {
     	let div;
     	let t_value = /*msg*/ ctx[16].message + "";
     	let t;
@@ -9483,7 +9483,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
     		source: "(81:8) {#if msg.type === \\\"regular\\\"}",
     		ctx
@@ -9549,7 +9549,7 @@ var app = (function () {
     	let li_key_value;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*msg*/ ctx[16].type === "regular") return create_if_block_1$1;
+    		if (/*msg*/ ctx[16].type === "regular") return create_if_block_1$2;
     		return create_else_block$1;
     	}
 
@@ -10419,7 +10419,7 @@ var app = (function () {
     }
 
     // (8:24) 
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	let td;
     	let img;
     	let img_src_value;
@@ -10466,7 +10466,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$1.name,
     		type: "if",
     		source: "(8:24) ",
     		ctx
@@ -10537,7 +10537,7 @@ var app = (function () {
 
     	function select_block_type(ctx, dirty) {
     		if (/*value*/ ctx[1] === "X") return create_if_block$1;
-    		if (/*value*/ ctx[1] === "O") return create_if_block_1;
+    		if (/*value*/ ctx[1] === "O") return create_if_block_1$1;
     		return create_else_block;
     	}
 
@@ -10664,8 +10664,8 @@ var app = (function () {
     const { Object: Object_1 } = globals;
     const file = "src/Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
 
-    // (45:2) {#if connection_dialog_box}
-    function create_if_block(ctx) {
+    // (70:2) {#if connection_dialog_box}
+    function create_if_block_1(ctx) {
     	let connection_box;
     	let current;
 
@@ -10703,9 +10703,51 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(70:2) {#if connection_dialog_box}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (73:2) {#if game.winner !== null}
+    function create_if_block(ctx) {
+    	let div;
+    	let t0;
+    	let t1_value = /*game*/ ctx[1].winner + "";
+    	let t1;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t0 = text("The winner is ");
+    			t1 = text(t1_value);
+    			t2 = text(" !");
+    			attr_dev(div, "class", "Winner");
+    			add_location(div, file, 73, 4, 2062);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*game*/ 2 && t1_value !== (t1_value = /*game*/ ctx[1].winner + "")) set_data_dev(t1, t1_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(45:2) {#if connection_dialog_box}",
+    		source: "(73:2) {#if game.winner !== null}",
     		ctx
     	});
 
@@ -10715,40 +10757,42 @@ var app = (function () {
     function create_fragment$1(ctx) {
     	let div4;
     	let t0;
+    	let t1;
     	let div1;
     	let div0;
-    	let t1;
-    	let t2_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "";
     	let t2;
+    	let t3_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "";
     	let t3;
-    	let t4_value = /*game*/ ctx[1].current_player + "";
     	let t4;
+    	let t5_value = /*game*/ ctx[1].current_player + "";
     	let t5;
+    	let t6;
     	let div3;
     	let div2;
     	let table;
     	let tr0;
     	let square0;
-    	let t6;
-    	let square1;
     	let t7;
-    	let square2;
+    	let square1;
     	let t8;
+    	let square2;
+    	let t9;
     	let tr1;
     	let square3;
-    	let t9;
-    	let square4;
     	let t10;
-    	let square5;
+    	let square4;
     	let t11;
+    	let square5;
+    	let t12;
     	let tr2;
     	let square6;
-    	let t12;
-    	let square7;
     	let t13;
+    	let square7;
+    	let t14;
     	let square8;
     	let current;
-    	let if_block = /*connection_dialog_box*/ ctx[2] && create_if_block(ctx);
+    	let if_block0 = /*connection_dialog_box*/ ctx[2] && create_if_block_1(ctx);
+    	let if_block1 = /*game*/ ctx[1].winner !== null && create_if_block(ctx);
 
     	square0 = new Square({
     			props: {
@@ -10825,117 +10869,134 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div4 = element("div");
-    			if (if_block) if_block.c();
+    			if (if_block0) if_block0.c();
     			t0 = space();
+    			if (if_block1) if_block1.c();
+    			t1 = space();
     			div1 = element("div");
     			div0 = element("div");
-    			t1 = text("You are : ");
-    			t2 = text(t2_value);
-    			t3 = text("\n    Current player : ");
-    			t4 = text(t4_value);
-    			t5 = space();
+    			t2 = text("You are : ");
+    			t3 = text(t3_value);
+    			t4 = text("\n    Current player : ");
+    			t5 = text(t5_value);
+    			t6 = space();
     			div3 = element("div");
     			div2 = element("div");
     			table = element("table");
     			tr0 = element("tr");
     			create_component(square0.$$.fragment);
-    			t6 = space();
-    			create_component(square1.$$.fragment);
     			t7 = space();
-    			create_component(square2.$$.fragment);
+    			create_component(square1.$$.fragment);
     			t8 = space();
+    			create_component(square2.$$.fragment);
+    			t9 = space();
     			tr1 = element("tr");
     			create_component(square3.$$.fragment);
-    			t9 = space();
-    			create_component(square4.$$.fragment);
     			t10 = space();
-    			create_component(square5.$$.fragment);
+    			create_component(square4.$$.fragment);
     			t11 = space();
+    			create_component(square5.$$.fragment);
+    			t12 = space();
     			tr2 = element("tr");
     			create_component(square6.$$.fragment);
-    			t12 = space();
-    			create_component(square7.$$.fragment);
     			t13 = space();
+    			create_component(square7.$$.fragment);
+    			t14 = space();
     			create_component(square8.$$.fragment);
     			attr_dev(div0, "class", "youAre");
-    			add_location(div0, file, 48, 4, 1532);
+    			add_location(div0, file, 76, 4, 2158);
     			attr_dev(div1, "class", "Information");
-    			add_location(div1, file, 47, 2, 1502);
-    			add_location(tr0, file, 54, 8, 1696);
-    			add_location(tr1, file, 59, 8, 1957);
-    			add_location(tr2, file, 64, 8, 2218);
-    			add_location(table, file, 53, 6, 1680);
-    			add_location(div2, file, 52, 4, 1668);
+    			add_location(div1, file, 75, 2, 2128);
+    			add_location(tr0, file, 82, 8, 2322);
+    			add_location(tr1, file, 87, 8, 2583);
+    			add_location(tr2, file, 92, 8, 2844);
+    			add_location(table, file, 81, 6, 2306);
+    			add_location(div2, file, 80, 4, 2294);
     			attr_dev(div3, "class", "Board");
-    			add_location(div3, file, 51, 2, 1644);
+    			add_location(div3, file, 79, 2, 2270);
     			attr_dev(div4, "class", "Tic-Tac-Toe");
-    			add_location(div4, file, 43, 0, 1359);
+    			add_location(div4, file, 68, 0, 1888);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
-    			if (if_block) if_block.m(div4, null);
+    			if (if_block0) if_block0.m(div4, null);
     			append_dev(div4, t0);
+    			if (if_block1) if_block1.m(div4, null);
+    			append_dev(div4, t1);
     			append_dev(div4, div1);
     			append_dev(div1, div0);
-    			append_dev(div0, t1);
     			append_dev(div0, t2);
-    			append_dev(div1, t3);
+    			append_dev(div0, t3);
     			append_dev(div1, t4);
-    			append_dev(div4, t5);
+    			append_dev(div1, t5);
+    			append_dev(div4, t6);
     			append_dev(div4, div3);
     			append_dev(div3, div2);
     			append_dev(div2, table);
     			append_dev(table, tr0);
     			mount_component(square0, tr0, null);
-    			append_dev(tr0, t6);
-    			mount_component(square1, tr0, null);
     			append_dev(tr0, t7);
+    			mount_component(square1, tr0, null);
+    			append_dev(tr0, t8);
     			mount_component(square2, tr0, null);
-    			append_dev(table, t8);
+    			append_dev(table, t9);
     			append_dev(table, tr1);
     			mount_component(square3, tr1, null);
-    			append_dev(tr1, t9);
-    			mount_component(square4, tr1, null);
     			append_dev(tr1, t10);
+    			mount_component(square4, tr1, null);
+    			append_dev(tr1, t11);
     			mount_component(square5, tr1, null);
-    			append_dev(table, t11);
+    			append_dev(table, t12);
     			append_dev(table, tr2);
     			mount_component(square6, tr2, null);
-    			append_dev(tr2, t12);
-    			mount_component(square7, tr2, null);
     			append_dev(tr2, t13);
+    			mount_component(square7, tr2, null);
+    			append_dev(tr2, t14);
     			mount_component(square8, tr2, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
     			if (/*connection_dialog_box*/ ctx[2]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
 
     					if (dirty & /*connection_dialog_box*/ 4) {
-    						transition_in(if_block, 1);
+    						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block = create_if_block(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div4, t0);
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div4, t0);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
 
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
     				});
 
     				check_outros();
     			}
 
-    			if ((!current || dirty & /*game, usernameValue*/ 3) && t2_value !== (t2_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "")) set_data_dev(t2, t2_value);
-    			if ((!current || dirty & /*game*/ 2) && t4_value !== (t4_value = /*game*/ ctx[1].current_player + "")) set_data_dev(t4, t4_value);
+    			if (/*game*/ ctx[1].winner !== null) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block(ctx);
+    					if_block1.c();
+    					if_block1.m(div4, t1);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+
+    			if ((!current || dirty & /*game, usernameValue*/ 3) && t3_value !== (t3_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "")) set_data_dev(t3, t3_value);
+    			if ((!current || dirty & /*game*/ 2) && t5_value !== (t5_value = /*game*/ ctx[1].current_player + "")) set_data_dev(t5, t5_value);
     			const square0_changes = {};
     			if (dirty & /*game*/ 2) square0_changes.value = /*game*/ ctx[1].board[0];
     			square0.$set(square0_changes);
@@ -10966,7 +11027,7 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block);
+    			transition_in(if_block0);
     			transition_in(square0.$$.fragment, local);
     			transition_in(square1.$$.fragment, local);
     			transition_in(square2.$$.fragment, local);
@@ -10979,7 +11040,7 @@ var app = (function () {
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block);
+    			transition_out(if_block0);
     			transition_out(square0.$$.fragment, local);
     			transition_out(square1.$$.fragment, local);
     			transition_out(square2.$$.fragment, local);
@@ -10993,7 +11054,8 @@ var app = (function () {
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div4);
-    			if (if_block) if_block.d();
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
     			destroy_component(square0);
     			destroy_component(square1);
     			destroy_component(square2);
@@ -11020,6 +11082,18 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Tic_tac_toe', slots, []);
+
+    	const winningConditions = [
+    		[0, 1, 2],
+    		[3, 4, 5],
+    		[6, 7, 8],
+    		[0, 3, 6],
+    		[1, 4, 7],
+    		[2, 5, 8],
+    		[0, 4, 8],
+    		[2, 4, 6]
+    	];
+
     	let socketValue;
     	socket.subscribe(val => socketValue = val);
     	let game_id;
@@ -11033,6 +11107,7 @@ var app = (function () {
 
     	game[usernameValue] = "";
     	game.current_player = "";
+    	game.winner = null;
     	let connection_dialog_box = true;
 
     	if (socketValue === null) push("/dashboard"); else {
@@ -11050,6 +11125,21 @@ var app = (function () {
 
     		for (const [key, value] of Object.entries(game)) {
     			if (game[usernameValue] === "O" && value === "X") $$invalidate(1, game.current_player = key, game); else if (game[usernameValue] === "X" && value === "O") $$invalidate(1, game.current_player = key, game);
+    		}
+
+    		for (let i in winningConditions) {
+    			let a = game.board[winningConditions[i][0]];
+    			let b = game.board[winningConditions[i][1]];
+    			let c = game.board[winningConditions[i][2]];
+
+    			if (a === "" || b === "" || c === "") {
+    				continue;
+    			}
+
+    			if (a === b && b === c) {
+    				$$invalidate(1, game.winner = a, game);
+    				break;
+    			}
     		}
 
     		socketValue.emit("Tic-tac-toe update-client", { id: game_id, game });
@@ -11079,6 +11169,7 @@ var app = (function () {
     		username,
     		Connection_Box: ConnectionBox,
     		Square,
+    		winningConditions,
     		socketValue,
     		game_id,
     		usernameValue,

@@ -5,6 +5,7 @@ exports.create = function (io, id, users) {
   game[users[0]] = "X";
   game[users[1]] = "O";
   game["current_player"] = users[Math.floor(Math.random() * 2)];
+  game["winner"] = null;
 
   games.set(id, game);
   io.to(id).emit("Tic-tac-toe update", game);

@@ -5,6 +5,17 @@
   import Connection_Box from "../ConnectionBox.svelte";
   import Square from "./Square.svelte";
 
+  const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
   let socketValue;
   socket.subscribe((val) => (socketValue = val));
   let game_id;
@@ -14,6 +25,7 @@
   let game = { board: ["", "", "", "", "", "", "", "", ""] };
   game[usernameValue] = "";
   game.current_player = "";
+  game.winner = null;
   let connection_dialog_box = true;
 
   if (socketValue === null) push("/dashboard");
@@ -37,6 +49,19 @@
         game.current_player = key;
     }
 
+    for (let i in winningConditions) {
+      let a = game.board[winningConditions[i][0]];
+      let b = game.board[winningConditions[i][1]];
+      let c = game.board[winningConditions[i][2]];
+      if (a === "" || b === "" || c === "") {
+        continue;
+      }
+      if (a === b && b === c) {
+        game.winner = a;
+        break;
+      }
+    }
+
     socketValue.emit("Tic-tac-toe update-client", { id: game_id, game: game });
   }
 </script>
@@ -44,6 +69,9 @@
 <div class="Tic-Tac-Toe">
   {#if connection_dialog_box}
     <Connection_Box setOpenDialogBox={(e) => (connection_dialog_box = e)} />
+  {/if}
+  {#if game.winner !== null}
+    <div class="Winner">The winner is {game.winner} !</div>
   {/if}
   <div class="Information">
     <div class="youAre">You are : {game[usernameValue]}</div>

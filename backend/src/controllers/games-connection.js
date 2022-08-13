@@ -29,7 +29,7 @@ exports.createGame = async function (args) {
 exports.join = async function (io, args) {
   await gameModel.updateOne(
     { _id: convert_id(args.id) },
-    { $push: { players: args.username }, $inc: { players: 1 } }
+    { $push: { players: args.username }, $inc: { nb_players: 1 } }
   );
   update(io, args.id);
 };
@@ -39,14 +39,14 @@ exports.leave = async function (io, args) {
   if ((game.state = "Not started")) {
     await gameModel.updateOne(
       { _id: convert_id(args.id) },
-      { $pull: { players: args.username }, $inc: { players: -1 } }
+      { $pull: { players: args.username }, $inc: { nb_players: -1 } }
     );
     update(io, args.id);
   }
 };
 
 async function update(io, id) {
-  let game = await gameModel.findById(convert_id(args.id));
+  let game = await gameModel.findById(convert_id(id));
   let msg;
   if (game.nb_players === game.max_players) {
     msg = "";
