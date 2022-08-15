@@ -84,7 +84,7 @@
   <form>
     <h2 class="title">Sign Up</h2>
     Already a member ?
-    <a id="sign-up-btn" href="/login"> Sign In </a>
+    <a id="sign-up-btn" href="/#/login"> Sign In </a>
     Username :
     <input
       class="input-field"

@@ -1,4 +1,5 @@
 <script>
+  import "./styles/index.css";
   import axios from "axios";
   import NavBar from "./Components/NavBar.svelte";
   import { socket, username } from "./store";

@@ -26,7 +26,6 @@
   game[usernameValue] = "";
   game.current_player = "";
   game.winner = null;
-  let connection_dialog_box = true;
 
   if (socketValue === null) push("/dashboard");
   else {
@@ -67,9 +66,7 @@
 </script>
 
 <div class="Tic-Tac-Toe">
-  {#if connection_dialog_box}
-    <Connection_Box setOpenDialogBox={(e) => (connection_dialog_box = e)} />
-  {/if}
+  <Connection_Box />
   {#if game.winner !== null}
     <div class="Winner">The winner is {game.winner} !</div>
   {/if}

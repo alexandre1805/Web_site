@@ -5,9 +5,7 @@
   background-color: #eee;
   display: flex;
   flex-direction: column;
-  position: relative;
   height: 100%;
-  bottom: 0px;
 }
 
 .Room .Search {
@@ -42,27 +40,6 @@
   background-color: #bbb;
 }
 
-.Room .Dialog_box {
-  position: absolute;
-  left: 0;
-  background-color: rgba(187, 187, 187, 0.5);
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.Room .Dialog_box .Container {
-  border: solid 1px #6a6c75;
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 2%;
-  display: flex;
-  flex-direction: column;
-}
-
 .Room .Dialog_box .Container img {
   width: 10%;
 }
@@ -84,25 +61,6 @@
   min-height: 50px;
 }
 
-.Room .Dialog_box .Container button {
-  height: 40px;
-  border: none;
-  outline: none;
-  border-radius: 49px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #5995fd;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 600;
-  margin: 10px 0;
-  transition: 0.5s;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
 /* Create new room*/
 .Room .Dialog_box .Container .room input {
   width: 25px;

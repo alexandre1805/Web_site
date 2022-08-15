@@ -2,7 +2,6 @@
   import { push } from "svelte-spa-router";
   import "../../styles/Games/Connection_Box.css";
   import { socket, currentGame, username } from "../../store";
-  export let setOpenDialogBox;
   let socketValue;
   socket.subscribe((val) => (socketValue = val));
   let game_id;
@@ -10,12 +9,16 @@
   let usernameValue;
   username.subscribe((val) => (usernameValue = val));
   let message = "Waiting for informations...";
+  let open = true;
 
-  socketValue.on("Satus update", (msg) => {
+  socketValue.on("Status update", (msg) => {
     if (msg !== "") {
-      setOpenDialogBox(true);
+      open = true;
       message = msg;
-    } else setOpenDialogBox(false);
+    } else {
+      open = false;
+      message = "Waiting for informations...";
+    }
   });
 
   function handleLeaveGame() {
@@ -27,9 +30,13 @@
   }
 </script>
 
-<div class="Dialog_box">
-  <div class="Container">
-    {message}
-    <button on:click={handleLeaveGame}>Leave</button>
-  </div>
+<div class="Connection_Box">
+  {#if open}
+    <div class="Dialog_box">
+      <div class="Container">
+        {message}
+        <button on:click={handleLeaveGame}>Leave</button>
+      </div>
+    </div>
+  {/if}
 </div>

@@ -3,6 +3,7 @@
   import { socket, username, currentGame } from "../../store";
   import "../../styles/Dashboard/Messages.css";
   import { push } from "svelte-spa-router";
+  import Log_Box from "./Log_Box.svelte";
   let messages = [];
   let current_message = "";
   export let current_room;
@@ -12,6 +13,12 @@
   username.subscribe((val) => (usernameValue = val));
   let gamesOpen = false;
   let games = [];
+  let errorBox = false;
+  let errorMsg = "";
+
+  function setOpenErrorBox(val) {
+    errorBox = val;
+  }
 
   $: if (current_room !== "") {
     axios
@@ -32,10 +39,21 @@
       });
   }
 
-  if (socketValue !== null)
+  if (socketValue !== null) {
     socketValue.on("new message", (elt) => {
       if (elt.room === current_room._id) messages = [...messages, elt];
     });
+
+    socketValue.on("update message", (elt) => {
+      messages = messages.map((elm) => {
+        if (elm !== undefined && elm.id === elt.id) elm = elt;
+      });
+    });
+    socketValue.on("error message", (elt) => {
+      errorBox = true;
+      errorMsg = elt;
+    });
+  }
 
   function handleSubmitMessage(e) {
     e.preventDefault();
@@ -67,6 +85,9 @@
 </script>
 
 <div class="Message">
+  {#if errorBox}
+    <Log_Box message={errorMsg} open={setOpenErrorBox} />
+  {/if}
   <div class="Header">
     <img src="/room_image.png" alt="user_image" />
     <div class="Container">{current_room.name}</div>

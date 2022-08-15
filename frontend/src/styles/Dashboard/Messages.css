@@ -57,6 +57,10 @@
   position: relative;
 }
 
+.Message .msg .content button {
+  border: solid 2px #000;
+}
+
 .Message .me {
   text-align: right;
 }

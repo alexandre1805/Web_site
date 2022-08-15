@@ -55,22 +55,6 @@
 .login button {
   width: 150px;
   height: 49px;
-  border: none;
-  outline: none;
-  border-radius: 49px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #5995fd;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 600;
-  margin: 10px 0;
-  transition: 0.5s;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
 }
 
 .login a {

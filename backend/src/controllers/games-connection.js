@@ -1,6 +1,7 @@
 const gameModel = require("../models/games");
 const Tictactoe = require("./Tic-tac-toe");
-const game_info = [{ name: "tic-tac-toe", max_players: 2 }];
+const userMsg = require("./userMsg");
+const game_info = [{ name: "Tic-tac-toe", max_players: 2 }];
 
 function convert_id(id) {
   return id.split("-")[1];
@@ -31,33 +32,60 @@ exports.join = async function (io, args) {
     { _id: convert_id(args.id) },
     { $push: { players: args.username }, $inc: { nb_players: 1 } }
   );
-  update(io, args.id);
+  update(io, args.id, "join");
 };
 
 exports.leave = async function (io, args) {
-  const game = await gameModel.findById(convert_id(args.id));
-  if ((game.state = "Not started")) {
-    await gameModel.updateOne(
-      { _id: convert_id(args.id) },
-      { $pull: { players: args.username }, $inc: { nb_players: -1 } }
-    );
-    update(io, args.id);
-  }
+  await gameModel.updateOne(
+    { _id: convert_id(args.id) },
+    { $pull: { players: args.username }, $inc: { nb_players: -1 } }
+  );
+  update(io, args.id, "leave");
 };
 
-async function update(io, id) {
+//send update to the users
+async function update(io, id, type) {
   let game = await gameModel.findById(convert_id(id));
-  let msg;
-  if (game.nb_players === game.max_players) {
-    msg = "";
+  if (game.state === "Finished") return;
+  let msg = "";
+  if (
+    game.state === "Not started" &&
+    type === "join" &&
+    game.nb_players === game.max_players
+  ) {
+    await gameModel.updateOne(
+      { _id: convert_id(id) },
+      { $set: { state: "Running" } }
+    );
+    await userMsg.updateGameMsg(io, id, "Running");
     Tictactoe.create(io, id, game.players);
-  } else
+  } else if (game.state === "Not started")
     msg =
       "Waiting for other player ... (" +
       game.nb_players +
       "/" +
       game.max_players +
       ")";
-
-  io.to(id).emit("Satus update", msg);
+  else if (game.state === "Running" && type === "join")
+    console.log("[" + game.id + "]: ERROR: player joins running game");
+  else if (game.state === "Running" && type === "leave") {
+    await gameModel.updateOne(
+      { _id: convert_id(id) },
+      { $set: { state: "Cancelled" } }
+    );
+    msg = "Someone has been disconnected, game cancelled";
+    await userMsg.updateGameMsg(io, id, "Cancelled");
+  } else if (game.state === "Cancelled") return;
+  io.to(id).emit("Status update", msg);
 }
+
+exports.finish = async function (io, id, msg) {
+  await gameModel.updateOne(
+    { _id: convert_id(id) },
+    { $set: { state: "Finished" } }
+  );
+
+  await userMsg.updateGameMsg(io, id, msg);
+
+  io.to(id).emit("Status update", msg);
+};

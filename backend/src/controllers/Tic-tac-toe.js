@@ -1,3 +1,4 @@
+const game_connection = require("./games-connection");
 let games = new Map();
 
 exports.create = function (io, id, users) {
@@ -11,7 +12,14 @@ exports.create = function (io, id, users) {
   io.to(id).emit("Tic-tac-toe update", game);
 };
 
-exports.update = function (io, id, game) {
+exports.update = async function (io, id, game) {
   games.set(id, game);
   io.to(id).emit("Tic-tac-toe update", game);
+  if (game.winner !== null) {
+    let winner;
+    for (const [key, value] of Object.entries(game))
+      if (key !== "winner" && value == game.winner) winner = key;
+
+    await game_connection.finish(io, id, "The winner is " + winner);
+  }
 };

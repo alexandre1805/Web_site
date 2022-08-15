@@ -79,8 +79,8 @@ function app() {
     });
     //----------------------MESSAGE MANAGEMENT----------------------------------
     socket.on("message", async (args) => {
-      var obj = await userMsg.handleMsg(args);
-      io.to(args.room).emit("new message", obj);
+      var obj = await userMsg.handleMsg(socket, args);
+      if (obj !== null) io.to(args.room).emit("new message", obj);
     });
     //----------------------GAME MANAGEMENT-------------------------------------
     socket.on("join", async (args) => {
