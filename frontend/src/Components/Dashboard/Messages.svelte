@@ -103,8 +103,10 @@
           <div class="content">{msg.message}</div>
         {:else}
           <div class="content">
+            <div class="name">
+              {msg.game}
+            </div>
             <div class="intro">{msg.message}</div>
-            <div class="name">{msg.game}</div>
             {#if msg.state === "Not started"}
               <button on:click={() => handleStartGame(msg.game_id)}
                 >Start</button

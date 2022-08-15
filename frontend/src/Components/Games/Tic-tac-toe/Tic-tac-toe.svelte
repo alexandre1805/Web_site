@@ -61,6 +61,12 @@
       }
     }
 
+    let draw = true;
+    for (let index in game.board) {
+      if (game.board[index] === "") draw = false;
+    }
+    if (draw) game.winner = undefined;
+
     socketValue.emit("Tic-tac-toe update-client", { id: game_id, game: game });
   }
 </script>
@@ -88,7 +94,14 @@
   </div>
 
   <div class="Information">
-    <div class="youAre">You are : {game[usernameValue]}</div>
+    <div class="youAre">
+      You are :
+      {#if game[usernameValue] === "X"}
+        <img src="X.png" alt="X" />
+      {:else}
+        <img src="O.png" alt="O" />
+      {/if}
+    </div>
     Current player : {game.current_player}
   </div>
 </div>

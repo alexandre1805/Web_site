@@ -57,6 +57,12 @@
   position: relative;
 }
 
+.Message .msg .content .name {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .Message .msg .content button {
   border: solid 2px #000;
 }

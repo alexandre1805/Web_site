@@ -34,3 +34,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.Tic-Tac-Toe .Information .youAre img {
+  height: 20px;
+  width: 20px;
+}
