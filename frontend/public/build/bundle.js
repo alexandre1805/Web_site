@@ -2911,7 +2911,7 @@ var app = (function () {
     }
 
     // (244:0) {#if componentParams}
-    function create_if_block$6(ctx) {
+    function create_if_block$5(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -2999,7 +2999,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$6.name,
+    		id: create_if_block$5.name,
     		type: "if",
     		source: "(244:0) {#if componentParams}",
     		ctx
@@ -3013,7 +3013,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$6, create_else_block$3];
+    	const if_block_creators = [create_if_block$5, create_else_block$3];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -3823,7 +3823,7 @@ var app = (function () {
     }
 
     // (42:2) {#if usernameValue !== ""}
-    function create_if_block$5(ctx) {
+    function create_if_block$4(ctx) {
     	let div;
     	let img;
     	let img_src_value;
@@ -3897,7 +3897,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$5.name,
+    		id: create_if_block$4.name,
     		type: "if",
     		source: "(42:2) {#if usernameValue !== \\\"\\\"}",
     		ctx
@@ -4156,7 +4156,7 @@ var app = (function () {
     	let t1;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*usernameValue*/ ctx[0] !== "") return create_if_block$5;
+    		if (/*usernameValue*/ ctx[0] !== "") return create_if_block$4;
     		return create_else_block$2;
     	}
 
@@ -8919,7 +8919,7 @@ var app = (function () {
     }
 
     // (76:4) {#if openDialogBoxRoom}
-    function create_if_block$4(ctx) {
+    function create_if_block$3(ctx) {
     	let newroom;
     	let current;
 
@@ -8955,7 +8955,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$4.name,
+    		id: create_if_block$3.name,
     		type: "if",
     		source: "(76:4) {#if openDialogBoxRoom}",
     		ctx
@@ -9050,7 +9050,7 @@ var app = (function () {
     	let mounted;
     	let dispose;
     	let if_block0 = /*openDialogBoxFriend*/ ctx[2] && create_if_block_1$2(ctx);
-    	let if_block1 = /*openDialogBoxRoom*/ ctx[3] && create_if_block$4(ctx);
+    	let if_block1 = /*openDialogBoxRoom*/ ctx[3] && create_if_block$3(ctx);
     	let each_value = /*rooms*/ ctx[1];
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -9165,7 +9165,7 @@ var app = (function () {
     						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block1 = create_if_block$4(ctx);
+    					if_block1 = create_if_block$3(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
     					if_block1.m(div0, null);
@@ -9816,7 +9816,7 @@ var app = (function () {
     }
 
     // (119:4) {#if gamesOpen}
-    function create_if_block$3(ctx) {
+    function create_if_block$2(ctx) {
     	let div;
     	let each_value = /*games*/ ctx[5];
     	validate_each_argument(each_value);
@@ -9877,7 +9877,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$3.name,
+    		id: create_if_block$2.name,
     		type: "if",
     		source: "(119:4) {#if gamesOpen}",
     		ctx
@@ -9965,7 +9965,7 @@ var app = (function () {
     		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let if_block1 = /*gamesOpen*/ ctx[4] && create_if_block$3(ctx);
+    	let if_block1 = /*gamesOpen*/ ctx[4] && create_if_block$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -10111,7 +10111,7 @@ var app = (function () {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block$3(ctx);
+    					if_block1 = create_if_block$2(ctx);
     					if_block1.c();
     					if_block1.m(div2, t5);
     				}
@@ -10471,7 +10471,7 @@ var app = (function () {
     const file$2 = "src/Components/Games/ConnectionBox.svelte";
 
     // (34:2) {#if open}
-    function create_if_block$2(ctx) {
+    function create_if_block$1(ctx) {
     	let div1;
     	let div0;
     	let t0;
@@ -10518,7 +10518,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$2.name,
+    		id: create_if_block$1.name,
     		type: "if",
     		source: "(34:2) {#if open}",
     		ctx
@@ -10529,7 +10529,7 @@ var app = (function () {
 
     function create_fragment$3(ctx) {
     	let div;
-    	let if_block = /*open*/ ctx[1] && create_if_block$2(ctx);
+    	let if_block = /*open*/ ctx[1] && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -10550,7 +10550,7 @@ var app = (function () {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block$2(ctx);
+    					if_block = create_if_block$1(ctx);
     					if_block.c();
     					if_block.m(div, null);
     				}
@@ -10765,7 +10765,7 @@ var app = (function () {
     }
 
     // (6:0) {#if value === "X"}
-    function create_if_block$1(ctx) {
+    function create_if_block(ctx) {
     	let td;
     	let img;
     	let img_src_value;
@@ -10812,7 +10812,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$1.name,
+    		id: create_if_block.name,
     		type: "if",
     		source: "(6:0) {#if value === \\\"X\\\"}",
     		ctx
@@ -10825,7 +10825,7 @@ var app = (function () {
     	let if_block_anchor;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*value*/ ctx[1] === "X") return create_if_block$1;
+    		if (/*value*/ ctx[1] === "X") return create_if_block;
     		if (/*value*/ ctx[1] === "O") return create_if_block_1;
     		return create_else_block;
     	}
@@ -10953,88 +10953,43 @@ var app = (function () {
     const { Object: Object_1 } = globals;
     const file = "src/Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
 
-    // (70:2) {#if game.winner !== null}
-    function create_if_block(ctx) {
-    	let div;
-    	let t0;
-    	let t1_value = /*game*/ ctx[1].winner + "";
-    	let t1;
-    	let t2;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			t0 = text("The winner is ");
-    			t1 = text(t1_value);
-    			t2 = text(" !");
-    			attr_dev(div, "class", "Winner");
-    			add_location(div, file, 70, 4, 1932);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t0);
-    			append_dev(div, t1);
-    			append_dev(div, t2);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*game*/ 2 && t1_value !== (t1_value = /*game*/ ctx[1].winner + "")) set_data_dev(t1, t1_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block.name,
-    		type: "if",
-    		source: "(70:2) {#if game.winner !== null}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
     function create_fragment$1(ctx) {
-    	let div4;
+    	let div3;
     	let connection_box;
     	let t0;
-    	let t1;
-    	let div1;
     	let div0;
-    	let t2;
-    	let t3_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "";
-    	let t3;
-    	let t4;
-    	let t5_value = /*game*/ ctx[1].current_player + "";
-    	let t5;
-    	let t6;
-    	let div3;
-    	let div2;
     	let table;
     	let tr0;
     	let square0;
-    	let t7;
+    	let t1;
     	let square1;
-    	let t8;
+    	let t2;
     	let square2;
-    	let t9;
+    	let t3;
     	let tr1;
     	let square3;
-    	let t10;
+    	let t4;
     	let square4;
-    	let t11;
+    	let t5;
     	let square5;
-    	let t12;
+    	let t6;
     	let tr2;
     	let square6;
-    	let t13;
+    	let t7;
     	let square7;
-    	let t14;
+    	let t8;
     	let square8;
+    	let t9;
+    	let div2;
+    	let div1;
+    	let t10;
+    	let t11_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "";
+    	let t11;
+    	let t12;
+    	let t13_value = /*game*/ ctx[1].current_player + "";
+    	let t13;
     	let current;
     	connection_box = new ConnectionBox({ $$inline: true });
-    	let if_block = /*game*/ ctx[1].winner !== null && create_if_block(ctx);
 
     	square0 = new Square({
     			props: {
@@ -11110,112 +11065,90 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div4 = element("div");
+    			div3 = element("div");
     			create_component(connection_box.$$.fragment);
     			t0 = space();
-    			if (if_block) if_block.c();
-    			t1 = space();
-    			div1 = element("div");
     			div0 = element("div");
-    			t2 = text("You are : ");
-    			t3 = text(t3_value);
-    			t4 = text("\n    Current player : ");
-    			t5 = text(t5_value);
-    			t6 = space();
-    			div3 = element("div");
-    			div2 = element("div");
     			table = element("table");
     			tr0 = element("tr");
     			create_component(square0.$$.fragment);
-    			t7 = space();
+    			t1 = space();
     			create_component(square1.$$.fragment);
-    			t8 = space();
+    			t2 = space();
     			create_component(square2.$$.fragment);
-    			t9 = space();
+    			t3 = space();
     			tr1 = element("tr");
     			create_component(square3.$$.fragment);
-    			t10 = space();
+    			t4 = space();
     			create_component(square4.$$.fragment);
-    			t11 = space();
+    			t5 = space();
     			create_component(square5.$$.fragment);
-    			t12 = space();
+    			t6 = space();
     			tr2 = element("tr");
     			create_component(square6.$$.fragment);
-    			t13 = space();
+    			t7 = space();
     			create_component(square7.$$.fragment);
-    			t14 = space();
+    			t8 = space();
     			create_component(square8.$$.fragment);
-    			attr_dev(div0, "class", "youAre");
-    			add_location(div0, file, 73, 4, 2028);
-    			attr_dev(div1, "class", "Information");
-    			add_location(div1, file, 72, 2, 1998);
-    			add_location(tr0, file, 79, 8, 2192);
-    			add_location(tr1, file, 84, 8, 2453);
-    			add_location(tr2, file, 89, 8, 2714);
-    			add_location(table, file, 78, 6, 2176);
-    			add_location(div2, file, 77, 4, 2164);
-    			attr_dev(div3, "class", "Board");
-    			add_location(div3, file, 76, 2, 2140);
-    			attr_dev(div4, "class", "Tic-Tac-Toe");
-    			add_location(div4, file, 67, 0, 1852);
+    			t9 = space();
+    			div2 = element("div");
+    			div1 = element("div");
+    			t10 = text("You are : ");
+    			t11 = text(t11_value);
+    			t12 = text("\n    Current player : ");
+    			t13 = text(t13_value);
+    			add_location(tr0, file, 71, 6, 1939);
+    			add_location(tr1, file, 76, 6, 2190);
+    			add_location(tr2, file, 81, 6, 2441);
+    			add_location(table, file, 70, 4, 1925);
+    			attr_dev(div0, "class", "Board");
+    			add_location(div0, file, 69, 2, 1901);
+    			attr_dev(div1, "class", "youAre");
+    			add_location(div1, file, 90, 4, 2741);
+    			attr_dev(div2, "class", "Information");
+    			add_location(div2, file, 89, 2, 2711);
+    			attr_dev(div3, "class", "Tic-Tac-Toe");
+    			add_location(div3, file, 67, 0, 1852);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div4, anchor);
-    			mount_component(connection_box, div4, null);
-    			append_dev(div4, t0);
-    			if (if_block) if_block.m(div4, null);
-    			append_dev(div4, t1);
-    			append_dev(div4, div1);
-    			append_dev(div1, div0);
-    			append_dev(div0, t2);
-    			append_dev(div0, t3);
-    			append_dev(div1, t4);
-    			append_dev(div1, t5);
-    			append_dev(div4, t6);
-    			append_dev(div4, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, table);
+    			insert_dev(target, div3, anchor);
+    			mount_component(connection_box, div3, null);
+    			append_dev(div3, t0);
+    			append_dev(div3, div0);
+    			append_dev(div0, table);
     			append_dev(table, tr0);
     			mount_component(square0, tr0, null);
-    			append_dev(tr0, t7);
+    			append_dev(tr0, t1);
     			mount_component(square1, tr0, null);
-    			append_dev(tr0, t8);
+    			append_dev(tr0, t2);
     			mount_component(square2, tr0, null);
-    			append_dev(table, t9);
+    			append_dev(table, t3);
     			append_dev(table, tr1);
     			mount_component(square3, tr1, null);
-    			append_dev(tr1, t10);
+    			append_dev(tr1, t4);
     			mount_component(square4, tr1, null);
-    			append_dev(tr1, t11);
+    			append_dev(tr1, t5);
     			mount_component(square5, tr1, null);
-    			append_dev(table, t12);
+    			append_dev(table, t6);
     			append_dev(table, tr2);
     			mount_component(square6, tr2, null);
-    			append_dev(tr2, t13);
+    			append_dev(tr2, t7);
     			mount_component(square7, tr2, null);
-    			append_dev(tr2, t14);
+    			append_dev(tr2, t8);
     			mount_component(square8, tr2, null);
+    			append_dev(div3, t9);
+    			append_dev(div3, div2);
+    			append_dev(div2, div1);
+    			append_dev(div1, t10);
+    			append_dev(div1, t11);
+    			append_dev(div2, t12);
+    			append_dev(div2, t13);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*game*/ ctx[1].winner !== null) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-    				} else {
-    					if_block = create_if_block(ctx);
-    					if_block.c();
-    					if_block.m(div4, t1);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
-    			}
-
-    			if ((!current || dirty & /*game, usernameValue*/ 3) && t3_value !== (t3_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "")) set_data_dev(t3, t3_value);
-    			if ((!current || dirty & /*game*/ 2) && t5_value !== (t5_value = /*game*/ ctx[1].current_player + "")) set_data_dev(t5, t5_value);
     			const square0_changes = {};
     			if (dirty & /*game*/ 2) square0_changes.value = /*game*/ ctx[1].board[0];
     			square0.$set(square0_changes);
@@ -11243,6 +11176,8 @@ var app = (function () {
     			const square8_changes = {};
     			if (dirty & /*game*/ 2) square8_changes.value = /*game*/ ctx[1].board[8];
     			square8.$set(square8_changes);
+    			if ((!current || dirty & /*game, usernameValue*/ 3) && t11_value !== (t11_value = /*game*/ ctx[1][/*usernameValue*/ ctx[0]] + "")) set_data_dev(t11, t11_value);
+    			if ((!current || dirty & /*game*/ 2) && t13_value !== (t13_value = /*game*/ ctx[1].current_player + "")) set_data_dev(t13, t13_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -11272,9 +11207,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div4);
+    			if (detaching) detach_dev(div3);
     			destroy_component(connection_box);
-    			if (if_block) if_block.d();
     			destroy_component(square0);
     			destroy_component(square1);
     			destroy_component(square2);

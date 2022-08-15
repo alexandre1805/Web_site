@@ -67,32 +67,28 @@
 
 <div class="Tic-Tac-Toe">
   <Connection_Box />
-  {#if game.winner !== null}
-    <div class="Winner">The winner is {game.winner} !</div>
-  {/if}
+  <div class="Board">
+    <table>
+      <tr>
+        <Square handler={() => handleClickCase(0)} value={game.board[0]} />
+        <Square handler={() => handleClickCase(1)} value={game.board[1]} />
+        <Square handler={() => handleClickCase(2)} value={game.board[2]} />
+      </tr>
+      <tr>
+        <Square handler={() => handleClickCase(3)} value={game.board[3]} />
+        <Square handler={() => handleClickCase(4)} value={game.board[4]} />
+        <Square handler={() => handleClickCase(5)} value={game.board[5]} />
+      </tr>
+      <tr>
+        <Square handler={() => handleClickCase(6)} value={game.board[6]} />
+        <Square handler={() => handleClickCase(7)} value={game.board[7]} />
+        <Square handler={() => handleClickCase(8)} value={game.board[8]} />
+      </tr>
+    </table>
+  </div>
+
   <div class="Information">
     <div class="youAre">You are : {game[usernameValue]}</div>
     Current player : {game.current_player}
-  </div>
-  <div class="Board">
-    <div>
-      <table>
-        <tr>
-          <Square handler={() => handleClickCase(0)} value={game.board[0]} />
-          <Square handler={() => handleClickCase(1)} value={game.board[1]} />
-          <Square handler={() => handleClickCase(2)} value={game.board[2]} />
-        </tr>
-        <tr>
-          <Square handler={() => handleClickCase(3)} value={game.board[3]} />
-          <Square handler={() => handleClickCase(4)} value={game.board[4]} />
-          <Square handler={() => handleClickCase(5)} value={game.board[5]} />
-        </tr>
-        <tr>
-          <Square handler={() => handleClickCase(6)} value={game.board[6]} />
-          <Square handler={() => handleClickCase(7)} value={game.board[7]} />
-          <Square handler={() => handleClickCase(8)} value={game.board[8]} />
-        </tr>
-      </table>
-    </div>
   </div>
 </div>
