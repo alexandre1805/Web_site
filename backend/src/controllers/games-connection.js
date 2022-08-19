@@ -43,7 +43,11 @@ exports.leave = async function (io, args) {
   update(io, args.id, "leave");
 };
 
-//send update to the users
+/* Update : send update of connection to the user :
+ * - if the game is finshed, do not need to send any update
+ * - update database when joining game and send message to all connected users
+ * - handle when user disconnected in game
+ */
 async function update(io, id, type) {
   let game = await gameModel.findById(convert_id(id));
   if (game.state === "Finished") return;
