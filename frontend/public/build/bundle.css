@@ -268,6 +268,121 @@ button {
   height: 20px;
   width: 20px;
 }
+.Room {
+  width: 40%;
+  min-width: 300px;
+  float: left;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.Room .Search {
+  padding: 1%;
+  height: 10%;
+  min-height: 75px;
+  display: flex;
+}
+.Room .SearchBar {
+  margin: auto 20px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  max-width: 800px;
+  width: 50%;
+  min-width: 150px;
+  height: 55px;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border-color: #6a6c75;
+}
+
+.Room .Search img {
+  height: 70%;
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 50%;
+  padding: 0.7rem;
+}
+
+.Room .Search img:hover {
+  background-color: #bbb;
+}
+
+.Room .Dialog_box .Container img {
+  width: 10%;
+}
+
+.Room .Dialog_box .Container .close_button {
+  transform: rotate(45deg);
+  margin: auto;
+  margin-right: 2px;
+}
+
+.Room .Dialog_box .Container input {
+  margin: 10px;
+  padding: 0 1rem;
+  color: #333;
+  background-color: #fff;
+  border-radius: 49px;
+  font-size: 1.1rem;
+  border-color: rgba(51, 51, 51, 0.5);
+  min-height: 50px;
+}
+
+/* Create new room*/
+.Room .Dialog_box .Container .room input {
+  width: 25px;
+  height: 25px;
+}
+.Room .Dialog_box .Container .room img {
+  margin-left: 2px;
+}
+
+.Room .Dialog_box .Container .room span {
+  margin-left: 5px;
+}
+.Room ul {
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  overflow-y: scroll;
+  border-top: solid 1px #6a6c75;
+}
+
+.Room li {
+  display: flex;
+  padding: 2%;
+  min-height: 80px;
+  width: 100%;
+  border-bottom: solid 1px #6a6c75;
+  align-items: center;
+}
+
+.Room li img {
+  border-radius: 50%;
+  width: 10%;
+  height: 10%;
+  min-width: 40px;
+  min-height: 40px;
+  background-color: #fff;
+}
+
+.Room li span {
+  text-align: center;
+  font-size: large;
+  margin-left: 20px;
+}
+
+.Room li:hover {
+  background-color: #bbb;
+}
+
+.Room .content {
+  font-size: large;
+}
 .Message {
   height: 100%;
   float: right;
@@ -420,121 +535,6 @@ button {
   .Message .sending .Games {
     left: 310px;
   }
-}
-.Room {
-  width: 40%;
-  min-width: 300px;
-  float: left;
-  background-color: #eee;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.Room .Search {
-  padding: 1%;
-  height: 10%;
-  min-height: 75px;
-  display: flex;
-}
-.Room .SearchBar {
-  margin: auto 20px;
-  padding: 0 1rem;
-  color: #333;
-  background-color: #fff;
-  max-width: 800px;
-  width: 50%;
-  min-width: 150px;
-  height: 55px;
-  border-radius: 49px;
-  font-size: 1.1rem;
-  border-color: #6a6c75;
-}
-
-.Room .Search img {
-  height: 70%;
-  margin-top: auto;
-  margin-bottom: auto;
-  border-radius: 50%;
-  padding: 0.7rem;
-}
-
-.Room .Search img:hover {
-  background-color: #bbb;
-}
-
-.Room .Dialog_box .Container img {
-  width: 10%;
-}
-
-.Room .Dialog_box .Container .close_button {
-  transform: rotate(45deg);
-  margin: auto;
-  margin-right: 2px;
-}
-
-.Room .Dialog_box .Container input {
-  margin: 10px;
-  padding: 0 1rem;
-  color: #333;
-  background-color: #fff;
-  border-radius: 49px;
-  font-size: 1.1rem;
-  border-color: rgba(51, 51, 51, 0.5);
-  min-height: 50px;
-}
-
-/* Create new room*/
-.Room .Dialog_box .Container .room input {
-  width: 25px;
-  height: 25px;
-}
-.Room .Dialog_box .Container .room img {
-  margin-left: 2px;
-}
-
-.Room .Dialog_box .Container .room span {
-  margin-left: 5px;
-}
-.Room ul {
-  width: 100%;
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0;
-  overflow-y: scroll;
-  border-top: solid 1px #6a6c75;
-}
-
-.Room li {
-  display: flex;
-  padding: 2%;
-  min-height: 80px;
-  width: 100%;
-  border-bottom: solid 1px #6a6c75;
-  align-items: center;
-}
-
-.Room li img {
-  border-radius: 50%;
-  width: 10%;
-  height: 10%;
-  min-width: 40px;
-  min-height: 40px;
-  background-color: #fff;
-}
-
-.Room li span {
-  text-align: center;
-  font-size: large;
-  margin-left: 20px;
-}
-
-.Room li:hover {
-  background-color: #bbb;
-}
-
-.Room .content {
-  font-size: large;
 }
 .Dialog_box .Container img {
   width: 10%;
