@@ -13,6 +13,8 @@
   import Login from "./Components/Login.svelte";
   import Dashboard from "./Components/Dashboard.svelte";
   import TicTacToe from "./Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
+  import Connect4 from "./Components/Games/Connect_4.svelte";
+  import Connect_4 from "./Components/Games/Connect_4.svelte";
 
   let logged = false;
   let usernameValue = "";
@@ -70,6 +72,7 @@
       props: { fetchLogin: () => fetchLogin() },
     }),
     "/tic-tac-toe": TicTacToe,
+    "/connect-4": Connect_4,
   }}
   on:conditionsFailed={conditionsFailed}
 />

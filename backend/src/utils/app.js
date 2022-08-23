@@ -6,6 +6,7 @@ const userMsg = require("../controllers/userMsg.js");
 const userRoom = require("../controllers/userRoom");
 const userData = require("../controllers/userData");
 const Tictactoe = require("../controllers/Tic-tac-toe");
+const Connect4 = require("../controllers/Connect-4");
 const games = require("../controllers/games-connection");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -95,6 +96,10 @@ function app() {
 
     socket.on("Tic-tac-toe update-client", async (args) => {
       await Tictactoe.update(io, args.id, args.game);
+    });
+
+    socket.on("Connect-4 update-client", async (args) => {
+      await Connect4.update(io, args.id, args.game);
     });
     socket.on("disconnecting", () => {
       let gameRooms = Array.from(socket.rooms).filter((elm) =>

@@ -1,7 +1,11 @@
 const gameModel = require("../models/games");
 const Tictactoe = require("./Tic-tac-toe");
+const Connect4 = require("./Connect-4");
 const userMsg = require("./userMsg");
-const game_info = [{ name: "Tic-tac-toe", max_players: 2 }];
+const game_info = [
+  { name: "Tic-tac-toe", max_players: 2 },
+  { name: "Connect 4", max_players: 2 },
+];
 
 function convert_id(id) {
   return id.split("-")[1];
@@ -62,7 +66,8 @@ async function update(io, id, type) {
       { $set: { state: "Running" } }
     );
     await userMsg.updateGameMsg(io, id, "Running");
-    Tictactoe.create(io, id, game.players);
+    if (game.name === "Tic-tac-toe") Tictactoe.create(io, id, game.players);
+    else Connect4.create(io, id, game.players);
   } else if (game.state === "Not started")
     msg =
       "Waiting for other player ... (" +

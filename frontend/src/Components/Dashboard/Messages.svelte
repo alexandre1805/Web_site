@@ -78,9 +78,10 @@
     gamesOpen = false;
   }
 
-  function handleStartGame(id) {
+  function handleStartGame(name, id) {
     currentGame.set(id);
-    push("/tic-tac-toe");
+    if (name === "Tic-tac-toe") push("/tic-tac-toe");
+    else if (name === "Connect 4") push("/connect-4");
   }
 </script>
 
@@ -108,7 +109,7 @@
             </div>
             <div class="intro">{msg.message}</div>
             {#if msg.state === "Not started"}
-              <button on:click={() => handleStartGame(msg.game_id)}
+              <button on:click={() => handleStartGame(msg.game, msg.game_id)}
                 >Start</button
               >
             {/if}

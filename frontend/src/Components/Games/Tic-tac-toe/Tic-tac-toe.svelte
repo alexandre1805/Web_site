@@ -48,6 +48,7 @@
         game.current_player = key;
     }
 
+    //check win conditions
     for (let i in winningConditions) {
       let a = game.board[winningConditions[i][0]];
       let b = game.board[winningConditions[i][1]];
