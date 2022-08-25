@@ -1,9 +1,9 @@
 <script>
   import axios from "axios";
-  import "../../styles/Dashboard/Room.css";
+  import "../../../styles/Dashboard/Room.css";
   import NewFriend from "./New_friend.svelte";
   import NewRoom from "./New_room.svelte";
-  import { socket } from "../../store";
+  import { socket } from "../../../store";
 
   export let setCurrentRoom;
   let socketValue;

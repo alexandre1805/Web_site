@@ -1,19 +1,18 @@
 <script>
   import "./styles/index.css";
   import axios from "axios";
-  import NavBar from "./Components/NavBar.svelte";
+  import NavBar from "./Components/Landing/NavBar.svelte";
   import { socket, username } from "./store";
   import Router, { push } from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
   import io from "socket.io-client";
 
-  import About from "./Components/About.svelte";
-  import Home from "./Components/Home.svelte";
-  import Register from "./Components/Register.svelte";
-  import Login from "./Components/Login.svelte";
-  import Dashboard from "./Components/Dashboard.svelte";
+  import About from "./Components/Landing/About.svelte";
+  import Home from "./Components/Landing/Home.svelte";
+  import Register from "./Components/Landing/Register.svelte";
+  import Login from "./Components/Landing/Login.svelte";
+  import Dashboard from "./Components/Dashboard/Dashboard.svelte";
   import TicTacToe from "./Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
-  import Connect4 from "./Components/Games/Connect_4.svelte";
   import Connect_4 from "./Components/Games/Connect_4.svelte";
 
   let logged = false;

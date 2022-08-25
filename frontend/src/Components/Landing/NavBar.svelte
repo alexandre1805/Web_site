@@ -1,7 +1,7 @@
 <script>
-  import "../styles/NavBar/NavBar.css";
+  import "../../styles/NavBar/NavBar.css";
   import { link } from "svelte-spa-router";
-  import { username, socket } from "../store";
+  import { username, socket } from "../../store";
   import axios from "axios";
 
   let usernameValue;

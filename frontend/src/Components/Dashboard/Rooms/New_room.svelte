@@ -1,6 +1,6 @@
 <script>
   import axios from "axios";
-  import { socket, username } from "../../store";
+  import { socket, username } from "../../../store";
 
   export let setOpenDialogBox;
   let socketValue;

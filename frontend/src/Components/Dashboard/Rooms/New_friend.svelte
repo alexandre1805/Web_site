@@ -1,5 +1,5 @@
 <script>
-  import { socket } from "../../store";
+  import { socket } from "../../../store";
   export let setOpenDialogBox;
   let addFriend = "";
   let friendMsg = "";

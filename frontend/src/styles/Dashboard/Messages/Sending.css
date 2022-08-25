@@ -1,0 +1,74 @@
+.Message .sending {
+  position: relative;
+  width: 95%;
+  bottom: 0;
+  display: flex;
+  margin: 20px;
+  padding: 6px;
+  border-radius: 10px;
+  border: solid 1px #5995fd;
+  background-color: #fff;
+  height: 7%;
+  min-height: 50px;
+}
+
+.Message .sending img {
+  margin: 10px;
+}
+.Message .sending img:hover {
+  filter: grayscale(100%);
+}
+
+.Message .sending input {
+  color: grey;
+  font-size: 20px;
+  border: none;
+  width: 66%;
+}
+
+.emoji-container {
+  position: fixed;
+  bottom: 9%;
+}
+
+.Message .sending input:focus {
+  outline: none;
+}
+
+.Message .sending .border {
+  display: flex;
+  border-left: solid 1px rgba(128, 128, 128, 0.5);
+  width: 5%;
+}
+
+.Message .sending .Games {
+  background-color: #fff;
+  border: solid 1px #6a6c75;
+  position: absolute;
+  left: 41%;
+  bottom: 9%;
+  height: 60vh;
+  width: 30vh;
+  border-radius: 8%;
+  overflow-y: scroll;
+  z-index: 1;
+}
+
+.Message .sending .Game {
+  display: flex;
+  padding: 2%;
+  min-height: 80px;
+  width: 100%;
+  border-bottom: solid 1px #6a6c75;
+  align-items: center;
+}
+
+.Message .sending .Game:hover {
+  background-color: #bbb;
+}
+
+@media all and (max-width: 800px) {
+  .Message .sending .Games {
+    left: 310px;
+  }
+}

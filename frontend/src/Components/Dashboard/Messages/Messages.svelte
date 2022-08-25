@@ -1,0 +1,32 @@
+<script>
+  import "../../../styles/Dashboard/Messages/Messages.css";
+  import Header from "./Header.svelte";
+  import MessagesDisplaying from "./Messages_displaying.svelte";
+  import Sending from "./Sending.svelte";
+  import Log_Box from "../Log_Box.svelte";
+  import { socket } from "../../../store";
+
+  let socketValue;
+  socket.subscribe((val) => (socketValue = val));
+  export let current_room;
+  let errorBox = false;
+  let errorMsg = "";
+
+  socketValue.on("error message", (elt) => {
+    errorBox = true;
+    errorMsg = elt;
+  });
+
+  function setOpenErrorBox(val) {
+    errorBox = val;
+  }
+</script>
+
+<div class="Message">
+  {#if errorBox}
+    <Log_Box message={errorMsg} open={setOpenErrorBox} />
+  {/if}
+  <Header {current_room} />
+  <MessagesDisplaying {current_room} />
+  <Sending {current_room} />
+</div>

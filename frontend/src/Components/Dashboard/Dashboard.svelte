@@ -1,7 +1,7 @@
 <script>
-  import Room from "./Dashboard/Room.svelte";
-  import Messages from "./Dashboard/Messages.svelte";
-  import "../styles/Dashboard/Dashboard.css";
+  import Room from "./Rooms/Room.svelte";
+  import Messages from "./Messages/Messages.svelte";
+  import "../../styles/Dashboard/Dashboard.css";
   let current_room = { name: "" };
   function setCurrentRoom(room) {
     current_room = room;

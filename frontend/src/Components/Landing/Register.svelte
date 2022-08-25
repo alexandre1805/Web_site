@@ -1,6 +1,6 @@
 <script>
   import axios from "axios";
-  import "../styles/login.css";
+  import "../../styles/login.css";
 
   let username = "";
   let usernameMsg = "";
