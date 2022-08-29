@@ -17,7 +17,7 @@
     axios
       .get(
         "http://" + process.env.URI + ":" + process.env.API_PORT + "/getMsg",
-        { params: { room: current_room._id }, withCredentials: true }
+        { params: { room: current_room.id }, withCredentials: true }
       )
       .then((res) => {
         messages = res.data.messages;
@@ -27,7 +27,7 @@
   //check for update
   if (socketValue !== null) {
     socketValue.on("new message", (elt) => {
-      if (elt.room === current_room._id) messages = [...messages, elt];
+      if (elt.room === current_room.id) messages = [...messages, elt];
     });
 
     socketValue.on("update message", (elt) => {
@@ -40,6 +40,11 @@
   afterUpdate(() => {
     let obj = document.getElementById("chat");
     obj.scrollTo(0, obj.scrollHeight);
+    if (messages.length !== 0 && !messages.at(-1).read.includes(usernameValue))
+      socketValue.emit("read", {
+        username: usernameValue,
+        room: current_room.id,
+      });
   });
 
   function handleStartGame(name, id) {
@@ -53,7 +58,7 @@
   {#each messages as msg}
     <li
       class={`msg ${msg.user === usernameValue ? "me" : "other"}`}
-      key={msg._id}
+      key={msg.id}
     >
       <div class="header">{msg.user}</div>
       {#if msg.type === "regular"}

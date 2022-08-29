@@ -1,7 +1,6 @@
 <script>
   import { push } from "svelte-spa-router";
   import axios from "axios";
-  import { onMount } from "svelte";
   export let fetchLogin;
 
   let username = "";

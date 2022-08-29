@@ -1,5 +1,6 @@
 const messagesModel = require("../models/messages");
 const gamesModel = require("../models/games");
+const roomModel = require("../models/rooms");
 const userAuth = require("./userAuth");
 const games = require("./games-connection");
 
@@ -18,13 +19,33 @@ exports.handleMsg = async function (socket, args) {
     }
     args["game_id"] = await games.createGame(args);
   }
-
   const newMessage = new messagesModel(args);
-  var id = await newMessage.save().then((obj) => {
-    return obj._id;
+  args.id = await newMessage.save().then((obj) => {
+    return obj.id;
   });
-  args["_id"] = id;
+  roomModel.findByIdAndUpdate(
+    args.room,
+    { $set: { lastMessage: args.id } },
+    (err, doc) => {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+
+  args.read = [];
   return args;
+};
+
+exports.handleRead = async function (args) {
+  const msg = await messagesModel.find({
+    room: args.room,
+    read: { $nin: args.username },
+  });
+  msg.forEach((elm) => {
+    elm.read.push(args.username);
+    elm.save();
+  });
 };
 
 exports.getMessages = async function (req, res) {

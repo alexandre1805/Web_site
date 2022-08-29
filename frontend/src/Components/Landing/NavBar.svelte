@@ -1,5 +1,6 @@
 <script>
   import "../../styles/NavBar/NavBar.css";
+  import "../../styles/NavBar/Notification.css";
   import { link } from "svelte-spa-router";
   import { username, socket } from "../../store";
   import axios from "axios";
@@ -25,6 +26,7 @@
       });
 
   function handleAccpetInvit(e) {
+    console.log(e);
     socketValue.emit("accept invitation", e);
     notifications = notifications.filter((elm) => elm._id !== e._id);
   }
@@ -56,7 +58,7 @@
               <div class="add_friend" key={e._id}>
                 <span>{e.message}</span>
                 <button
-                  onClick={() => {
+                  on:click={() => {
                     handleAccpetInvit(e);
                   }}
                 >

@@ -13,7 +13,9 @@
 }
 
 .Message .sending img {
-  margin: 10px;
+  padding: 5px;
+  min-width: 20px;
+  object-fit: contain;
 }
 .Message .sending img:hover {
   filter: grayscale(100%);
@@ -23,12 +25,18 @@
   color: grey;
   font-size: 20px;
   border: none;
-  width: 66%;
+  width: 100%;
 }
 
 .emoji-container {
   position: fixed;
   bottom: 9%;
+  right: 20px;
+  visibility: hidden;
+}
+
+.shown {
+  visibility: visible;
 }
 
 .Message .sending input:focus {
@@ -38,18 +46,19 @@
 .Message .sending .border {
   display: flex;
   border-left: solid 1px rgba(128, 128, 128, 0.5);
-  width: 5%;
+  width: 50px;
+  justify-content: center;
 }
 
 .Message .sending .Games {
   background-color: #fff;
-  border: solid 1px #6a6c75;
-  position: absolute;
-  left: 41%;
+  border: solid 1px #5995fd;
+  position: fixed;
+  left: 31%;
   bottom: 9%;
   height: 60vh;
   width: 30vh;
-  border-radius: 8%;
+  border-radius: 10px;
   overflow-y: scroll;
   z-index: 1;
 }
@@ -59,7 +68,7 @@
   padding: 2%;
   min-height: 80px;
   width: 100%;
-  border-bottom: solid 1px #6a6c75;
+  border-bottom: solid 1px #5995fd;
   align-items: center;
 }
 

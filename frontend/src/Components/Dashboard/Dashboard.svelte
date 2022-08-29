@@ -9,6 +9,6 @@
 </script>
 
 <div class="Dashboard">
-  <Room {setCurrentRoom} />
+  <Room {setCurrentRoom} {current_room} />
   <Messages {current_room} />
 </div>

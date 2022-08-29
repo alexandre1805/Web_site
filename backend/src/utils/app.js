@@ -66,22 +66,15 @@ function app() {
 
     //----------------------ROOM MANAGEMENT-------------------------------------
     socket.on("create Room", async (args) => {
-      const new_room = await userRoom.createRoom(socket, args);
-      if (new_room !== undefined) {
-        for (let user in new_room.users) {
-          if (users.get(new_room.users[user]) !== undefined) {
-            io.sockets.sockets
-              .get(users.get(new_room.users[user]))
-              .join(new_room._id);
-          }
-        }
-        io.to(new_room._id).emit("new room", new_room);
-      }
+      await userRoom.createRoom(io, socket, users, args);
     });
     //----------------------MESSAGE MANAGEMENT----------------------------------
     socket.on("message", async (args) => {
       var obj = await userMsg.handleMsg(socket, args);
       if (obj !== null) io.to(args.room).emit("new message", obj);
+    });
+    socket.on("read", (args) => {
+      userMsg.handleRead(args);
     });
     //----------------------GAME MANAGEMENT-------------------------------------
     socket.on("join", async (args) => {
@@ -102,6 +95,7 @@ function app() {
       await Connect4.update(io, args.id, args.game);
     });
     socket.on("disconnecting", () => {
+      console.log(socket.rooms);
       let gameRooms = Array.from(socket.rooms).filter((elm) =>
         elm.startsWith("game-")
       );

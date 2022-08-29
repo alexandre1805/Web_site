@@ -1,8 +1,8 @@
 .Room {
-  width: 40%;
+  width: 30%;
   min-width: 300px;
   float: left;
-  background-color: #eee;
+  background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -18,26 +18,25 @@
   margin: auto 20px;
   padding: 0 1rem;
   color: #333;
-  background-color: #fff;
+  background-color: whitesmoke;
   max-width: 800px;
   width: 50%;
   min-width: 150px;
   height: 55px;
-  border-radius: 49px;
+  border-radius: 15px;
   font-size: 1.1rem;
-  border-color: #6a6c75;
+  outline: none;
+  border: none;
 }
 
 .Room .Search img {
-  height: 70%;
+  height: 40%;
   margin-top: auto;
   margin-bottom: auto;
-  border-radius: 50%;
-  padding: 0.7rem;
 }
 
 .Room .Search img:hover {
-  background-color: #bbb;
+  filter: grayscale(100%);
 }
 
 .Room .Dialog_box .Container img {
@@ -79,7 +78,6 @@
   padding-left: 0;
   margin: 0;
   overflow-y: scroll;
-  border-top: solid 1px #6a6c75;
 }
 
 .Room li {
@@ -87,7 +85,8 @@
   padding: 2%;
   min-height: 80px;
   width: 100%;
-  border-bottom: solid 1px #6a6c75;
+  border-bottom: solid 1px silver;
+  color: black;
   align-items: center;
 }
 
@@ -100,14 +99,39 @@
   background-color: #fff;
 }
 
-.Room li span {
-  text-align: center;
-  font-size: large;
+.Room li .Room_Info {
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  width: 75%;
+}
+
+.Room li span {
+  font-weight: bold;
+  font-size: large;
+  color: black;
+}
+
+.Room li .unread {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  background-color: dodgerblue;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.selected {
+  border-left: 10px solid dodgerblue;
 }
 
 .Room li:hover {
-  background-color: #bbb;
+  background-color: lightblue;
 }
 
 .Room .content {

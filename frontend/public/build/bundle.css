@@ -133,6 +133,33 @@ button {
 #login {
   border: 2px solid #fff;
 }
+.Notification .add_friend {
+  padding: 1rem;
+  border-bottom: solid 1px #6a6c75;
+}
+
+.Notification .add_friend span::after {
+  content: "\a";
+  white-space: pre;
+}
+
+.Notification .add_friend button {
+  width: 70px;
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 49px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5995fd;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: 0.5s;
+  text-decoration: none;
+  margin-right: 10px;
+}
 .navigation {
   position: relative;
   width: 100%;
@@ -140,7 +167,7 @@ button {
   height: 8%;
   min-height: 50px;
   top: 0;
-  background-color: #5995fd;
+  background-color: dodgerblue;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -352,10 +379,10 @@ button {
   margin-right: 2px;
 }
 .Room {
-  width: 40%;
+  width: 30%;
   min-width: 300px;
   float: left;
-  background-color: #eee;
+  background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -371,26 +398,25 @@ button {
   margin: auto 20px;
   padding: 0 1rem;
   color: #333;
-  background-color: #fff;
+  background-color: whitesmoke;
   max-width: 800px;
   width: 50%;
   min-width: 150px;
   height: 55px;
-  border-radius: 49px;
+  border-radius: 15px;
   font-size: 1.1rem;
-  border-color: #6a6c75;
+  outline: none;
+  border: none;
 }
 
 .Room .Search img {
-  height: 70%;
+  height: 40%;
   margin-top: auto;
   margin-bottom: auto;
-  border-radius: 50%;
-  padding: 0.7rem;
 }
 
 .Room .Search img:hover {
-  background-color: #bbb;
+  filter: grayscale(100%);
 }
 
 .Room .Dialog_box .Container img {
@@ -432,7 +458,6 @@ button {
   padding-left: 0;
   margin: 0;
   overflow-y: scroll;
-  border-top: solid 1px #6a6c75;
 }
 
 .Room li {
@@ -440,7 +465,8 @@ button {
   padding: 2%;
   min-height: 80px;
   width: 100%;
-  border-bottom: solid 1px #6a6c75;
+  border-bottom: solid 1px silver;
+  color: black;
   align-items: center;
 }
 
@@ -453,14 +479,39 @@ button {
   background-color: #fff;
 }
 
-.Room li span {
-  text-align: center;
-  font-size: large;
+.Room li .Room_Info {
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  width: 75%;
+}
+
+.Room li span {
+  font-weight: bold;
+  font-size: large;
+  color: black;
+}
+
+.Room li .unread {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  background-color: dodgerblue;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.selected {
+  border-left: 10px solid dodgerblue;
 }
 
 .Room li:hover {
-  background-color: #bbb;
+  background-color: lightblue;
 }
 
 .Room .content {
@@ -469,12 +520,11 @@ button {
 .Message {
   height: 100%;
   float: right;
-  width: 60%;
+  width: 70%;
   min-width: 500px;
   display: flex;
   flex-direction: column;
-  border-left: solid 1px #6a6c75;
-  background-color: violet;
+  background: gainsboro;
 }
 .Message .chat {
   display: inline-block;
@@ -494,12 +544,13 @@ button {
   padding: 20px;
   color: #fff;
   line-height: 25px;
-  max-width: 90%;
+  max-width: 50%;
   display: inline-block;
   text-align: left;
   overflow-wrap: break-word;
   border-radius: 10px;
   position: relative;
+  font-size: large;
 }
 
 .Message .msg .content .name {
@@ -517,7 +568,7 @@ button {
 }
 
 .Message .me .content {
-  background-color: #5995fd;
+  background-color: #40abaf;
 }
 
 .Message .other .content {
@@ -527,7 +578,7 @@ button {
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   display: flex;
-  height: 8%;
+  height: 9%;
   min-height: 50px;
   align-items: center;
 }
@@ -545,8 +596,8 @@ button {
   margin: 1%;
   border-radius: 50%;
   background-color: #fff;
-  height: 50px;
-  width: 50px;
+  height: 55px;
+  width: 55px;
 }
 .Message .sending {
   position: relative;
@@ -563,7 +614,9 @@ button {
 }
 
 .Message .sending img {
-  margin: 10px;
+  padding: 5px;
+  min-width: 20px;
+  object-fit: contain;
 }
 .Message .sending img:hover {
   filter: grayscale(100%);
@@ -573,12 +626,18 @@ button {
   color: grey;
   font-size: 20px;
   border: none;
-  width: 66%;
+  width: 100%;
 }
 
 .emoji-container {
   position: fixed;
   bottom: 9%;
+  right: 20px;
+  visibility: hidden;
+}
+
+.shown {
+  visibility: visible;
 }
 
 .Message .sending input:focus {
@@ -588,18 +647,19 @@ button {
 .Message .sending .border {
   display: flex;
   border-left: solid 1px rgba(128, 128, 128, 0.5);
-  width: 5%;
+  width: 50px;
+  justify-content: center;
 }
 
 .Message .sending .Games {
   background-color: #fff;
-  border: solid 1px #6a6c75;
-  position: absolute;
-  left: 41%;
+  border: solid 1px #5995fd;
+  position: fixed;
+  left: 31%;
   bottom: 9%;
   height: 60vh;
   width: 30vh;
-  border-radius: 8%;
+  border-radius: 10px;
   overflow-y: scroll;
   z-index: 1;
 }
@@ -609,7 +669,7 @@ button {
   padding: 2%;
   min-height: 80px;
   width: 100%;
-  border-bottom: solid 1px #6a6c75;
+  border-bottom: solid 1px #5995fd;
   align-items: center;
 }
 

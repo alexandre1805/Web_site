@@ -1,10 +1,9 @@
 .Message {
   height: 100%;
   float: right;
-  width: 60%;
+  width: 70%;
   min-width: 500px;
   display: flex;
   flex-direction: column;
-  border-left: solid 1px #6a6c75;
-  background-color: violet;
+  background: gainsboro;
 }

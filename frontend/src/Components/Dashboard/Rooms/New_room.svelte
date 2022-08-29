@@ -10,6 +10,8 @@
   let friendList = [];
   let listNewRoom = [usernameValue];
   let finalMsg = "";
+  let friendMsg = "";
+  let addFriend = "";
 
   axios
     .get(
@@ -45,6 +47,17 @@
   socketValue.on("create Room return", (msg) => {
     finalMsg = msg;
   });
+
+  function handleAddFriend(e) {
+    e.preventDefault();
+    if (addFriend === "") return;
+    socketValue.emit("add Friend", addFriend);
+    addFriend = "";
+  }
+
+  socketValue.on("add Friend return", (msg) => {
+    friendMsg = msg;
+  });
 </script>
 
 <div class="Dialog_box">
@@ -57,6 +70,16 @@
         setOpenDialogBox(false);
       }}
     />
+    Add new friend :
+    <input
+      placeholder="Add friend..."
+      value={addFriend}
+      on:change={(e) => {
+        addFriend = e.target.value;
+      }}
+    />
+    <button on:click={handleAddFriend}>Send invitation</button>
+    {friendMsg}
     Create room by adding your friends :
     <ul>
       {#each friendList as friend}

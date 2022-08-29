@@ -1,6 +1,7 @@
 <script>
   import axios from "axios";
   import "../../styles/login.css";
+  import { push } from "svelte-spa-router";
 
   let username = "";
   let usernameMsg = "";
@@ -70,7 +71,7 @@
       .then(
         (res) => {
           const msg = res.data.message;
-          if (msg === "OK") navigate("/login");
+          if (msg === "OK") push("/login");
           else finalMsg = msg;
         },
         (error) => {

@@ -16,12 +16,13 @@
   padding: 20px;
   color: #fff;
   line-height: 25px;
-  max-width: 90%;
+  max-width: 50%;
   display: inline-block;
   text-align: left;
   overflow-wrap: break-word;
   border-radius: 10px;
   position: relative;
+  font-size: large;
 }
 
 .Message .msg .content .name {
@@ -39,7 +40,7 @@
 }
 
 .Message .me .content {
-  background-color: #5995fd;
+  background-color: #40abaf;
 }
 
 .Message .other .content {

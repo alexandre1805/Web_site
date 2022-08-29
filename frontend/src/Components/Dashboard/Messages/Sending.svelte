@@ -3,7 +3,7 @@
   import axios from "axios";
   import { socket, username } from "../../../store";
   import "../../../styles/Dashboard/Messages/Sending.css";
-  import { afterUpdate } from "svelte";
+  import { onMount } from "svelte";
 
   let socketValue;
   socket.subscribe((val) => (socketValue = val));
@@ -11,8 +11,6 @@
   username.subscribe((val) => (usernameValue = val));
   export let current_room;
   let gamesOpen = false;
-  let emojisOpen = false;
-  let emojievent = false;
   let games = [];
   let current_message = "";
 
@@ -26,18 +24,18 @@
         games = res.data.games;
       });
   }
-  afterUpdate(() => {
-    if (!emojievent && emojisOpen) {
-      document
-        .querySelector("emoji-picker")
-        .addEventListener(
-          "emoji-click",
-          (event) => (current_message += event.detail.unicode)
-        );
-      emojievent = true;
-    }
+  onMount(() => {
+    document
+      .querySelector("emoji-picker")
+      .addEventListener(
+        "emoji-click",
+        (event) => (current_message += event.detail.unicode)
+      );
   });
-
+  function openEmoji() {
+    const emoji_container = document.querySelector(".emoji-container");
+    emoji_container.classList.toggle("shown");
+  }
   function handleSubmitMessage(e) {
     e.preventDefault();
     if (current_message === "" || current_room.name === "") return;
@@ -45,16 +43,22 @@
       type: "regular",
       user: usernameValue,
       message: current_message,
-      room: current_room._id,
+      room: current_room.id,
     });
     current_message = "";
+
+    const emoji_container = document.querySelector(".emoji-container");
+    if (emoji_container.classList.contains("shown"))
+      emoji_container.classList.remove("shown");
+    gamesOpen = false;
   }
   function handleCreateGame(e) {
+    if (current_room.name === "") return;
     socketValue.emit("message", {
       type: "game",
       user: usernameValue,
       message: usernameValue + " want to start a game : ",
-      room: current_room._id,
+      room: current_room.id,
       game: e.target.innerText,
       state: "Not started",
     });
@@ -89,21 +93,18 @@
   <img
     src="/emojis.svg"
     alt="emojis"
-    on:click={() => {
-      emojisOpen = !emojisOpen;
-    }}
+    style="margin-right: 6px;"
+    on:click={openEmoji}
   />
-  {#if emojisOpen}
-    <div class="emoji-container">
-      <emoji-picker class="light" />
-    </div>
-  {/if}
+  <div class="emoji-container">
+    <emoji-picker class="light" />
+  </div>
   <div class="border">
     <img
       src="/send_button.svg"
       on:click={handleSubmitMessage}
       alt="send_button"
-      style="margin: 15px;"
+      style="margin-left: 6px;"
     />
   </div>
 </div>
