@@ -3,7 +3,7 @@
   width: 95%;
   bottom: 0;
   display: flex;
-  margin: 20px;
+  margin: 15px;
   padding: 6px;
   border-radius: 10px;
   border: solid 1px #5995fd;
@@ -13,7 +13,6 @@
 }
 
 .Message .sending img {
-  padding: 5px;
   min-width: 20px;
   object-fit: contain;
 }

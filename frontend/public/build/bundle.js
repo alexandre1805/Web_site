@@ -3869,7 +3869,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(ul, file$g, 73, 4, 1979);
+    			add_location(ul, file$g, 73, 4, 1992);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ul, anchor);
@@ -3949,6 +3949,7 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "/notification.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "notif");
     			add_location(img, file$g, 45, 6, 1224);
+    			attr_dev(h3, "class", "hide");
     			add_location(h3, file$g, 52, 6, 1383);
     			attr_dev(div, "class", "loged");
     			add_location(div, file$g, 44, 4, 1198);
@@ -4021,8 +4022,8 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(a, "href", /*page*/ ctx[11].route);
-    			add_location(a, file$g, 76, 10, 2044);
-    			add_location(li, file$g, 75, 8, 2029);
+    			add_location(a, file$g, 76, 10, 2057);
+    			add_location(li, file$g, 75, 8, 2042);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -4074,7 +4075,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "Notification");
-    			add_location(div, file$g, 54, 8, 1456);
+    			add_location(div, file$g, 54, 8, 1469);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4156,12 +4157,12 @@ var app = (function () {
     			button1 = element("button");
     			button1.textContent = "DELETE";
     			t5 = space();
-    			add_location(span, file$g, 58, 16, 1629);
-    			add_location(button0, file$g, 59, 16, 1670);
-    			add_location(button1, file$g, 66, 16, 1859);
+    			add_location(span, file$g, 58, 16, 1642);
+    			add_location(button0, file$g, 59, 16, 1683);
+    			add_location(button1, file$g, 66, 16, 1872);
     			attr_dev(div, "class", "add_friend");
     			attr_dev(div, "key", div_key_value = /*e*/ ctx[8]._id);
-    			add_location(div, file$g, 57, 14, 1576);
+    			add_location(div, file$g, 57, 14, 1589);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -8471,15 +8472,15 @@ var app = (function () {
     			t2 = text(t2_value);
     			t3 = space();
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file$b, 91, 10, 2322);
+    			add_location(input, file$b, 91, 10, 2352);
     			if (!src_url_equal(img.src, img_src_value = "/room_image.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "user_image");
-    			add_location(img, file$b, 92, 10, 2358);
-    			add_location(span, file$b, 93, 10, 2415);
+    			add_location(img, file$b, 92, 10, 2388);
+    			add_location(span, file$b, 93, 10, 2445);
     			attr_dev(li, "class", "room");
     			attr_dev(li, "key", li_key_value = /*friend*/ ctx[13]._id);
     			attr_dev(li, "id", li_id_value = /*friend*/ ctx[13]._id);
-    			add_location(li, file$b, 85, 8, 2183);
+    			add_location(li, file$b, 85, 8, 2213);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -8526,8 +8527,8 @@ var app = (function () {
     }
 
     function create_fragment$d(ctx) {
+    	let div2;
     	let div1;
-    	let div0;
     	let img;
     	let img_src_value;
     	let t0;
@@ -8535,6 +8536,7 @@ var app = (function () {
     	let t1;
     	let button0;
     	let t3;
+    	let div0;
     	let t4;
     	let t5;
     	let ul;
@@ -8554,8 +8556,8 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div2 = element("div");
     			div1 = element("div");
-    			div0 = element("div");
     			img = element("img");
     			t0 = text("\n    Add new friend :\n    ");
     			input = element("input");
@@ -8563,6 +8565,7 @@ var app = (function () {
     			button0 = element("button");
     			button0.textContent = "Send invitation";
     			t3 = space();
+    			div0 = element("div");
     			t4 = text(/*friendMsg*/ ctx[3]);
     			t5 = text("\n    Create room by adding your friends :\n    ");
     			ul = element("ul");
@@ -8584,37 +8587,40 @@ var app = (function () {
     			input.value = /*addFriend*/ ctx[4];
     			add_location(input, file$b, 73, 4, 1867);
     			add_location(button0, file$b, 80, 4, 2014);
-    			add_location(ul, file$b, 83, 4, 2135);
-    			add_location(button1, file$b, 97, 4, 2488);
-    			attr_dev(div0, "class", "Container");
-    			add_location(div0, file$b, 63, 2, 1670);
-    			attr_dev(div1, "class", "Dialog_box");
-    			add_location(div1, file$b, 62, 0, 1643);
+    			attr_dev(div0, "class", "friend_msg");
+    			add_location(div0, file$b, 81, 4, 2078);
+    			add_location(ul, file$b, 83, 4, 2165);
+    			add_location(button1, file$b, 97, 4, 2518);
+    			attr_dev(div1, "class", "Container");
+    			add_location(div1, file$b, 63, 2, 1670);
+    			attr_dev(div2, "class", "Dialog_box");
+    			add_location(div2, file$b, 62, 0, 1643);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div1);
+    			append_dev(div1, img);
+    			append_dev(div1, t0);
+    			append_dev(div1, input);
+    			append_dev(div1, t1);
+    			append_dev(div1, button0);
+    			append_dev(div1, t3);
     			append_dev(div1, div0);
-    			append_dev(div0, img);
-    			append_dev(div0, t0);
-    			append_dev(div0, input);
-    			append_dev(div0, t1);
-    			append_dev(div0, button0);
-    			append_dev(div0, t3);
     			append_dev(div0, t4);
-    			append_dev(div0, t5);
-    			append_dev(div0, ul);
+    			append_dev(div1, t5);
+    			append_dev(div1, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(ul, null);
     			}
 
-    			append_dev(div0, t6);
-    			append_dev(div0, button1);
-    			append_dev(div0, t8);
-    			append_dev(div0, t9);
+    			append_dev(div1, t6);
+    			append_dev(div1, button1);
+    			append_dev(div1, t8);
+    			append_dev(div1, t9);
 
     			if (!mounted) {
     				dispose = [
@@ -8663,7 +8669,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div2);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);
@@ -8836,7 +8842,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (86:4) {#if openDialogBoxRoom}
+    // (76:4) {#if openDialogBoxRoom}
     function create_if_block_3(ctx) {
     	let newroom;
     	let current;
@@ -8875,14 +8881,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(86:4) {#if openDialogBoxRoom}",
+    		source: "(76:4) {#if openDialogBoxRoom}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (102:10) {#if room.lastMessage !== undefined}
+    // (92:10) {#if room.lastMessage !== undefined}
     function create_if_block_1$3(ctx) {
     	let if_block_anchor;
 
@@ -8926,14 +8932,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$3.name,
     		type: "if",
-    		source: "(102:10) {#if room.lastMessage !== undefined}",
+    		source: "(92:10) {#if room.lastMessage !== undefined}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (105:12) {:else}
+    // (95:12) {:else}
     function create_else_block$5(ctx) {
     	let t_value = /*room*/ ctx[11].lastMessage + "";
     	let t;
@@ -8957,14 +8963,14 @@ var app = (function () {
     		block,
     		id: create_else_block$5.name,
     		type: "else",
-    		source: "(105:12) {:else}",
+    		source: "(95:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (103:12) {#if room.lastMessage.length > 20}
+    // (93:12) {#if room.lastMessage.length > 20}
     function create_if_block_2(ctx) {
     	let t_value = /*room*/ ctx[11].lastMessage.slice(0, 20) + "..." + "";
     	let t;
@@ -8988,14 +8994,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(103:12) {#if room.lastMessage.length > 20}",
+    		source: "(93:12) {#if room.lastMessage.length > 20}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (110:8) {#if room.unread !== 0}
+    // (100:8) {#if room.unread !== 0}
     function create_if_block$8(ctx) {
     	let div;
     	let t_value = /*room*/ ctx[11].unread + "";
@@ -9006,7 +9012,7 @@ var app = (function () {
     			div = element("div");
     			t = text(t_value);
     			attr_dev(div, "class", "unread");
-    			add_location(div, file$a, 110, 10, 2836);
+    			add_location(div, file$a, 100, 10, 2485);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9024,14 +9030,14 @@ var app = (function () {
     		block,
     		id: create_if_block$8.name,
     		type: "if",
-    		source: "(110:8) {#if room.unread !== 0}",
+    		source: "(100:8) {#if room.unread !== 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (91:4) {#each rooms as room}
+    // (81:4) {#each rooms as room}
     function create_each_block$4(ctx) {
     	let li;
     	let img;
@@ -9069,13 +9075,13 @@ var app = (function () {
     			t4 = space();
     			if (!src_url_equal(img.src, img_src_value = "/room_image.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "user_image");
-    			add_location(img, file$a, 98, 8, 2430);
-    			add_location(span, file$a, 100, 10, 2519);
+    			add_location(img, file$a, 88, 8, 2079);
+    			add_location(span, file$a, 90, 10, 2168);
     			attr_dev(div, "class", "Room_Info");
-    			add_location(div, file$a, 99, 8, 2485);
+    			add_location(div, file$a, 89, 8, 2134);
     			attr_dev(li, "class", "room");
     			attr_dev(li, "id", li_id_value = /*room*/ ctx[11].id);
-    			add_location(li, file$a, 91, 6, 2297);
+    			add_location(li, file$a, 81, 6, 1946);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9142,7 +9148,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(91:4) {#each rooms as room}",
+    		source: "(81:4) {#each rooms as room}",
     		ctx
     	});
 
@@ -9190,15 +9196,15 @@ var app = (function () {
     			input.value = /*search*/ ctx[0];
     			attr_dev(input, "class", "SearchBar");
     			attr_dev(input, "placeholder", "Search...");
-    			add_location(input, file$a, 70, 4, 1866);
+    			add_location(input, file$a, 60, 4, 1515);
     			if (!src_url_equal(img.src, img_src_value = "/New_Room.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "new_room");
-    			add_location(img, file$a, 78, 4, 2027);
+    			add_location(img, file$a, 68, 4, 1676);
     			attr_dev(div0, "class", "Search");
-    			add_location(div0, file$a, 69, 2, 1841);
-    			add_location(ul, file$a, 89, 2, 2260);
+    			add_location(div0, file$a, 59, 2, 1490);
+    			add_location(ul, file$a, 79, 2, 1909);
     			attr_dev(div1, "class", "Room");
-    			add_location(div1, file$a, 68, 0, 1820);
+    			add_location(div1, file$a, 58, 0, 1469);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9324,24 +9330,12 @@ var app = (function () {
     	onMount(async () => {
     		await axios.get("http://" + 'localhost' + ":" + '4000' + "/getRooms", { withCredentials: true }).then(res => {
     			$$invalidate(1, rooms = res.data.rooms);
-
-    			if (rooms.length !== 0) {
-    				setCurrentRoom(rooms[0]);
-    				$$invalidate(1, rooms[0].unread = 0, rooms);
-    			}
     		});
-
-    		if (rooms.length !== 0) document.querySelector(".Room li").classList.add("selected");
     	});
 
     	if (socketValue !== null) {
     		socketValue.on("new room", elt => {
     			$$invalidate(1, rooms = [...rooms, elt]);
-
-    			if (rooms.length === 1) {
-    				setCurrentRoom(rooms[0]);
-    				document.querySelector(".Room li").classList.add("selected");
-    			}
     		});
 
     		socketValue.on("new message", elt => {
@@ -9486,45 +9480,77 @@ var app = (function () {
 
     function create_fragment$b(ctx) {
     	let div1;
-    	let img;
-    	let img_src_value;
+    	let img0;
+    	let img0_src_value;
     	let t0;
-    	let div0;
-    	let t1_value = /*current_room*/ ctx[0].name + "";
+    	let img1;
+    	let img1_src_value;
     	let t1;
+    	let div0;
+    	let t2_value = /*current_room*/ ctx[0].name + "";
+    	let t2;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
     			div1 = element("div");
-    			img = element("img");
+    			img0 = element("img");
     			t0 = space();
+    			img1 = element("img");
+    			t1 = space();
     			div0 = element("div");
-    			t1 = text(t1_value);
-    			if (!src_url_equal(img.src, img_src_value = "/room_image.png")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "user_image");
-    			add_location(img, file$9, 6, 2, 128);
+    			t2 = text(t2_value);
+    			attr_dev(img0, "id", "arrow");
+    			if (!src_url_equal(img0.src, img0_src_value = "/left-arrow.svg")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "left arrow");
+    			add_location(img0, file$9, 7, 2, 154);
+    			attr_dev(img1, "id", "room_image");
+    			if (!src_url_equal(img1.src, img1_src_value = "/room_image.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "user_image");
+    			add_location(img1, file$9, 13, 2, 255);
     			attr_dev(div0, "class", "Container");
-    			add_location(div0, file$9, 7, 2, 177);
+    			add_location(div0, file$9, 14, 2, 320);
     			attr_dev(div1, "class", "Header");
-    			add_location(div1, file$9, 5, 0, 105);
+    			add_location(div1, file$9, 6, 0, 131);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
-    			append_dev(div1, img);
+    			append_dev(div1, img0);
     			append_dev(div1, t0);
+    			append_dev(div1, img1);
+    			append_dev(div1, t1);
     			append_dev(div1, div0);
-    			append_dev(div0, t1);
+    			append_dev(div0, t2);
+
+    			if (!mounted) {
+    				dispose = listen_dev(
+    					img0,
+    					"click",
+    					function () {
+    						if (is_function(/*return_room*/ ctx[1])) /*return_room*/ ctx[1].apply(this, arguments);
+    					},
+    					false,
+    					false,
+    					false
+    				);
+
+    				mounted = true;
+    			}
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*current_room*/ 1 && t1_value !== (t1_value = /*current_room*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
+    		p: function update(new_ctx, [dirty]) {
+    			ctx = new_ctx;
+    			if (dirty & /*current_room*/ 1 && t2_value !== (t2_value = /*current_room*/ ctx[0].name + "")) set_data_dev(t2, t2_value);
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -9543,7 +9569,8 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Header', slots, []);
     	let { current_room } = $$props;
-    	const writable_props = ['current_room'];
+    	let { return_room } = $$props;
+    	const writable_props = ['current_room', 'return_room'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Header> was created with unknown prop '${key}'`);
@@ -9551,25 +9578,27 @@ var app = (function () {
 
     	$$self.$$set = $$props => {
     		if ('current_room' in $$props) $$invalidate(0, current_room = $$props.current_room);
+    		if ('return_room' in $$props) $$invalidate(1, return_room = $$props.return_room);
     	};
 
-    	$$self.$capture_state = () => ({ current_room });
+    	$$self.$capture_state = () => ({ current_room, return_room });
 
     	$$self.$inject_state = $$props => {
     		if ('current_room' in $$props) $$invalidate(0, current_room = $$props.current_room);
+    		if ('return_room' in $$props) $$invalidate(1, return_room = $$props.return_room);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [current_room];
+    	return [current_room, return_room];
     }
 
     class Header extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { current_room: 0 });
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { current_room: 0, return_room: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -9584,6 +9613,10 @@ var app = (function () {
     		if (/*current_room*/ ctx[0] === undefined && !('current_room' in props)) {
     			console.warn("<Header> was created without expected prop 'current_room'");
     		}
+
+    		if (/*return_room*/ ctx[1] === undefined && !('return_room' in props)) {
+    			console.warn("<Header> was created without expected prop 'return_room'");
+    		}
     	}
 
     	get current_room() {
@@ -9591,6 +9624,14 @@ var app = (function () {
     	}
 
     	set current_room(value) {
+    		throw new Error("<Header>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get return_room() {
+    		throw new Error("<Header>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set return_room(value) {
     		throw new Error("<Header>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -13256,11 +13297,11 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
-    // (70:2) {#if gamesOpen}
+    // (76:2) {#if gamesOpen}
     function create_if_block$5(ctx) {
     	let div;
     	let each_value = /*games*/ ctx[1];
@@ -13280,7 +13321,7 @@ var app = (function () {
     			}
 
     			attr_dev(div, "class", "Games");
-    			add_location(div, file$7, 70, 4, 1958);
+    			add_location(div, file$7, 76, 4, 2118);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -13324,17 +13365,17 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(70:2) {#if gamesOpen}",
+    		source: "(76:2) {#if gamesOpen}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (72:6) {#each games as game}
+    // (78:6) {#each games as game}
     function create_each_block$1(ctx) {
     	let div;
-    	let t_value = /*game*/ ctx[10].name + "";
+    	let t_value = /*game*/ ctx[11].name + "";
     	let t;
     	let mounted;
     	let dispose;
@@ -13344,7 +13385,7 @@ var app = (function () {
     			div = element("div");
     			t = text(t_value);
     			attr_dev(div, "class", "Game");
-    			add_location(div, file$7, 72, 8, 2014);
+    			add_location(div, file$7, 78, 8, 2174);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -13356,7 +13397,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*games*/ 2 && t_value !== (t_value = /*game*/ ctx[10].name + "")) set_data_dev(t, t_value);
+    			if (dirty & /*games*/ 2 && t_value !== (t_value = /*game*/ ctx[11].name + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
@@ -13369,7 +13410,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(72:6) {#each games as game}",
+    		source: "(78:6) {#each games as game}",
     		ctx
     	});
 
@@ -13416,27 +13457,28 @@ var app = (function () {
     			if (!src_url_equal(img0.src, img0_src_value = "/games.svg")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "games");
     			set_style(img0, "margin-right", "20px");
-    			add_location(img0, file$7, 76, 2, 2113);
+    			attr_dev(img0, "class", "hide");
+    			add_location(img0, file$7, 82, 2, 2273);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "New message...");
     			input.value = /*current_message*/ ctx[2];
-    			add_location(input, file$7, 84, 2, 2253);
+    			add_location(input, file$7, 91, 2, 2430);
     			if (!src_url_equal(img1.src, img1_src_value = "/emojis.svg")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "emojis");
     			set_style(img1, "margin-right", "6px");
-    			add_location(img1, file$7, 92, 2, 2415);
+    			add_location(img1, file$7, 99, 2, 2592);
     			set_custom_element_data(emoji_picker, "class", "light");
-    			add_location(emoji_picker, file$7, 99, 4, 2556);
+    			add_location(emoji_picker, file$7, 106, 4, 2733);
     			attr_dev(div0, "class", "emoji-container");
-    			add_location(div0, file$7, 98, 2, 2522);
+    			add_location(div0, file$7, 105, 2, 2699);
     			if (!src_url_equal(img2.src, img2_src_value = "/send_button.svg")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "send_button");
     			set_style(img2, "margin-left", "6px");
-    			add_location(img2, file$7, 102, 4, 2623);
+    			add_location(img2, file$7, 109, 4, 2800);
     			attr_dev(div1, "class", "border");
-    			add_location(div1, file$7, 101, 2, 2598);
+    			add_location(div1, file$7, 108, 2, 2775);
     			attr_dev(div2, "class", "sending");
-    			add_location(div2, file$7, 68, 0, 1914);
+    			add_location(div2, file$7, 74, 0, 2074);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13462,7 +13504,7 @@ var app = (function () {
     					listen_dev(img0, "click", /*click_handler*/ ctx[6], false, false, false),
     					listen_dev(input, "change", /*change_handler*/ ctx[7], false, false, false),
     					listen_dev(img1, "click", openEmoji, false, false, false),
-    					listen_dev(img2, "click", /*handleSubmitMessage*/ ctx[3], false, false, false)
+    					listen_dev(img2, "click", /*click_handler_1*/ ctx[8], false, false, false)
     				];
 
     				mounted = true;
@@ -13526,10 +13568,16 @@ var app = (function () {
 
     	onMount(() => {
     		document.querySelector("emoji-picker").addEventListener("emoji-click", event => $$invalidate(2, current_message += event.detail.unicode));
+    		let input = document.querySelector(".sending input");
+
+    		input.addEventListener("keyup", ({ key }) => {
+    			if (key === "Enter") {
+    				handleSubmitMessage();
+    			}
+    		});
     	});
 
-    	function handleSubmitMessage(e) {
-    		e.preventDefault();
+    	function handleSubmitMessage() {
     		if (current_message === "" || current_room.name === "") return;
 
     		socketValue.emit("message", {
@@ -13545,7 +13593,7 @@ var app = (function () {
     		$$invalidate(0, gamesOpen = false);
     	}
 
-    	function handleCreateGame(e) {
+    	function handleCreateGame() {
     		if (current_room.name === "") return;
 
     		socketValue.emit("message", {
@@ -13572,6 +13620,11 @@ var app = (function () {
 
     	const change_handler = e => {
     		$$invalidate(2, current_message = e.target.value);
+    	};
+
+    	const click_handler_1 = e => {
+    		e.preventDefault();
+    		handleSubmitMessage();
     	};
 
     	$$self.$$set = $$props => {
@@ -13625,7 +13678,8 @@ var app = (function () {
     		handleCreateGame,
     		current_room,
     		click_handler,
-    		change_handler
+    		change_handler,
+    		click_handler_1
     	];
     }
 
@@ -13801,15 +13855,15 @@ var app = (function () {
     /* src/Components/Dashboard/Messages/Messages.svelte generated by Svelte v3.49.0 */
     const file$5 = "src/Components/Dashboard/Messages/Messages.svelte";
 
-    // (26:2) {#if errorBox}
+    // (27:2) {#if errorBox}
     function create_if_block$4(ctx) {
     	let log_box;
     	let current;
 
     	log_box = new Log_Box({
     			props: {
-    				message: /*errorMsg*/ ctx[2],
-    				open: /*setOpenErrorBox*/ ctx[3]
+    				message: /*errorMsg*/ ctx[3],
+    				open: /*setOpenErrorBox*/ ctx[4]
     			},
     			$$inline: true
     		});
@@ -13824,7 +13878,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const log_box_changes = {};
-    			if (dirty & /*errorMsg*/ 4) log_box_changes.message = /*errorMsg*/ ctx[2];
+    			if (dirty & /*errorMsg*/ 8) log_box_changes.message = /*errorMsg*/ ctx[3];
     			log_box.$set(log_box_changes);
     		},
     		i: function intro(local) {
@@ -13845,7 +13899,7 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(26:2) {#if errorBox}",
+    		source: "(27:2) {#if errorBox}",
     		ctx
     	});
 
@@ -13861,10 +13915,13 @@ var app = (function () {
     	let t2;
     	let sending;
     	let current;
-    	let if_block = /*errorBox*/ ctx[1] && create_if_block$4(ctx);
+    	let if_block = /*errorBox*/ ctx[2] && create_if_block$4(ctx);
 
     	header = new Header({
-    			props: { current_room: /*current_room*/ ctx[0] },
+    			props: {
+    				current_room: /*current_room*/ ctx[0],
+    				return_room: /*return_room*/ ctx[1]
+    			},
     			$$inline: true
     		});
 
@@ -13889,7 +13946,7 @@ var app = (function () {
     			t2 = space();
     			create_component(sending.$$.fragment);
     			attr_dev(div, "class", "Message");
-    			add_location(div, file$5, 24, 0, 607);
+    			add_location(div, file$5, 25, 0, 633);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13906,11 +13963,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*errorBox*/ ctx[1]) {
+    			if (/*errorBox*/ ctx[2]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*errorBox*/ 2) {
+    					if (dirty & /*errorBox*/ 4) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -13931,6 +13988,7 @@ var app = (function () {
 
     			const header_changes = {};
     			if (dirty & /*current_room*/ 1) header_changes.current_room = /*current_room*/ ctx[0];
+    			if (dirty & /*return_room*/ 2) header_changes.return_room = /*return_room*/ ctx[1];
     			header.$set(header_changes);
     			const messagesdisplaying_changes = {};
     			if (dirty & /*current_room*/ 1) messagesdisplaying_changes.current_room = /*current_room*/ ctx[0];
@@ -13980,19 +14038,20 @@ var app = (function () {
     	let socketValue;
     	socket.subscribe(val => socketValue = val);
     	let { current_room } = $$props;
+    	let { return_room } = $$props;
     	let errorBox = false;
     	let errorMsg = "";
 
     	socketValue.on("error message", elt => {
-    		$$invalidate(1, errorBox = true);
-    		$$invalidate(2, errorMsg = elt);
+    		$$invalidate(2, errorBox = true);
+    		$$invalidate(3, errorMsg = elt);
     	});
 
     	function setOpenErrorBox(val) {
-    		$$invalidate(1, errorBox = val);
+    		$$invalidate(2, errorBox = val);
     	}
 
-    	const writable_props = ['current_room'];
+    	const writable_props = ['current_room', 'return_room'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Messages> was created with unknown prop '${key}'`);
@@ -14000,6 +14059,7 @@ var app = (function () {
 
     	$$self.$$set = $$props => {
     		if ('current_room' in $$props) $$invalidate(0, current_room = $$props.current_room);
+    		if ('return_room' in $$props) $$invalidate(1, return_room = $$props.return_room);
     	};
 
     	$$self.$capture_state = () => ({
@@ -14010,6 +14070,7 @@ var app = (function () {
     		socket,
     		socketValue,
     		current_room,
+    		return_room,
     		errorBox,
     		errorMsg,
     		setOpenErrorBox
@@ -14018,21 +14079,22 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('socketValue' in $$props) socketValue = $$props.socketValue;
     		if ('current_room' in $$props) $$invalidate(0, current_room = $$props.current_room);
-    		if ('errorBox' in $$props) $$invalidate(1, errorBox = $$props.errorBox);
-    		if ('errorMsg' in $$props) $$invalidate(2, errorMsg = $$props.errorMsg);
+    		if ('return_room' in $$props) $$invalidate(1, return_room = $$props.return_room);
+    		if ('errorBox' in $$props) $$invalidate(2, errorBox = $$props.errorBox);
+    		if ('errorMsg' in $$props) $$invalidate(3, errorMsg = $$props.errorMsg);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [current_room, errorBox, errorMsg, setOpenErrorBox];
+    	return [current_room, return_room, errorBox, errorMsg, setOpenErrorBox];
     }
 
     class Messages extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { current_room: 0 });
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { current_room: 0, return_room: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -14047,6 +14109,10 @@ var app = (function () {
     		if (/*current_room*/ ctx[0] === undefined && !('current_room' in props)) {
     			console.warn("<Messages> was created without expected prop 'current_room'");
     		}
+
+    		if (/*return_room*/ ctx[1] === undefined && !('return_room' in props)) {
+    			console.warn("<Messages> was created without expected prop 'return_room'");
+    		}
     	}
 
     	get current_room() {
@@ -14056,15 +14122,25 @@ var app = (function () {
     	set current_room(value) {
     		throw new Error("<Messages>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get return_room() {
+    		throw new Error("<Messages>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set return_room(value) {
+    		throw new Error("<Messages>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src/Components/Dashboard/Dashboard.svelte generated by Svelte v3.49.0 */
     const file$4 = "src/Components/Dashboard/Dashboard.svelte";
 
     function create_fragment$5(ctx) {
-    	let div;
+    	let div2;
+    	let div0;
     	let room;
     	let t;
+    	let div1;
     	let messages;
     	let current;
 
@@ -14077,27 +14153,39 @@ var app = (function () {
     		});
 
     	messages = new Messages({
-    			props: { current_room: /*current_room*/ ctx[0] },
+    			props: {
+    				current_room: /*current_room*/ ctx[0],
+    				return_room
+    			},
     			$$inline: true
     		});
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div2 = element("div");
+    			div0 = element("div");
     			create_component(room.$$.fragment);
     			t = space();
+    			div1 = element("div");
     			create_component(messages.$$.fragment);
-    			attr_dev(div, "class", "Dashboard");
-    			add_location(div, file$4, 10, 0, 262);
+    			attr_dev(div0, "id", "room_container");
+    			add_location(div0, file$4, 18, 2, 608);
+    			attr_dev(div1, "id", "message_container");
+    			attr_dev(div1, "class", "hide");
+    			add_location(div1, file$4, 19, 2, 682);
+    			attr_dev(div2, "class", "Dashboard");
+    			add_location(div2, file$4, 17, 0, 582);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			mount_component(room, div, null);
-    			append_dev(div, t);
-    			mount_component(messages, div, null);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			mount_component(room, div0, null);
+    			append_dev(div2, t);
+    			append_dev(div2, div1);
+    			mount_component(messages, div1, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -14120,7 +14208,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div2);
     			destroy_component(room);
     			destroy_component(messages);
     		}
@@ -14137,6 +14225,11 @@ var app = (function () {
     	return block;
     }
 
+    function return_room() {
+    	document.getElementById("room_container").classList.remove("hide");
+    	document.getElementById("message_container").classList.add("hide");
+    }
+
     function instance$5($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Dashboard', slots, []);
@@ -14144,6 +14237,8 @@ var app = (function () {
 
     	function setCurrentRoom(room) {
     		$$invalidate(0, current_room = room);
+    		document.getElementById("room_container").classList.add("hide");
+    		document.getElementById("message_container").classList.remove("hide");
     	}
 
     	const writable_props = [];
@@ -14156,7 +14251,8 @@ var app = (function () {
     		Room,
     		Messages,
     		current_room,
-    		setCurrentRoom
+    		setCurrentRoom,
+    		return_room
     	});
 
     	$$self.$inject_state = $$props => {

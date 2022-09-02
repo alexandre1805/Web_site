@@ -24,7 +24,6 @@ footer {
   top: 0;
   background-color: rgba(187, 187, 187, 0.5);
   width: 100vw;
-  min-width: 800px;
   height: 100vh;
   z-index: 1;
   display: flex;

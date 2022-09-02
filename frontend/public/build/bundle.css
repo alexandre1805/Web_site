@@ -24,7 +24,6 @@ footer {
   top: 0;
   background-color: rgba(187, 187, 187, 0.5);
   width: 100vw;
-  min-width: 800px;
   height: 100vh;
   z-index: 1;
   display: flex;
@@ -163,7 +162,6 @@ button {
 .navigation {
   position: relative;
   width: 100%;
-  min-width: 800px;
   height: 8%;
   min-height: 50px;
   top: 0;
@@ -243,8 +241,8 @@ button {
   position: absolute;
   top: 100%;
   right: 10px;
-  height: 60vh;
-  width: 30vw;
+  height: 70vh;
+  width: 95vw;
   border-radius: 8%;
   overflow-y: scroll;
   z-index: 1;
@@ -253,6 +251,44 @@ button {
   width: 100%;
   height: 92%;
   display: flex;
+}
+
+#room_container {
+  width: 100%;
+  height: 100%;
+}
+
+#message_container {
+  width: 100%;
+  height: 100%;
+}
+
+.hide {
+  display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  #message_container {
+    display: unset;
+    width: 65%;
+  }
+
+  #room_container {
+    display: unset;
+    width: 35%;
+  }
+
+  .Message .Header #arrow {
+    display: none;
+  }
+
+  .hide {
+    display: unset;
+  }
+  .navigation .Notification {
+    max-height: 60vh;
+    max-width: 30vw;
+  }
 }
 .Connect4 {
   background-color: #0f4e63;
@@ -379,13 +415,14 @@ button {
   margin-right: 2px;
 }
 .Room {
-  width: 30%;
+  width: 100%;
   min-width: 300px;
   float: left;
   background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .Room .Search {
@@ -417,6 +454,10 @@ button {
 
 .Room .Search img:hover {
   filter: grayscale(100%);
+}
+
+.Room .Dialog_box .Container {
+  overflow-y: scroll;
 }
 
 .Room .Dialog_box .Container img {
@@ -520,11 +561,41 @@ button {
 .Message {
   height: 100%;
   float: right;
-  width: 70%;
-  min-width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: gainsboro;
+}
+.Message .Header {
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  display: flex;
+  height: 9%;
+  min-height: 50px;
+  align-items: center;
+}
+
+.Message .Header .Container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.Message .Header #room_image {
+  margin: 1%;
+  border-radius: 50%;
+  background-color: #fff;
+  height: 55px;
+  width: 55px;
+}
+
+.Message .Header #arrow {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 40px;
 }
 .Message .chat {
   display: inline-block;
@@ -574,37 +645,12 @@ button {
 .Message .other .content {
   background-color: darkgray;
 }
-.Message .Header {
-  background-color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  display: flex;
-  height: 9%;
-  min-height: 50px;
-  align-items: center;
-}
-
-.Message .Header .Container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8rem;
-}
-
-.Message .Header img {
-  margin: 1%;
-  border-radius: 50%;
-  background-color: #fff;
-  height: 55px;
-  width: 55px;
-}
 .Message .sending {
   position: relative;
   width: 95%;
   bottom: 0;
   display: flex;
-  margin: 20px;
+  margin: 15px;
   padding: 6px;
   border-radius: 10px;
   border: solid 1px #5995fd;
@@ -614,7 +660,6 @@ button {
 }
 
 .Message .sending img {
-  padding: 5px;
   min-width: 20px;
   object-fit: contain;
 }

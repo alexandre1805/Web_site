@@ -1,11 +1,12 @@
 .Room {
-  width: 30%;
+  width: 100%;
   min-width: 300px;
   float: left;
   background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .Room .Search {
@@ -37,6 +38,10 @@
 
 .Room .Search img:hover {
   filter: grayscale(100%);
+}
+
+.Room .Dialog_box .Container {
+  overflow-y: scroll;
 }
 
 .Room .Dialog_box .Container img {

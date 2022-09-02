@@ -21,22 +21,12 @@
       )
       .then((res) => {
         rooms = res.data.rooms;
-        if (rooms.length !== 0) {
-          setCurrentRoom(rooms[0]);
-          rooms[0].unread = 0;
-        }
       });
-    if (rooms.length !== 0)
-      document.querySelector(".Room li").classList.add("selected");
   });
 
   if (socketValue !== null) {
     socketValue.on("new room", (elt) => {
       rooms = [...rooms, elt];
-      if (rooms.length === 1) {
-        setCurrentRoom(rooms[0]);
-        document.querySelector(".Room li").classList.add("selected");
-      }
     });
     socketValue.on("new message", (elt) => {
       rooms = rooms.map((room) => {

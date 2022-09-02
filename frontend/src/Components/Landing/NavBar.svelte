@@ -50,7 +50,7 @@
           notificationsOpen = !notificationsOpen;
         }}
       />
-      <h3>Welcome {usernameValue} !</h3>
+      <h3 class="hide">Welcome {usernameValue} !</h3>
       {#if notificationsOpen}
         <div class="Notification">
           {#each notifications as e}

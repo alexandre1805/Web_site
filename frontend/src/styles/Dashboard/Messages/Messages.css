@@ -1,8 +1,7 @@
 .Message {
   height: 100%;
   float: right;
-  width: 70%;
-  min-width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: gainsboro;

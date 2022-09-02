@@ -9,6 +9,7 @@
   let socketValue;
   socket.subscribe((val) => (socketValue = val));
   export let current_room;
+  export let return_room;
   let errorBox = false;
   let errorMsg = "";
 
@@ -26,7 +27,7 @@
   {#if errorBox}
     <Log_Box message={errorMsg} open={setOpenErrorBox} />
   {/if}
-  <Header {current_room} />
+  <Header {current_room} {return_room} />
   <MessagesDisplaying {current_room} />
   <Sending {current_room} />
 </div>

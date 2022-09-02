@@ -79,7 +79,7 @@
       }}
     />
     <button on:click={handleAddFriend}>Send invitation</button>
-    {friendMsg}
+    <div class="friend_msg">{friendMsg}</div>
     Create room by adding your friends :
     <ul>
       {#each friendList as friend}

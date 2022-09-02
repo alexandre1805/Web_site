@@ -1,7 +1,6 @@
 .navigation {
   position: relative;
   width: 100%;
-  min-width: 800px;
   height: 8%;
   min-height: 50px;
   top: 0;
@@ -81,8 +80,8 @@
   position: absolute;
   top: 100%;
   right: 10px;
-  height: 60vh;
-  width: 30vw;
+  height: 70vh;
+  width: 95vw;
   border-radius: 8%;
   overflow-y: scroll;
   z-index: 1;

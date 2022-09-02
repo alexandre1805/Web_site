@@ -31,13 +31,19 @@
         "emoji-click",
         (event) => (current_message += event.detail.unicode)
       );
+
+    let input = document.querySelector(".sending input");
+    input.addEventListener("keyup", ({ key }) => {
+      if (key === "Enter") {
+        handleSubmitMessage();
+      }
+    });
   });
   function openEmoji() {
     const emoji_container = document.querySelector(".emoji-container");
     emoji_container.classList.toggle("shown");
   }
-  function handleSubmitMessage(e) {
-    e.preventDefault();
+  function handleSubmitMessage() {
     if (current_message === "" || current_room.name === "") return;
     socketValue.emit("message", {
       type: "regular",
@@ -52,7 +58,7 @@
       emoji_container.classList.remove("shown");
     gamesOpen = false;
   }
-  function handleCreateGame(e) {
+  function handleCreateGame() {
     if (current_room.name === "") return;
     socketValue.emit("message", {
       type: "game",
@@ -78,6 +84,7 @@
     src="/games.svg"
     alt="games"
     style="margin-right: 20px;"
+    class="hide"
     on:click={() => {
       gamesOpen = !gamesOpen;
     }}
@@ -102,7 +109,10 @@
   <div class="border">
     <img
       src="/send_button.svg"
-      on:click={handleSubmitMessage}
+      on:click={(e) => {
+        e.preventDefault();
+        handleSubmitMessage();
+      }}
       alt="send_button"
       style="margin-left: 6px;"
     />
