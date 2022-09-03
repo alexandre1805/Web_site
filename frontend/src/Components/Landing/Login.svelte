@@ -59,5 +59,5 @@
   </form>
   <h3>New here ?</h3>
   <p>Don't hesitate to sign up to access to website !</p>
-  <a id="sign-up-btn" href="/register"> Sign Up </a>
+  <a id="sign-up-btn" href="/#/register"> Sign Up </a>
 </div>

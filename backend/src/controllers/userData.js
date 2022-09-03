@@ -10,7 +10,7 @@ exports.getFriends = async function (req, res) {
   let friends = [];
   for (const friend in user.friends) {
     const f = await userModel.findOne({ username: user.friends[friend] });
-    friends.push({ _id: f._id, username: f.username });
+    friends.push({ id: f.id, username: f.username });
   }
   res.status(200).json({ friends: friends });
 };
@@ -19,7 +19,11 @@ exports.getNotif = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
   if (username === undefined) return;
 
-  const notifs = await notificationModel.find({ username: username });
+  const notifs = await notificationModel.find({ username: username }).lean();
+  notifs.forEach((elt) => {
+    elt.id = elt._id;
+    delete elt._id;
+  });
   res.status(200).json(notifs);
 };
 
@@ -61,5 +65,9 @@ exports.acceptInvation = async (args) => {
 
   await user.save();
   await friend.save();
-  await notificationModel.deleteOne({ _id: args._id });
+  await notificationModel.deleteOne({ id: args.id });
+};
+
+exports.deleteNotifications = async (id) => {
+  await notificationModel.deleteOne({ id: id });
 };

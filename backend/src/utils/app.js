@@ -64,6 +64,10 @@ function app() {
       await userData.acceptInvation(args);
     });
 
+    socket.on("delete notification", async (id) => {
+      await userData.deleteNotifications(id);
+    });
+
     //----------------------ROOM MANAGEMENT-------------------------------------
     socket.on("create Room", async (args) => {
       await userRoom.createRoom(io, socket, users, args);
@@ -95,7 +99,6 @@ function app() {
       await Connect4.update(io, args.id, args.game);
     });
     socket.on("disconnecting", () => {
-      console.log(socket.rooms);
       let gameRooms = Array.from(socket.rooms).filter((elm) =>
         elm.startsWith("game-")
       );

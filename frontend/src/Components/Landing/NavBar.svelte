@@ -2,34 +2,10 @@
   import "../../styles/NavBar/NavBar.css";
   import "../../styles/NavBar/Notification.css";
   import { link } from "svelte-spa-router";
-  import { username, socket } from "../../store";
-  import axios from "axios";
+  import { username } from "../../store";
+  import Notifications from "./Notifications.svelte";
 
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
-  let notifications = [];
   let notificationsOpen = false;
-
-  $: if (usernameValue !== "")
-    axios
-      .get(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/getNotifs",
-        {
-          params: { username: usernameValue },
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        notifications = res.data;
-      });
-
-  function handleAccpetInvit(e) {
-    console.log(e);
-    socketValue.emit("accept invitation", e);
-    notifications = notifications.filter((elm) => elm._id !== e._id);
-  }
 
   const default_routes = [
     { name: "Home", route: "/" },
@@ -41,7 +17,7 @@
 
 <div class="navigation">
   <h2>LOGO</h2>
-  {#if usernameValue !== ""}
+  {#if $username !== ""}
     <div class="loged">
       <img
         src="/notification.png"
@@ -50,24 +26,9 @@
           notificationsOpen = !notificationsOpen;
         }}
       />
-      <h3 class="hide">Welcome {usernameValue} !</h3>
+      <h3 class="hide">Welcome {$username} !</h3>
       {#if notificationsOpen}
-        <div class="Notification">
-          {#each notifications as e}
-            {#if e.type === "add_friend"}
-              <div class="add_friend" key={e._id}>
-                <span>{e.message}</span>
-                <button
-                  on:click={() => {
-                    handleAccpetInvit(e);
-                  }}
-                >
-                  ADD
-                </button>
-                <button>DELETE</button>
-              </div>{/if}
-          {/each}
-        </div>
+        <Notifications />
       {/if}
     </div>
   {:else}
