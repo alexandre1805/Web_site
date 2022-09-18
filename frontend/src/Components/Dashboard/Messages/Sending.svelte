@@ -58,14 +58,14 @@
       emoji_container.classList.remove("shown");
     gamesOpen = false;
   }
-  function handleCreateGame() {
+  function handleCreateGame(game_name) {
     if (current_room.name === "") return;
     socketValue.emit("message", {
       type: "game",
       user: usernameValue,
       message: usernameValue + " want to start a game : ",
       room: current_room.id,
-      game: e.target.innerText,
+      game: game_name,
       state: "Not started",
     });
     gamesOpen = false;
@@ -76,7 +76,14 @@
   {#if gamesOpen}
     <div class="Games">
       {#each games as game}
-        <div class="Game" on:click={handleCreateGame}>{game.name}</div>
+        <div
+          class="Game"
+          on:click={() => {
+            handleCreateGame(game.name);
+          }}
+        >
+          {game.name}
+        </div>
       {/each}
     </div>
   {/if}

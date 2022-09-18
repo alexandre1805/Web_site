@@ -13460,7 +13460,7 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
+    	child_ctx[12] = list[i];
     	return child_ctx;
     }
 
@@ -13538,29 +13538,37 @@ var app = (function () {
     // (78:6) {#each games as game}
     function create_each_block$1(ctx) {
     	let div;
-    	let t_value = /*game*/ ctx[11].name + "";
-    	let t;
+    	let t0_value = /*game*/ ctx[12].name + "";
+    	let t0;
+    	let t1;
     	let mounted;
     	let dispose;
+
+    	function click_handler() {
+    		return /*click_handler*/ ctx[6](/*game*/ ctx[12]);
+    	}
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			t = text(t_value);
+    			t0 = text(t0_value);
+    			t1 = space();
     			attr_dev(div, "class", "Game");
     			add_location(div, file$7, 78, 8, 2174);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, t);
+    			append_dev(div, t0);
+    			append_dev(div, t1);
 
     			if (!mounted) {
-    				dispose = listen_dev(div, "click", /*handleCreateGame*/ ctx[4], false, false, false);
+    				dispose = listen_dev(div, "click", click_handler, false, false, false);
     				mounted = true;
     			}
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*games*/ 2 && t_value !== (t_value = /*game*/ ctx[11].name + "")) set_data_dev(t, t_value);
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*games*/ 2 && t0_value !== (t0_value = /*game*/ ctx[12].name + "")) set_data_dev(t0, t0_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
@@ -13621,25 +13629,25 @@ var app = (function () {
     			attr_dev(img0, "alt", "games");
     			set_style(img0, "margin-right", "20px");
     			attr_dev(img0, "class", "hide");
-    			add_location(img0, file$7, 82, 2, 2273);
+    			add_location(img0, file$7, 89, 2, 2366);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "New message...");
     			input.value = /*current_message*/ ctx[2];
-    			add_location(input, file$7, 91, 2, 2430);
+    			add_location(input, file$7, 98, 2, 2523);
     			if (!src_url_equal(img1.src, img1_src_value = "/emojis.svg")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "emojis");
     			set_style(img1, "margin-right", "6px");
-    			add_location(img1, file$7, 99, 2, 2592);
+    			add_location(img1, file$7, 106, 2, 2685);
     			set_custom_element_data(emoji_picker, "class", "light");
-    			add_location(emoji_picker, file$7, 106, 4, 2733);
+    			add_location(emoji_picker, file$7, 113, 4, 2826);
     			attr_dev(div0, "class", "emoji-container");
-    			add_location(div0, file$7, 105, 2, 2699);
+    			add_location(div0, file$7, 112, 2, 2792);
     			if (!src_url_equal(img2.src, img2_src_value = "/send_button.svg")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "send_button");
     			set_style(img2, "margin-left", "6px");
-    			add_location(img2, file$7, 109, 4, 2800);
+    			add_location(img2, file$7, 116, 4, 2893);
     			attr_dev(div1, "class", "border");
-    			add_location(div1, file$7, 108, 2, 2775);
+    			add_location(div1, file$7, 115, 2, 2868);
     			attr_dev(div2, "class", "sending");
     			add_location(div2, file$7, 74, 0, 2074);
     		},
@@ -13664,10 +13672,10 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(img0, "click", /*click_handler*/ ctx[6], false, false, false),
-    					listen_dev(input, "change", /*change_handler*/ ctx[7], false, false, false),
+    					listen_dev(img0, "click", /*click_handler_1*/ ctx[7], false, false, false),
+    					listen_dev(input, "change", /*change_handler*/ ctx[8], false, false, false),
     					listen_dev(img1, "click", openEmoji, false, false, false),
-    					listen_dev(img2, "click", /*click_handler_1*/ ctx[8], false, false, false)
+    					listen_dev(img2, "click", /*click_handler_2*/ ctx[9], false, false, false)
     				];
 
     				mounted = true;
@@ -13756,7 +13764,7 @@ var app = (function () {
     		$$invalidate(0, gamesOpen = false);
     	}
 
-    	function handleCreateGame() {
+    	function handleCreateGame(game_name) {
     		if (current_room.name === "") return;
 
     		socketValue.emit("message", {
@@ -13764,7 +13772,7 @@ var app = (function () {
     			user: usernameValue,
     			message: usernameValue + " want to start a game : ",
     			room: current_room.id,
-    			game: e.target.innerText,
+    			game: game_name,
     			state: "Not started"
     		});
 
@@ -13777,7 +13785,11 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Sending> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = () => {
+    	const click_handler = game => {
+    		handleCreateGame(game.name);
+    	};
+
+    	const click_handler_1 = () => {
     		$$invalidate(0, gamesOpen = !gamesOpen);
     	};
 
@@ -13785,7 +13797,7 @@ var app = (function () {
     		$$invalidate(2, current_message = e.target.value);
     	};
 
-    	const click_handler_1 = e => {
+    	const click_handler_2 = e => {
     		e.preventDefault();
     		handleSubmitMessage();
     	};
@@ -13841,8 +13853,9 @@ var app = (function () {
     		handleCreateGame,
     		current_room,
     		click_handler,
+    		click_handler_1,
     		change_handler,
-    		click_handler_1
+    		click_handler_2
     	];
     }
 
@@ -15466,7 +15479,7 @@ var app = (function () {
     			div = element("div");
     			attr_dev(div, "id", /*x*/ ctx[10] + "-" + /*y*/ ctx[12]);
     			attr_dev(div, "class", "tile");
-    			add_location(div, file, 150, 8, 4029);
+    			add_location(div, file, 150, 8, 5192);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -15668,13 +15681,13 @@ var app = (function () {
     			t3 = text("\n    Current player : ");
     			t4 = text(t4_value);
     			attr_dev(div0, "class", "Board");
-    			add_location(div0, file, 147, 2, 3931);
+    			add_location(div0, file, 147, 2, 5094);
     			attr_dev(div1, "class", "youAre");
-    			add_location(div1, file, 159, 4, 4211);
+    			add_location(div1, file, 159, 4, 5374);
     			attr_dev(div2, "class", "Information");
-    			add_location(div2, file, 158, 2, 4181);
+    			add_location(div2, file, 158, 2, 5344);
     			attr_dev(div3, "class", "Connect4");
-    			add_location(div3, file, 145, 0, 3885);
+    			add_location(div3, file, 145, 0, 5048);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -15768,75 +15781,75 @@ var app = (function () {
     	validate_slots('Connect_4', slots, []);
 
     	let winning_array = [
-    		[0, 1, 2, 3],
-    		[41, 40, 39, 38],
-    		[7, 8, 9, 10],
-    		[34, 33, 32, 31],
-    		[14, 15, 16, 17],
-    		[27, 26, 25, 24],
-    		[21, 22, 23, 24],
-    		[20, 19, 18, 17],
-    		[28, 29, 30, 31],
-    		[13, 12, 11, 10],
-    		[35, 36, 37, 38],
-    		[6, 5, 4, 3],
-    		[0, 7, 14, 21],
-    		[41, 34, 27, 20],
-    		[1, 8, 15, 22],
-    		[40, 33, 26, 19],
-    		[2, 9, 16, 23],
-    		[39, 32, 25, 18],
-    		[3, 10, 17, 24],
-    		[38, 31, 24, 17],
-    		[4, 11, 18, 25],
-    		[37, 30, 23, 16],
-    		[5, 12, 19, 26],
-    		[36, 29, 22, 15],
-    		[6, 13, 20, 27],
-    		[35, 28, 21, 14],
-    		[0, 8, 16, 24],
-    		[41, 33, 25, 17],
-    		[7, 15, 23, 31],
-    		[34, 26, 18, 10],
-    		[14, 22, 30, 38],
-    		[27, 19, 11, 3],
-    		[35, 29, 23, 17],
-    		[6, 12, 18, 24],
-    		[28, 22, 16, 10],
-    		[13, 19, 25, 31],
-    		[21, 15, 9, 3],
-    		[20, 26, 32, 38],
-    		[36, 30, 24, 18],
-    		[5, 11, 17, 23],
-    		[37, 31, 25, 19],
-    		[4, 10, 16, 22],
-    		[2, 10, 18, 26],
-    		[39, 31, 23, 15],
-    		[1, 9, 17, 25],
-    		[40, 32, 24, 16],
-    		[9, 7, 25, 33],
-    		[8, 16, 24, 32],
-    		[11, 7, 23, 29],
-    		[12, 18, 24, 30],
-    		[1, 2, 3, 4],
-    		[5, 4, 3, 2],
-    		[8, 9, 10, 11],
-    		[12, 11, 10, 9],
-    		[15, 16, 17, 18],
-    		[19, 18, 17, 16],
-    		[22, 23, 24, 25],
-    		[26, 25, 24, 23],
-    		[29, 30, 31, 32],
-    		[33, 32, 31, 30],
-    		[36, 37, 38, 39],
-    		[40, 39, 38, 37],
-    		[7, 14, 21, 28],
-    		[8, 15, 22, 29],
-    		[9, 16, 23, 30],
-    		[10, 17, 24, 31],
-    		[11, 18, 25, 32],
-    		[12, 19, 26, 33],
-    		[13, 20, 27, 34]
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(0), (0), (0), (0)],
+    		[(0), (0), (0), (0)],
+    		[(0), (0), (0), (0)],
+    		[(1), (1), (1), (1)],
+    		[(1), (1), (1), (1)],
+    		[(1), (1), (1), (1)],
+    		[(2), (2), (2), (2)],
+    		[(2), (2), (2), (2)],
+    		[(2), (2), (2), (2)],
+    		[(3), (3), (3), (3)],
+    		[(3), (3), (3), (3)],
+    		[(3), (3), (3), (3)],
+    		[(4), (4), (4), (4)],
+    		[(4), (4), (4), (4)],
+    		[(4), (4), (4), (4)],
+    		[(5), (5), (5), (5)],
+    		[(5), (5), (5), (5)],
+    		[(5), (5), (5), (5)],
+    		[(6), (6), (6), (6)],
+    		[(6), (6), (6), (6)],
+    		[(6), (6), (6), (6)],
+    		[(0), (1), (2), (3)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(0), (1), (2), (3)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(1), (2), (3), (4)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(2), (3), (4), (5)],
+    		[(3), (4), (5), (6)],
+    		[(3), (4), (5), (6)],
+    		[(3), (2), (1), (0)],
+    		[(4), (3), (2), (1)],
+    		[(3), (2), (1), (0)],
+    		[(5), (4), (3), (2)],
+    		[(4), (3), (2), (1)],
+    		[(3), (2), (1), (0)],
+    		[(6), (5), (4), (3)],
+    		[(5), (4), (3), (2)],
+    		[(4), (3), (2), (1)],
+    		[(6), (5), (4), (3)],
+    		[(5), (4), (3), (2)],
+    		[(6), (5), (4), (3)]
     	];
 
     	let socketValue;
@@ -15852,7 +15865,6 @@ var app = (function () {
 
     		socketValue.on("Connect-4 update", data => {
     			$$invalidate(1, game = data);
-    			console.log(game);
 
     			if (game.last_move !== undefined && game.last_move.p !== usernameValue) {
     				//update the grid on the front
@@ -15894,6 +15906,7 @@ var app = (function () {
     		document.getElementById(x + "-" + y).appendChild(token);
     		$$invalidate(1, game.board[x][y] = game[game.current_player], game);
     		$$invalidate(1, game.last_move = { p: game.current_player, x, y }, game);
+    		console.log(game.last_move);
 
     		for (const [key, value] of Object.entries(game)) {
     			if (game[usernameValue] === "Y" && value === "R") $$invalidate(1, game.current_player = key, game); else if (game[usernameValue] === "R" && value === "Y") $$invalidate(1, game.current_player = key, game);
