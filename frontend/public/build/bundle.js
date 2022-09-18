@@ -15580,17 +15580,19 @@ var app = (function () {
 
     // (517:6) {:else}
     function create_else_block(ctx) {
-    	let t;
+    	let span;
 
     	const block = {
     		c: function create() {
-    			t = text("Y");
+    			span = element("span");
+    			attr_dev(span, "class", "yellow_dot");
+    			add_location(span, file, 517, 8, 7878);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, span, anchor);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(span);
     		}
     	};
 
@@ -15607,17 +15609,19 @@ var app = (function () {
 
     // (515:6) {#if game[usernameValue] === "R"}
     function create_if_block(ctx) {
-    	let t;
+    	let span;
 
     	const block = {
     		c: function create() {
-    			t = text("R");
+    			span = element("span");
+    			attr_dev(span, "class", "red_dot");
+    			add_location(span, file, 515, 8, 7831);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, span, anchor);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(span);
     		}
     	};
 
@@ -15642,7 +15646,11 @@ var app = (function () {
     	let div1;
     	let t2;
     	let t3;
-    	let t4_value = /*game*/ ctx[1].current_player + "";
+
+    	let t4_value = (/*game*/ ctx[1].current_player === undefined
+    	? ""
+    	: /*game*/ ctx[1].current_player) + "";
+
     	let t4;
     	let current;
     	connection_box = new ConnectionBox({ $$inline: true });
@@ -15746,7 +15754,9 @@ var app = (function () {
     				}
     			}
 
-    			if ((!current || dirty & /*game*/ 2) && t4_value !== (t4_value = /*game*/ ctx[1].current_player + "")) set_data_dev(t4, t4_value);
+    			if ((!current || dirty & /*game*/ 2) && t4_value !== (t4_value = (/*game*/ ctx[1].current_player === undefined
+    			? ""
+    			: /*game*/ ctx[1].current_player) + "")) set_data_dev(t4, t4_value);
     		},
     		i: function intro(local) {
     			if (current) return;

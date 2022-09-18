@@ -513,11 +513,13 @@
     <div class="youAre">
       You are :
       {#if game[usernameValue] === "R"}
-        R
+        <span class="red_dot" />
       {:else}
-        Y
+        <span class="yellow_dot" />
       {/if}
     </div>
-    Current player : {game.current_player}
+    Current player : {game.current_player === undefined
+      ? ""
+      : game.current_player}
   </div>
 </div>

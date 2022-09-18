@@ -72,3 +72,19 @@
 .Connect4 .youAre {
   margin: 10px;
 }
+
+.Connect4 .red_dot {
+  height: 30px;
+  width: 30px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.Connect4 .yellow_dot {
+  height: 30px;
+  width: 30px;
+  background-color: yellow;
+  border-radius: 50%;
+  display: inline-block;
+}
