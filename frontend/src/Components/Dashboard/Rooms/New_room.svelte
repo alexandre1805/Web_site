@@ -14,10 +14,9 @@
   let addFriend = "";
 
   axios
-    .get(
-      "http://" + process.env.URI + ":" + process.env.API_PORT + "/getFriends",
-      { withCredentials: true }
-    )
+    .get("http://" + window.location.host + "/api/getFriends", {
+      withCredentials: true,
+    })
     .then((res) => {
       friendList = res.data.friends;
     });

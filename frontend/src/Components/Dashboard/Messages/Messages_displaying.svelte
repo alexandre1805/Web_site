@@ -15,10 +15,10 @@
   //get all the messages on the first load
   $: if (current_room !== "") {
     axios
-      .get(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/getMsg",
-        { params: { room: current_room.id }, withCredentials: true }
-      )
+      .get("http://" + window.location.host + "/api/getMsg", {
+        params: { room: current_room.id },
+        withCredentials: true,
+      })
       .then((res) => {
         messages = res.data.messages;
       });

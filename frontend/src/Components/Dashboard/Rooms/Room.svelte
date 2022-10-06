@@ -15,10 +15,9 @@
 
   onMount(async () => {
     await axios
-      .get(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/getRooms",
-        { withCredentials: true }
-      )
+      .get("http://" + window.location.host + "/api/getRooms", {
+        withCredentials: true,
+      })
       .then((res) => {
         rooms = res.data.rooms;
       });

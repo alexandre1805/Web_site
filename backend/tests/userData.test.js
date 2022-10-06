@@ -19,7 +19,7 @@ async function createUser(user) {
   });
   user["cookie"] = response.headers["set-cookie"][0];
   user["socket"] = io(
-    "http://" + process.env.URI + ":" + process.env.API_PORT,
+    "http://" + process.env.API_URI + ":" + process.env.API_PORT,
     {
       query: {
         username: user.username,

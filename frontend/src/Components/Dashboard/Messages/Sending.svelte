@@ -16,10 +16,9 @@
 
   $: if (current_room !== "") {
     axios
-      .get(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/getGames",
-        { withCredentials: true }
-      )
+      .get("http://" + window.location.host + "/api/getGames", {
+        withCredentials: true,
+      })
       .then((res) => {
         games = res.data.games;
       });

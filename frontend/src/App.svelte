@@ -21,11 +21,7 @@
   async function fetchLogin() {
     try {
       let response = await axios.get(
-        "http://" +
-          process.env.URI +
-          ":" +
-          process.env.API_PORT +
-          "/verifToken",
+        "http://" + window.location.host + "/api/verifToken",
         { withCredentials: true }
       );
       if (response.data.message === "OK") {
@@ -35,9 +31,10 @@
       }
     } catch {}
 
-    if (username !== "")
+    if (usernameValue !== "")
       socket.set(
-        io("http://" + process.env.URI + ":" + process.env.API_PORT, {
+        io("http://" + window.location.host, {
+          path: "/api/socket.io/",
           query: {
             username: usernameValue,
           },

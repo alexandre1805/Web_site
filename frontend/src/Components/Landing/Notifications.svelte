@@ -5,13 +5,10 @@
 
   //get the notifications
   axios
-    .get(
-      "http://" + process.env.URI + ":" + process.env.API_PORT + "/getNotifs",
-      {
-        params: { username: $username },
-        withCredentials: true,
-      }
-    )
+    .get("http://" + window.location.host + "/api/getNotifs", {
+      params: { username: $username },
+      withCredentials: true,
+    })
     .then((res) => {
       notifications = res.data;
     });

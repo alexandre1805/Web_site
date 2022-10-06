@@ -10,7 +10,8 @@
     "express": "4.*",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "cors": "^2.8.5"
   },
   "scripts": {
     "start": "nodemon src/app.js",

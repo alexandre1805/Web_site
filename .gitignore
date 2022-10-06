@@ -1,4 +1,6 @@
-frontend/package-lock.json
+package-lock.json
 node_modules
 .env
 frontend/public/build
+mongo
+frontend/public/build/

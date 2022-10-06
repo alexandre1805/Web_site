@@ -60,14 +60,11 @@
     }
 
     axios
-      .post(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/register",
-        {
-          username: username,
-          email: email,
-          password: password,
-        }
-      )
+      .post("http://" + window.location.host + "/api/register", {
+        username: username,
+        email: email,
+        password: password,
+      })
       .then(
         (res) => {
           const msg = res.data.message;

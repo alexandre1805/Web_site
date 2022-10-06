@@ -11,7 +11,7 @@
     if (username === "" || password === "") return;
     axios
       .post(
-        "http://" + process.env.URI + ":" + process.env.API_PORT + "/login",
+        "http://" + window.location.host + "/api/login",
         {
           username: username,
           password: password,
