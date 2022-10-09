@@ -5,6 +5,7 @@
   font-family: "Poppins", sans-serif;
 }
 
+html,
 body {
   margin: 0;
   height: 100%;
@@ -13,4 +14,11 @@ body {
 
 footer {
   display: none;
+}
+
+.main-content {
+  position: absolute;
+  top: 8%;
+  height: 92%;
+  width: 100%;
 }

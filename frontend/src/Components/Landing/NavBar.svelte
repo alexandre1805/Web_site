@@ -16,14 +16,16 @@
 
 <div class="navigation">
   <div class="left-content">
-    <img
-      src="menu.svg"
-      alt="menu"
-      on:click={() => {
-        document.getElementById("menu").classList.toggle("hide");
-      }}
-      class="menu-icon"
-    />
+    {#if username === ""}
+      <img
+        src="menu.svg"
+        alt="menu"
+        on:click={() => {
+          document.getElementById("menu").classList.toggle("hide");
+        }}
+        class="menu-icon"
+      />
+    {/if}
     <h2>LOGO</h2>
   </div>
   {#if $username !== ""}

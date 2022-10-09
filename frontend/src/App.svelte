@@ -50,7 +50,7 @@
 </script>
 
 <NavBar />
-<div style="margin-top: 60px;">
+<div class="main-content">
   <Router
     routes={{
       "/": wrap({

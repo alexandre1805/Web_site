@@ -43,6 +43,10 @@
   margin-bottom: auto;
 }
 
+.navigation .loged {
+  height: 100%;
+}
+
 .navigation .loged img {
   height: 60%;
   margin-top: auto;
