@@ -1,3 +1,16 @@
+.navigation .Notification {
+  background-color: #fff;
+  border: solid 1px #6a6c75;
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  height: 70vh;
+  width: 95vw;
+  border-radius: 8%;
+  overflow-y: scroll;
+  z-index: 1;
+}
+
 .Notification .add_friend {
   padding: 1rem;
   border-bottom: solid 1px #6a6c75;

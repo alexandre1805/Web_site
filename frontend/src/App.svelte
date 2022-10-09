@@ -50,25 +50,27 @@
 </script>
 
 <NavBar />
-<Router
-  routes={{
-    "/": wrap({
-      component: Dashboard,
-      conditions: [() => logged],
-    }),
-    "/home": Home,
-    "/about": About,
-    "/dashboard": wrap({
-      component: Dashboard,
-      conditions: [() => logged],
-    }),
-    "/register": Register,
-    "/login": wrap({
-      component: Login,
-      props: { fetchLogin: () => fetchLogin() },
-    }),
-    "/tic-tac-toe": TicTacToe,
-    "/connect-4": Connect_4,
-  }}
-  on:conditionsFailed={conditionsFailed}
-/>
+<div style="margin-top: 60px;">
+  <Router
+    routes={{
+      "/": wrap({
+        component: Dashboard,
+        conditions: [() => logged],
+      }),
+      "/home": Home,
+      "/about": About,
+      "/dashboard": wrap({
+        component: Dashboard,
+        conditions: [() => logged],
+      }),
+      "/register": Register,
+      "/login": wrap({
+        component: Login,
+        props: { fetchLogin: () => fetchLogin() },
+      }),
+      "/tic-tac-toe": TicTacToe,
+      "/connect-4": Connect_4,
+    }}
+    on:conditionsFailed={conditionsFailed}
+  />
+</div>

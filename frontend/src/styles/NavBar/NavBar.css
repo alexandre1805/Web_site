@@ -1,18 +1,33 @@
 .navigation {
-  position: relative;
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 8%;
   min-height: 50px;
   top: 0;
-  background-color: dodgerblue;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid grey;
+  z-index: 1;
+}
+
+.navigation .left-content {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.navigation .left-content img {
+  height: 60%;
 }
 
 .navigation h2 {
   position: relative;
-  color: #fff;
+  color: dodgerblue;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 800;
@@ -23,14 +38,9 @@
 
 .navigation h3 {
   margin-right: 10px;
-  color: #fff;
+  color: black;
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.navigation .loged {
-  display: flex;
-  height: 100%;
 }
 
 .navigation .loged img {
@@ -49,40 +59,77 @@
 .navigation ul {
   display: flex;
   justify-content: space-between;
+  margin-right: 10px;
 }
 
 .navigation li {
   display: flex;
-  color: #fff;
   text-decoration: none;
   text-align: center;
   font-weight: 500;
-  letter-spacing: 1px;
   padding: 2px 15px;
   border-radius: 20px;
   margin-right: 10px;
 }
 
+.navigation .Sign_Up {
+  background-color: dodgerblue;
+  border: solid 1px white;
+  color: white;
+}
+
+.navigation .Sign_Up a {
+  color: white;
+}
+
 .navigation a {
-  color: #fff;
+  color: black;
   text-decoration: none;
   text-align: center;
 }
 
 .navigation li:hover {
-  background-color: #00000042;
-  border-color: black;
+  background-color: lightgrey;
 }
 
-.navigation .Notification {
-  background-color: #fff;
-  border: solid 1px #6a6c75;
-  position: absolute;
-  top: 100%;
-  right: 10px;
-  height: 70vh;
-  width: 95vw;
-  border-radius: 8%;
-  overflow-y: scroll;
-  z-index: 1;
+.menu-icon {
+  display: none;
+}
+
+@media screen and (max-width: 850px) {
+  .navigation {
+    align-items: unset;
+  }
+
+  .menu-icon {
+    display: block;
+    margin-right: 10px;
+  }
+
+  .navigation ul {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+  }
+
+  .navigation .hide {
+    display: none;
+  }
+
+  .navigation {
+    justify-content: unset;
+  }
+
+  .navigation ul li {
+    margin: 25px 0;
+    font-size: 2em;
+  }
 }

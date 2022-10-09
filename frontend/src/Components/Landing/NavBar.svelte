@@ -11,12 +11,21 @@
     { name: "Home", route: "/" },
     { name: "About Us", route: "/about" },
     { name: "Log In", route: "/dashboard" },
-    { name: "Sign Up", route: "/register" },
   ];
 </script>
 
 <div class="navigation">
-  <h2>LOGO</h2>
+  <div class="left-content">
+    <img
+      src="menu.svg"
+      alt="menu"
+      on:click={() => {
+        document.getElementById("menu").classList.toggle("hide");
+      }}
+      class="menu-icon"
+    />
+    <h2>LOGO</h2>
+  </div>
   {#if $username !== ""}
     <div class="loged">
       <img
@@ -32,12 +41,27 @@
       {/if}
     </div>
   {:else}
-    <ul>
+    <ul id="menu">
       {#each default_routes as page}
         <li>
-          <a use:link href={page.route}>{page.name}</a>
+          <a
+            use:link
+            href={page.route}
+            on:click={() => {
+              document.getElementById("menu").classList.toggle("hide");
+            }}>{page.name}</a
+          >
         </li>
       {/each}
+      <li class="Sign_Up">
+        <a
+          use:link
+          href="/register"
+          on:click={() => {
+            document.getElementById("menu").classList.toggle("hide");
+          }}>Sign Up</a
+        >
+      </li>
     </ul>
   {/if}
 </div>
