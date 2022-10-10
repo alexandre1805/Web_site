@@ -18,7 +18,7 @@
   display: none;
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 850px) {
   #message_container {
     display: unset;
     width: 65%;
@@ -34,8 +34,9 @@
   }
 
   .hide {
-    display: unset;
+    display: none;
   }
+
   .navigation .Notification {
     max-height: 60vh;
     max-width: 30vw;

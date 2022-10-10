@@ -14,7 +14,7 @@
   let games = [];
   let current_message = "";
 
-  $: if (current_room !== "") {
+  $: if (current_room.name !== "") {
     axios
       .get("http://" + window.location.host + "/api/getGames", {
         withCredentials: true,

@@ -1,4 +1,5 @@
 <script>
+  import { push } from "svelte-spa-router";
   import "../../styles/NavBar/NavBar.css";
   import "../../styles/NavBar/Notification.css";
   import { link } from "svelte-spa-router";
@@ -16,7 +17,7 @@
 
 <div class="navigation">
   <div class="left-content">
-    {#if username === ""}
+    {#if $username === ""}
       <img
         src="menu.svg"
         alt="menu"
@@ -31,10 +32,19 @@
   {#if $username !== ""}
     <div class="loged">
       <img
-        src="/notification.png"
+        src="/icons-pack/notifications.svg"
         alt="notif"
         on:click={() => {
           notificationsOpen = !notificationsOpen;
+        }}
+      />
+      <img
+        src="/icons-pack/log-out-outline.svg"
+        alt="log-out"
+        on:click={() => {
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+          push("/home");
+          username.set("");
         }}
       />
       <h3 class="hide">Welcome {$username} !</h3>
@@ -43,7 +53,7 @@
       {/if}
     </div>
   {:else}
-    <ul id="menu">
+    <ul id="menu" class="hide">
       {#each default_routes as page}
         <li>
           <a

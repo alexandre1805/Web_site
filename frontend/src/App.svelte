@@ -15,9 +15,6 @@
   import TicTacToe from "./Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
   import Connect_4 from "./Components/Games/Connect_4.svelte";
 
-  let logged = false;
-  let usernameValue = "";
-  username.subscribe((val) => (usernameValue = val));
   async function fetchLogin() {
     try {
       let response = await axios.get(
@@ -25,18 +22,17 @@
         { withCredentials: true }
       );
       if (response.data.message === "OK") {
-        logged = true;
         username.set(response.data.username);
         push("/dashboard");
       }
     } catch {}
 
-    if (usernameValue !== "")
+    if ($username !== "")
       socket.set(
         io("http://" + window.location.host, {
           path: "/api/socket.io/",
           query: {
-            username: usernameValue,
+            username: $username,
           },
         })
       );
@@ -55,13 +51,13 @@
     routes={{
       "/": wrap({
         component: Dashboard,
-        conditions: [() => logged],
+        conditions: [() => $username !== ""],
       }),
       "/home": Home,
       "/about": About,
       "/dashboard": wrap({
         component: Dashboard,
-        conditions: [() => logged],
+        conditions: [() => $username !== ""],
       }),
       "/register": Register,
       "/login": wrap({

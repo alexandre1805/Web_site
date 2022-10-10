@@ -45,10 +45,12 @@
 
 .navigation .loged {
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .navigation .loged img {
-  height: 60%;
+  height: 70%;
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 20px;

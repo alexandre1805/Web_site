@@ -27,7 +27,11 @@
   {#if errorBox}
     <Log_Box message={errorMsg} open={setOpenErrorBox} />
   {/if}
-  <Header {current_room} {return_room} />
+  {#if current_room.name !== ""}
+    <Header {current_room} {return_room} />
+  {/if}
   <MessagesDisplaying {current_room} />
-  <Sending {current_room} />
+  {#if current_room.name !== ""}
+    <Sending {current_room} />
+  {/if}
 </div>

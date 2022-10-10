@@ -13,7 +13,7 @@
   username.subscribe((val) => (usernameValue = val));
 
   //get all the messages on the first load
-  $: if (current_room !== "") {
+  $: if (current_room.name !== "") {
     axios
       .get("http://" + window.location.host + "/api/getMsg", {
         params: { room: current_room.id },
