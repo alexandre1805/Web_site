@@ -6,14 +6,12 @@
   import Log_Box from "../Log_Box.svelte";
   import { socket } from "../../../store";
 
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
   export let current_room;
   export let return_room;
   let errorBox = false;
   let errorMsg = "";
 
-  socketValue.on("error message", (elt) => {
+  $socket.on("error message", (elt) => {
     errorBox = true;
     errorMsg = elt;
   });

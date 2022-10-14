@@ -90,7 +90,6 @@
     src="/games.svg"
     alt="games"
     style="margin-right: 20px;"
-    class="hide"
     on:click={() => {
       gamesOpen = !gamesOpen;
     }}
