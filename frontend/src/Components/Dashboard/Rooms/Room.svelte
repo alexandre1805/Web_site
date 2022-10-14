@@ -66,7 +66,7 @@
       placeholder="Search..."
     />
     <img
-      src="/New_Room.svg"
+      src="/icons-pack/chatbox-ellipses-outline.svg"
       alt="new_room"
       on:click={() => {
         openDialogBoxRoom = true;

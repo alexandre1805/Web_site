@@ -87,7 +87,7 @@
     </div>
   {/if}
   <img
-    src="/games.svg"
+    src="/icons-pack/game-controller-outline.svg"
     alt="games"
     style="margin-right: 20px;"
     on:click={() => {
@@ -103,7 +103,7 @@
     }}
   />
   <img
-    src="/emojis.svg"
+    src="/icons-pack/happy-outline.svg"
     alt="emojis"
     style="margin-right: 6px;"
     on:click={openEmoji}
@@ -113,7 +113,7 @@
   </div>
   <div class="border">
     <img
-      src="/send_button.svg"
+      src="icons-pack/send.svg"
       on:click={(e) => {
         e.preventDefault();
         handleSubmitMessage();
