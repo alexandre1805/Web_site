@@ -34,10 +34,12 @@
   height: 60%;
   margin-top: auto;
   margin-bottom: auto;
+  border-radius: 50%;
+  padding: 0.3rem;
 }
 
 .Room .Search img:hover {
-  filter: grayscale(100%);
+  background-color: gray;
 }
 
 .Room .Dialog_box .Container {

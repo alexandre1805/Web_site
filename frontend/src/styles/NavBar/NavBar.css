@@ -51,9 +51,7 @@
 
 .navigation .loged img {
   height: 70%;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 20px;
+  margin: auto 0;
   padding: 0.3rem;
   border-radius: 50%;
 }
