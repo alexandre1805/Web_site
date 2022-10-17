@@ -1,7 +1,10 @@
 .Tic-Tac-Toe {
   width: 100%;
-  height: 92%;
+  height: 100%;
   min-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #0f4e63;
 }
 
@@ -10,6 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
 }
 
 .Tic-Tac-Toe table {
@@ -26,13 +30,19 @@
   height: 200px;
 }
 .Tic-Tac-Toe .Information {
-  color: #c7c7c7;
+  color: black;
   font-size: 20px;
   font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px;
+  border-bottom: solid 3px black;
+  border-top: solid 3px black;
+  border-left: solid 3px black;
+  border-radius: 15px 0 0 15px;
+  background-color: white;
 }
 
 .Tic-Tac-Toe .Information .youAre img {
