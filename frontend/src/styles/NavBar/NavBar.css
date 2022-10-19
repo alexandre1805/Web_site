@@ -1,48 +1,3 @@
-.navigation {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 8%;
-  min-height: 50px;
-  top: 0;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid grey;
-  z-index: 1;
-}
-
-.navigation .left-content {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 5px;
-}
-
-.navigation .left-content img {
-  height: 60%;
-}
-
-.navigation h2 {
-  position: relative;
-  color: dodgerblue;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-left: 10px;
-  text-align: center;
-}
-
-.navigation h3 {
-  margin-right: 10px;
-  color: black;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .navigation .loged {
   height: 100%;
   display: flex;
@@ -58,22 +13,6 @@
 
 .navigation .loged img:hover {
   background-color: #bbb;
-}
-
-.navigation ul {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 10px;
-}
-
-.navigation li {
-  display: flex;
-  text-decoration: none;
-  text-align: center;
-  font-weight: 500;
-  padding: 2px 15px;
-  border-radius: 20px;
-  margin-right: 10px;
 }
 
 .navigation .Sign_Up {

@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button-classic {
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 49px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5995fd;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 8px 0;
+  transition: 0.5s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}

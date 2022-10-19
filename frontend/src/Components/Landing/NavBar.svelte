@@ -15,19 +15,26 @@
   ];
 </script>
 
-<div class="navigation bg-black">
-  <div class="left-content">
+<div
+  class="navigation fixed flex bg-white top-0 w-full h-16 min-h-[5Opx] justify-between items-center z-10 border-b-2"
+>
+  <div class="left-content h-full flex justify-center items-center ml-1">
     {#if $username === ""}
-      <img
-        src="menu.svg"
-        alt="menu"
+      <button
+        class="h-2/3"
         on:click={() => {
-          document.getElementById("menu").classList.toggle("hide");
+          document.getElementById("menu").classList.toggle("hidden");
         }}
-        class="menu-icon"
-      />
+      >
+        <img src="menu.svg" alt="menu" class="menu-icon h-full" />
+      </button>
     {/if}
-    <h2>LOGO</h2>
+    <h2
+      class="relative text-blue-500 no-underline uppercase
+      font-extrabold tracking-wide ml-3 text-center"
+    >
+      LOGO
+    </h2>
   </div>
   {#if $username !== ""}
     <div class="loged">
@@ -47,15 +54,17 @@
           username.set("");
         }}
       />
-      <h3 class="hide">Welcome {$username} !</h3>
+      <h3 class="mr-3 my-auto hidden">Welcome {$username} !</h3>
       {#if notificationsOpen}
         <Notifications />
       {/if}
     </div>
   {:else}
-    <ul id="menu" class="hide">
+    <ul id="menu" class="flex justify-center mr-3">
       {#each default_routes as page}
-        <li>
+        <li
+          class="flex no-underline text-center font-medium px-1 py-4 mr-2 rounded-2xl"
+        >
           <a
             use:link
             href={page.route}
@@ -65,7 +74,7 @@
           >
         </li>
       {/each}
-      <li class="Sign_Up">
+      <li class="flex no-underline text-center font-medium px-1 py-4 Sign_Up">
         <a
           use:link
           href="/register"
