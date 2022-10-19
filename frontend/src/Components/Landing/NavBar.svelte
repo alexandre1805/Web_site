@@ -15,7 +15,7 @@
   ];
 </script>
 
-<div class="navigation">
+<div class="navigation bg-black">
   <div class="left-content">
     {#if $username === ""}
       <img
