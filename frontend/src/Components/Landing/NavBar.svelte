@@ -20,9 +20,9 @@
   <div class="left-content h-full flex justify-center items-center ml-1">
     {#if $username === ""}
       <button
-        class="h-2/3"
+        class="h-2/3 md:hidden"
         on:click={() => {
-          document.getElementById("menu").classList.toggle("hidden");
+          document.getElementById("menu").classList.toggle("invisible");
         }}
       >
         <img src="menu.svg" alt="menu" class="h-full" />
@@ -59,26 +59,31 @@
       {/if}
     </div>
   {:else}
-    <ul id="menu" class="absolute top-full h-screen w-full flex justify-center mr-3 flex-col bg-slate-100 items-center hidden">
+    <ul
+      id="menu"
+      class="absolute top-full h-screen w-full flex justify-center mr-3 flex-col bg-slate-100 items-center invisible md:visible md:relative md:bg-white md:flex-row md:w-auto md:h-auto md:top-0 md:bg-transparent"
+    >
       {#each default_routes as page}
         <li
-          class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300"
+          class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 md:text-base"
         >
           <a
             use:link
             href={page.route}
             on:click={() => {
-              document.getElementById("menu").classList.toggle("hidden");
+              document.getElementById("menu").classList.toggle("invisible");
             }}>{page.name}</a
           >
         </li>
       {/each}
-      <li class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 text-white bg-blue-500">
+      <li
+        class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 text-white bg-blue-500 md:text-base md:top-0"
+      >
         <a
           use:link
           href="/register"
           on:click={() => {
-            document.getElementById("menu").classList.toggle("hidden");
+            document.getElementById("menu").classList.toggle("invisible");
           }}>Sign Up</a
         >
       </li>
