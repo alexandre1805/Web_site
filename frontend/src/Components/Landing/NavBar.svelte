@@ -1,8 +1,7 @@
 <script>
-  import { push } from "svelte-spa-router";
+  import { push, link } from "svelte-spa-router";
   import "../../styles/NavBar/NavBar.css";
   import "../../styles/NavBar/Notification.css";
-  import { link } from "svelte-spa-router";
   import { username } from "../../store";
   import Notifications from "./Notifications.svelte";
 
@@ -26,7 +25,7 @@
           document.getElementById("menu").classList.toggle("hidden");
         }}
       >
-        <img src="menu.svg" alt="menu" class="menu-icon h-full" />
+        <img src="menu.svg" alt="menu" class="h-full" />
       </button>
     {/if}
     <h2
@@ -60,26 +59,26 @@
       {/if}
     </div>
   {:else}
-    <ul id="menu" class="flex justify-center mr-3">
+    <ul id="menu" class="absolute top-full h-screen w-full flex justify-center mr-3 flex-col bg-slate-100 items-center">
       {#each default_routes as page}
         <li
-          class="flex no-underline text-center font-medium px-1 py-4 mr-2 rounded-2xl"
+          class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300"
         >
           <a
             use:link
             href={page.route}
             on:click={() => {
-              document.getElementById("menu").classList.toggle("hide");
+              document.getElementById("menu").classList.toggle("hidden");
             }}>{page.name}</a
           >
         </li>
       {/each}
-      <li class="flex no-underline text-center font-medium px-1 py-4 Sign_Up">
+      <li class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 text-white bg-blue-500">
         <a
           use:link
           href="/register"
           on:click={() => {
-            document.getElementById("menu").classList.toggle("hide");
+            document.getElementById("menu").classList.toggle("hidden");
           }}>Sign Up</a
         >
       </li>
