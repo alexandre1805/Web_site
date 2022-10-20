@@ -30,7 +30,7 @@
     {/if}
     <h2
       class="relative text-blue-500 no-underline uppercase
-      font-extrabold tracking-wide ml-3 text-center"
+      font-extrabold ml-3 text-center text-3xl"
     >
       LOGO
     </h2>
@@ -59,7 +59,7 @@
       {/if}
     </div>
   {:else}
-    <ul id="menu" class="absolute top-full h-screen w-full flex justify-center mr-3 flex-col bg-slate-100 items-center">
+    <ul id="menu" class="absolute top-full h-screen w-full flex justify-center mr-3 flex-col bg-slate-100 items-center hidden">
       {#each default_routes as page}
         <li
           class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300"
