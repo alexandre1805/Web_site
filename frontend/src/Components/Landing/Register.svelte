@@ -111,9 +111,7 @@
       type="text"
       placeholder="E-mail"
       value={email}
-      on:change={() => {
-        verifyEmail();
-      }}
+      on:change={verifyEmail}
     />
     {@html emailMsg}
     Password :
@@ -122,9 +120,7 @@
       type="password"
       placeholder="Password"
       value={password}
-      on:change={() => {
-        verifyPassword();
-      }}
+      on:change={verifyPassword}
     />
     {@html passwordMsg}
     Confirm password :
@@ -133,9 +129,7 @@
       type="password"
       placeholder="Password"
       value={confirmPassword}
-      on:change={() => {
-        verifyConfirmPassword();
-      }}
+      on:change={verifyConfirmPassword}
     />
     {@html confirmPasswordMsg}
     <button

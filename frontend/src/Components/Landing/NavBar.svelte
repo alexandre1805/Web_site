@@ -1,7 +1,5 @@
 <script>
   import { push, link } from "svelte-spa-router";
-  import "../../styles/NavBar/NavBar.css";
-  import "../../styles/NavBar/Notification.css";
   import { username } from "../../store";
   import Notifications from "./Notifications.svelte";
 
@@ -36,13 +34,14 @@
     </h2>
   </div>
   {#if $username !== ""}
-    <div class="loged">
+    <div class="flex justify-center mx-4">
       <button
         on:click={() => {
           notificationsOpen = !notificationsOpen;
         }}
+        class="rounded-full hover:bg-slate-200 m-1"
       >
-        <img src="/icons-pack/notifications.svg" alt="notif" />
+        <img src="/icons-pack/notifications.svg" alt="notif" class="h-10 m-2" />
       </button>
       <button
         on:click={() => {
@@ -50,8 +49,13 @@
           push("/home");
           username.set("");
         }}
+        class="rounded-full hover:bg-slate-200 m-1"
       >
-        <img src="/icons-pack/log-out-outline.svg" alt="log-out" /></button
+        <img
+          src="/icons-pack/log-out-outline.svg"
+          alt="log-out"
+          class="h-10 m-2"
+        /></button
       >
       <h3 class="mr-3 my-auto hidden">Welcome {$username} !</h3>
       {#if notificationsOpen}

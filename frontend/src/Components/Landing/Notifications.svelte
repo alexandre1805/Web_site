@@ -29,12 +29,15 @@
   }
 </script>
 
-<div class="Notification">
+<div
+  class="absolute top-full right-3 h-[70vh] w-[95vw] bg-white border-black border-2 rounded-xl overflow-scroll z-10 md:w-[30vw]"
+>
   {#each notifications as e}
     {#if e.type === "add_friend"}
-      <div class="add_friend" key={e._id}>
+      <div class="p-4 border-b-2 border-gray-300">
         <span>{e.message}</span>
         <button
+          class="text-white bg-blue-500 rounded-full w-fit p-2 mx-auto mb-4 hover:bg-slate-500"
           on:click={() => {
             handleAccpetInvit(e);
           }}
@@ -42,6 +45,7 @@
           ADD
         </button>
         <button
+          class="text-white bg-blue-500 rounded-full w-fit p-2 mx-auto mb-4 hover:bg-slate-500"
           on:click={() => {
             deleteNotification(e);
           }}>DELETE</button

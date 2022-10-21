@@ -8,6 +8,7 @@
   let finalMsg = "";
 
   function handleSubmit() {
+    console.log(username);
     if (username === "" || password === "") return;
     axios
       .post(
@@ -46,13 +47,13 @@
       class="input-field"
       type="text"
       placeholder="Username"
-      value={username}
+      bind:value={username}
     />
     <input
       class="input-field"
       type="password"
       placeholder="Password"
-      value={password}
+      bind:value={password}
     />
     <button
       class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"
