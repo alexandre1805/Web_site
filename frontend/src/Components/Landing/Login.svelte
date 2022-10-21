@@ -46,17 +46,13 @@
       class="input-field"
       type="text"
       placeholder="Username"
-      on:change={(e) => {
-        username = e.target.value;
-      }}
+      value={username}
     />
     <input
       class="input-field"
       type="password"
       placeholder="Password"
-      on:change={(e) => {
-        password = e.target.value;
-      }}
+      value={password}
     />
     <button
       class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"

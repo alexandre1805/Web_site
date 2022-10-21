@@ -96,8 +96,8 @@
       class="input-field"
       type="text"
       placeholder="Username"
-      on:change={(e) => {
-        username = e.target.value;
+      value={username}
+      on:change={() => {
         if (username === "")
           usernameMsg =
             '<li style="color: #FF4136">Please put a non-empty username</li>';
@@ -110,8 +110,8 @@
       class="input-field"
       type="text"
       placeholder="E-mail"
-      on:change={(e) => {
-        email = e.target.value;
+      value={email}
+      on:change={() => {
         verifyEmail();
       }}
     />
@@ -121,8 +121,8 @@
       class="input-field"
       type="password"
       placeholder="Password"
-      on:change={(e) => {
-        password = e.target.value;
+      value={password}
+      on:change={() => {
         verifyPassword();
       }}
     />
@@ -132,8 +132,8 @@
       class="input-field"
       type="password"
       placeholder="Password"
-      on:change={(e) => {
-        confirmPassword = e.target.value;
+      value={confirmPassword}
+      on:change={() => {
         verifyConfirmPassword();
       }}
     />
