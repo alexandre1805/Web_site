@@ -37,22 +37,22 @@
   </div>
   {#if $username !== ""}
     <div class="loged">
-      <img
-        src="/icons-pack/notifications.svg"
-        alt="notif"
+      <button
         on:click={() => {
           notificationsOpen = !notificationsOpen;
         }}
-      />
-      <img
-        src="/icons-pack/log-out-outline.svg"
-        alt="log-out"
+      >
+        <img src="/icons-pack/notifications.svg" alt="notif" />
+      </button>
+      <button
         on:click={() => {
           document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
           push("/home");
           username.set("");
         }}
-      />
+      >
+        <img src="/icons-pack/log-out-outline.svg" alt="log-out" /></button
+      >
       <h3 class="mr-3 my-auto hidden">Welcome {$username} !</h3>
       {#if notificationsOpen}
         <Notifications />
@@ -65,7 +65,7 @@
     >
       {#each default_routes as page}
         <li
-          class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 md:text-base"
+          class="flex no-underline text-center text-4xl p-3 m-6 rounded-full hover:bg-gray-300 md:text-base"
         >
           <a
             use:link
@@ -77,7 +77,7 @@
         </li>
       {/each}
       <li
-        class="flex no-underline text-center text-4xl p-3 m-6 rounded-3xl hover:bg-gray-300 text-white bg-blue-500 md:text-base md:top-0"
+        class="flex no-underline text-center text-4xl p-3 m-6 rounded-full hover:bg-gray-300 text-white bg-blue-500 md:text-base md:top-0"
       >
         <a
           use:link

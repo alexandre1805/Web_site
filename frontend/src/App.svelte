@@ -46,7 +46,7 @@
 </script>
 
 <NavBar />
-<div class="absolute top-[8%] h-[92%] w-full">
+<div class="w-full h-full mt-16">
   <Router
     routes={{
       "/": wrap({
