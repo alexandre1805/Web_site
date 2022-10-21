@@ -46,7 +46,7 @@
 </script>
 
 <NavBar />
-<div class="w-full h-full mt-16">
+<div class="absolute w-full h-[calc(100%_-_4rem)] top-16">
   <Router
     routes={{
       "/": wrap({

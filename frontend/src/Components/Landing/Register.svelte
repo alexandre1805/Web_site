@@ -1,6 +1,5 @@
 <script>
   import axios from "axios";
-  import "../../styles/login.css";
   import { push } from "svelte-spa-router";
 
   let username = "";
@@ -78,11 +77,20 @@
   }
 </script>
 
-<div class="login">
-  <form>
-    <h2 class="title">Sign Up</h2>
+<div class="login w-full h-full flex items-center justify-center">
+  <form
+    class="flex flex-col border-2 border-black rounded-xl justify-center text-center p-2 md:text-2xl"
+  >
+    <h2 class="flex justify-center font-bold text-blue-500 text-3xl p-5">
+      Sign Up
+    </h2>
     Already a member ?
-    <a id="sign-up-btn" href="/#/login"> Sign In </a>
+    <button
+      class="text-white bg-blue-500 rounded-full w-fit p-2 mx-auto mb-4 hover:bg-slate-500"
+      on:click={() => {
+        push("/login");
+      }}>Sign In</button
+    >
     Username :
     <input
       class="input-field"
@@ -130,7 +138,13 @@
       }}
     />
     {@html confirmPasswordMsg}
-    <button type="submit" on:click={handleSubmit}> Sign Up ! </button>
+    <button
+      type="submit"
+      class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"
+      on:click={handleSubmit}
+    >
+      Sign Up !
+    </button>
     <h3 style="color: #FF4136">{finalMsg}</h3>
   </form>
 </div>

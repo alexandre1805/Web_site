@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .input-field {
+    @apply border-black;
+    @apply border-2;
+    @apply rounded-full;
+    @apply p-2;
+    @apply m-2;
+    @apply h-10;
+    @apply w-56;
+    @apply md:p-4;
+    @apply md:w-64;
+    @apply md:text-2xl;
+    @apply md:h-12;
+  }
+}
+
 button-classic {
   height: 40px;
   border: none;
