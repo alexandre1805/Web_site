@@ -77,7 +77,7 @@
   }
 </script>
 
-<div class="login w-full h-full flex items-center justify-center">
+<div class="w-full h-full flex items-center justify-center">
   <form
     class="flex flex-col border-2 border-black rounded-xl justify-center text-center p-2 md:text-2xl"
   >

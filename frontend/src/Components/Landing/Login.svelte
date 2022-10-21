@@ -35,9 +35,13 @@
   }
 </script>
 
-<div class="login">
-  <form>
-    <h2 class="title">Sign In</h2>
+<div class="w-full h-full flex flex-col items-center justify-center">
+  <form
+    class="flex flex-col border-2 border-black rounded-xl justify-center text-center p-2 md:text-2xl"
+  >
+    <h2 class="flex justify-center font-bold text-blue-500 text-3xl p-5">
+      Sign In
+    </h2>
     <input
       class="input-field"
       type="text"
@@ -54,10 +58,18 @@
         password = e.target.value;
       }}
     />
-    <button on:click|preventDefault={handleSubmit}>Login</button>
+    <button
+      class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"
+      on:click|preventDefault={handleSubmit}>Login</button
+    >
     <h3 style="color: #FF4136">{finalMsg}</h3>
   </form>
-  <h3>New here ?</h3>
+  <h3 class="font-bold mt-4">New here ?</h3>
   <p>Don't hesitate to sign up to access to website !</p>
-  <a id="sign-up-btn" href="/#/register"> Sign Up </a>
+  <button
+    class="text-white bg-blue-500 rounded-full w-fit p-2 mx-auto mb-4 hover:bg-slate-500"
+    on:click={() => {
+      push("/register");
+    }}>Sign Up</button
+  >
 </div>
