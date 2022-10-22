@@ -1,8 +1,0 @@
-.Message {
-  height: 100%;
-  float: right;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background: gainsboro;
-}

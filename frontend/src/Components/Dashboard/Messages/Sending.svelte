@@ -2,13 +2,8 @@
   import "emoji-picker-element/svelte";
   import axios from "axios";
   import { socket, username } from "../../../store";
-  import "../../../styles/Dashboard/Messages/Sending.css";
   import { onMount } from "svelte";
 
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
   export let current_room;
   let gamesOpen = false;
   let games = [];
@@ -24,45 +19,43 @@
       });
   }
   onMount(() => {
-    document
-      .querySelector("emoji-picker")
-      .addEventListener(
-        "emoji-click",
-        (event) => (current_message += event.detail.unicode)
-      );
+    document.querySelector("#emoji-container").addEventListener(
+      "emoji-click",
+      // @ts-ignore
+      (event) => (current_message += event.detail.unicode)
+    );
 
-    let input = document.querySelector(".sending input");
-    input.addEventListener("keyup", ({ key }) => {
-      if (key === "Enter") {
+    document.querySelector("#sending_input").addEventListener("keyup", (e) => {
+      // @ts-ignore
+      if (e.key === "Enter") {
         handleSubmitMessage();
       }
     });
   });
   function openEmoji() {
-    const emoji_container = document.querySelector(".emoji-container");
-    emoji_container.classList.toggle("shown");
+    const emoji_container = document.querySelector("#emoji-container");
+    emoji_container.classList.toggle("hidden");
   }
   function handleSubmitMessage() {
     if (current_message === "" || current_room.name === "") return;
-    socketValue.emit("message", {
+    $socket.emit("message", {
       type: "regular",
-      user: usernameValue,
+      user: $username,
       message: current_message,
       room: current_room.id,
     });
     current_message = "";
 
-    const emoji_container = document.querySelector(".emoji-container");
-    if (emoji_container.classList.contains("shown"))
-      emoji_container.classList.remove("shown");
+    const emoji_container = document.querySelector("#emoji-container");
+    emoji_container.classList.add("hidden");
     gamesOpen = false;
   }
   function handleCreateGame(game_name) {
     if (current_room.name === "") return;
-    socketValue.emit("message", {
+    $socket.emit("message", {
       type: "game",
-      user: usernameValue,
-      message: usernameValue + " want to start a game : ",
+      user: $username,
+      message: $username + " want to start a game : ",
       room: current_room.id,
       game: game_name,
       state: "Not started",
@@ -71,55 +64,59 @@
   }
 </script>
 
-<div class="sending">
+<div class="relative w-[95%] h-16 m-3 flex p-1 rounded-md bg-white">
   {#if gamesOpen}
-    <div class="Games">
+    <div
+      class="absolute w-[200px] h-[400px] rounded-lg bottom-16 bg-white border-2 border-black"
+    >
       {#each games as game}
         <div
-          class="Game"
+          class="flex justify-center p-5 border-b-2 hover:bg-slate-400"
           on:click={() => {
             handleCreateGame(game.name);
           }}
+          aria-hidden="true"
         >
           {game.name}
         </div>
       {/each}
     </div>
   {/if}
-  <img
-    src="/icons-pack/game-controller-outline.svg"
-    alt="games"
-    style="margin-right: 20px;"
+  <button
+    class="flex justify-center items-center mx-2"
     on:click={() => {
       gamesOpen = !gamesOpen;
     }}
-  />
+    ><img
+      src="/icons-pack/game-controller-outline.svg"
+      alt="games"
+      class="h-16"
+    />
+  </button>
+
   <input
     type="text"
+    id="sending_input"
+    class="w-full focus:outline-none"
     placeholder="New message..."
-    value={current_message}
-    on:change={(e) => {
-      current_message = e.target.value;
-    }}
+    bind:value={current_message}
   />
-  <img
-    src="/icons-pack/happy-outline.svg"
-    alt="emojis"
-    style="margin-right: 6px;"
-    on:click={openEmoji}
-  />
-  <div class="emoji-container">
+  <button on:click={openEmoji} class="flex justify-center items-center"
+    ><img
+      src="/icons-pack/happy-outline.svg"
+      alt="emojis"
+      class="h-16"
+    /></button
+  >
+
+  <div id="emoji-container" class="hidden right-5 bottom-16 absolute">
     <emoji-picker class="light" />
   </div>
-  <div class="border">
-    <img
-      src="icons-pack/send.svg"
-      on:click={(e) => {
-        e.preventDefault();
-        handleSubmitMessage();
-      }}
-      alt="send_button"
-      style="margin-left: 6px;"
-    />
-  </div>
+  <button
+    class="border-l-2 pl-2 border-gray-400 flex justify-center items-center"
+    on:click={(e) => {
+      e.preventDefault();
+      handleSubmitMessage();
+    }}><img src="icons-pack/send.svg" alt="send_button" class="h-16" /></button
+  >
 </div>

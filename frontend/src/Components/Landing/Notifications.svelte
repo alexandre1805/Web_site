@@ -15,7 +15,6 @@
 
   //real-times get notifications
   $socket.on("notification", (elt) => {
-    console.log(elt);
     notifications = [...notifications, elt];
   });
 

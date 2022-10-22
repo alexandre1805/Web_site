@@ -421,18 +421,16 @@
     ],
   ];
 
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
   let game_id;
   currentGame.subscribe((val) => (game_id = val));
   let usernameValue;
   username.subscribe((val) => (usernameValue = val));
   let game = {};
 
-  if (socketValue === null) push("/dashboard");
+  if ($socket === null) push("/dashboard");
   else {
-    socketValue.emit("join", { id: game_id, username: usernameValue });
-    socketValue.on("Connect-4 update", (data) => {
+    $socket.emit("join", { id: game_id, username: usernameValue });
+    $socket.on("Connect-4 update", (data) => {
       game = data;
       if (game.last_move !== undefined && game.last_move.p !== usernameValue) {
         //update the grid on the front
@@ -451,7 +449,6 @@
       let [x2, y2] = winning_array[i][1];
       let [x3, y3] = winning_array[i][2];
       let [x4, y4] = winning_array[i][3];
-      console.log("(" + x1 + ", " + y1 + ")");
       let a = game.board[x1][y1];
       let b = game.board[x2][y2];
       let c = game.board[x3][y3];
@@ -492,7 +489,7 @@
     }
 
     checkWinning();
-    socketValue.emit("Connect-4 update-client", { id: game_id, game: game });
+    $socket.emit("Connect-4 update-client", { id: game_id, game: game });
   }
 </script>
 
@@ -505,6 +502,7 @@
           id={x + "-" + y}
           class="tile"
           on:click={() => handleClickCase(x, y)}
+          aria-hidden="true"
         />
       {/each}
     {/each}

@@ -21,6 +21,9 @@
       friendList = res.data.friends;
     });
 
+  /**
+   * @param {{ target: { type: string; className: string; parentNode: any; checked: any; }; preventDefault: () => void; }} e
+   */
   function handleClickFriend(e) {
     if (e.target.type !== "checkbox") e.preventDefault();
     let obj;
@@ -61,14 +64,17 @@
 
 <div class="Dialog_box">
   <div class="Container">
-    <img
-      class="close_button"
-      src="/plus.png"
-      alt="plus"
+    <button
       on:click={() => {
         setOpenDialogBox(false);
       }}
-    />
+    >
+      <img
+        class="w-12 float-right"
+        src="/icons-pack/close-outline.svg"
+        alt="close"
+      /></button
+    >
     Add new friend :
     <input
       placeholder="Add friend..."

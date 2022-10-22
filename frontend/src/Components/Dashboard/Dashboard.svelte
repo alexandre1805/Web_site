@@ -1,23 +1,24 @@
 <script>
   import Room from "./Rooms/Room.svelte";
   import Messages from "./Messages/Messages.svelte";
-  import "../../styles/Dashboard/Dashboard.css";
   let current_room = { name: "" };
   function setCurrentRoom(room) {
     current_room = room;
-    document.getElementById("room_container").classList.add("hide");
-    document.getElementById("message_container").classList.remove("hide");
+    document.getElementById("room_container").classList.add("hidden");
+    document.getElementById("message_container").classList.remove("hidden");
   }
 
   function return_room() {
-    document.getElementById("room_container").classList.remove("hide");
-    document.getElementById("message_container").classList.add("hide");
+    document.getElementById("room_container").classList.remove("hidden");
+    document.getElementById("message_container").classList.add("hidden");
   }
 </script>
 
-<div class="Dashboard">
-  <div id="room_container"><Room {setCurrentRoom} {current_room} /></div>
-  <div id="message_container" class="hide">
+<div class="Dashboard w-full h-full flex">
+  <div id="room_container" class="w-full h-full md:inline md:w-2/5">
+    <Room {setCurrentRoom} {current_room} />
+  </div>
+  <div id="message_container" class="w-full h-full hidden md:inline md:w-3/5">
     <Messages {current_room} {return_room} />
   </div>
 </div>

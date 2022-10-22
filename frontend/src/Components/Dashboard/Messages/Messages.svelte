@@ -1,5 +1,4 @@
 <script>
-  import "../../../styles/Dashboard/Messages/Messages.css";
   import Header from "./Header.svelte";
   import MessagesDisplaying from "./Messages_displaying.svelte";
   import Sending from "./Sending.svelte";
@@ -21,15 +20,13 @@
   }
 </script>
 
-<div class="Message">
+<div class="h-full float-right w-full flex flex-col bg-slate-300">
   {#if errorBox}
     <Log_Box message={errorMsg} open={setOpenErrorBox} />
   {/if}
   {#if current_room.name !== ""}
     <Header {current_room} {return_room} />
-  {/if}
-  <MessagesDisplaying {current_room} />
-  {#if current_room.name !== ""}
+    <MessagesDisplaying {current_room} />
     <Sending {current_room} />
   {/if}
 </div>

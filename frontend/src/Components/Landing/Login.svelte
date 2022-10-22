@@ -8,7 +8,6 @@
   let finalMsg = "";
 
   function handleSubmit() {
-    console.log(username);
     if (username === "" || password === "") return;
     axios
       .post(
