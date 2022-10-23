@@ -1,7 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
   import { socket, currentGame, username } from "../../../store";
-  import "../../../styles/Games/Tic-tac-toe.css";
+  import "../../../../styles/Games/Tic-tac-toe.css";
   import Connection_Box from "../ConnectionBox.svelte";
   import Square from "./Square.svelte";
 

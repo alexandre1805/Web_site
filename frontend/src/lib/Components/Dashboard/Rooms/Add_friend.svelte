@@ -1,6 +1,6 @@
 <script>
-  import axios from "axios";
-  import { socket, username } from "../../../store";
+  import closeButton from "../../../../assets/icons-pack/close-outline.svg";
+  import { socket } from "../../../store";
 
   export let setOpenDialogBox;
   let friendMsg = "";
@@ -25,11 +25,7 @@
         setOpenDialogBox(false);
       }}
     >
-      <img
-        class="w-12 float-right"
-        src="/icons-pack/close-outline.svg"
-        alt="close"
-      /></button
+      <img class="w-12 float-right" src={closeButton} alt="close" /></button
     >
     Add new friend :
     <input

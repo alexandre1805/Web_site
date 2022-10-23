@@ -1,5 +1,7 @@
 <script>
   import axios from "axios";
+  import messageLogo from "../../../../assets/icons-pack/chatbox-ellipses-outline.svg";
+  import addLogo from "../../../../assets/icons-pack/add-outline.svg";
   import NewRoom from "./New_room.svelte";
   import NewFriend from "./Add_friend.svelte";
   import { socket } from "../../../store";
@@ -91,11 +93,7 @@
         openDialogBoxNewRoom = true;
       }}
     >
-      <img
-        src="/icons-pack/chatbox-ellipses-outline.svg"
-        alt="new_room"
-        class="w-10"
-      /></button
+      <img src={messageLogo} alt="new_room" class="w-10" /></button
     >
     <button
       class="my-auto rounded-full hover:bg-slate-200 p-2 m-1"
@@ -103,11 +101,7 @@
         openDialogBoxNewFriend = true;
       }}
     >
-      <img
-        src="/icons-pack/add-outline.svg"
-        alt="new_room"
-        class="w-10"
-      /></button
+      <img src={addLogo} alt="new_room" class="w-10" /></button
     >
 
     {#if openDialogBoxNewRoom}

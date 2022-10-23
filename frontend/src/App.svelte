@@ -1,18 +1,18 @@
 <script>
   import axios from "axios";
-  import NavBar from "./Components/Landing/NavBar.svelte";
-  import { socket, username } from "./store";
+  import NavBar from "./lib/Components/Landing/NavBar.svelte";
+  import { socket, username } from "./lib/store";
   import Router, { push } from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
   import io from "socket.io-client";
 
-  import About from "./Components/Landing/About.svelte";
-  import Home from "./Components/Landing/Home.svelte";
-  import Register from "./Components/Landing/Register.svelte";
-  import Login from "./Components/Landing/Login.svelte";
-  import Dashboard from "./Components/Dashboard/Dashboard.svelte";
-  import TicTacToe from "./Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
-  import Connect_4 from "./Components/Games/Connect_4.svelte";
+  import About from "./lib/Components/Landing/About.svelte";
+  import Home from "./lib/Components/Landing/Home.svelte";
+  import Register from "./lib/Components/Landing/Register.svelte";
+  import Login from "./lib/Components/Landing/Login.svelte";
+  import Dashboard from "./lib/Components/Dashboard/Dashboard.svelte";
+  import TicTacToe from "./lib/Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
+  import Connect_4 from "./lib/Components/Games/Connect_4.svelte";
 
   async function fetchLogin() {
     try {

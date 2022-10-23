@@ -1,6 +1,9 @@
 <script>
   import { push, link } from "svelte-spa-router";
   import { username } from "../../store";
+  import notificationsLogo from "../../../assets/icons-pack/notifications.svg";
+  import logoutLogo from "../../../assets/icons-pack/log-out-outline.svg";
+  import menuLogo from "../../../assets/icons-pack/menu-outline.svg";
   import Notifications from "./Notifications.svelte";
 
   let notificationsOpen = false;
@@ -23,7 +26,7 @@
           document.getElementById("menu").classList.toggle("invisible");
         }}
       >
-        <img src="menu.svg" alt="menu" class="h-full" />
+        <img src={menuLogo} alt="menu" class="h-full" />
       </button>
     {/if}
     <h2
@@ -41,7 +44,7 @@
         }}
         class="rounded-full hover:bg-slate-200 m-1"
       >
-        <img src="/icons-pack/notifications.svg" alt="notif" class="h-10 m-2" />
+        <img src={notificationsLogo} alt="notif" class="h-10 m-2" />
       </button>
       <button
         on:click={() => {
@@ -51,11 +54,7 @@
         }}
         class="rounded-full hover:bg-slate-200 m-1"
       >
-        <img
-          src="/icons-pack/log-out-outline.svg"
-          alt="log-out"
-          class="h-10 m-2"
-        /></button
+        <img src={logoutLogo} alt="log-out" class="h-10 m-2" /></button
       >
       <h3 class="mr-3 my-auto hidden">Welcome {$username} !</h3>
       {#if notificationsOpen}
