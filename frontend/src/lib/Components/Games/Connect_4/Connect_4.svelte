@@ -2,7 +2,6 @@
   import { push } from "svelte-spa-router";
   import { socket, currentGame, username } from "../../../store";
   import Connection_Box from "../ConnectionBox.svelte";
-  import "../../../../styles/Games/Connect_4.css";
   import winning_array from "./winning_array.json";
 
   let game_id;
