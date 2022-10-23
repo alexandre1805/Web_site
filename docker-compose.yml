@@ -32,7 +32,7 @@ services:
     ports:
       - 4000:4000
     environment:
-      - URL_MONGO_DB=mongodb://api:docker1234@mongo:27017/?authMechanism=DEFAULT
+      - MONGO_URL=mongodb://api:docker1234@mongo:27017/?authMechanism=DEFAULT
       - JWT_SECRET=test
 
   mongo:

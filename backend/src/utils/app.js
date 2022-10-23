@@ -28,7 +28,7 @@ function app() {
   // *        DATABASE : MONGODB      *
   // *                                *
   // **********************************
-  mongoose.connect(process.env.URL_MONGO_DB);
+  mongoose.connect(process.env.MONGO_URL);
   const db = mongoose.connection;
   db.on("error", (err) => {
     console.log(err);

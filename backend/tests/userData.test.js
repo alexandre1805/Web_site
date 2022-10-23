@@ -18,21 +18,18 @@ async function createUser(user) {
     password: user.password,
   });
   user["cookie"] = response.headers["set-cookie"][0];
-  user["socket"] = io(
-    "http://" + process.env.API_URI + ":" + process.env.API_PORT,
-    {
-      query: {
-        username: user.username,
-      },
-    }
-  );
+  user["socket"] = io("http://localhost:3050", {
+    query: {
+      username: user.username,
+    },
+  });
 
   return user;
 }
 
 beforeAll(async () => {
   server = app();
-  server.listen(process.env.API_PORT);
+  server.listen(3000);
   //create the user
 });
 beforeEach(async () => {
