@@ -1,14 +1,17 @@
 <script>
   import axios from "axios";
   import NewRoom from "./New_room.svelte";
+  import NewFriend from "./Add_friend.svelte";
   import { socket } from "../../../store";
   import { onMount } from "svelte";
 
   export let setCurrentRoom;
   export let current_room;
-  let search = "";
   let rooms = [];
-  let openDialogBoxRoom = false;
+  let search = "";
+  let searchRooms = rooms;
+  let openDialogBoxNewRoom = false;
+  let openDialogBoxNewFriend = false;
 
   onMount(async () => {
     await axios
@@ -17,6 +20,7 @@
       })
       .then((res) => {
         rooms = res.data.rooms;
+        searchRooms = rooms;
       });
   });
 
@@ -40,7 +44,7 @@
    */
   function handleChangeRoom(room) {
     document.querySelectorAll(".Room li").forEach((element) => {
-      element.classList.remove("border-l-8", "border-l-blue-400");
+      element.classList.remove("md:border-l-8", "md:border-l-blue-400");
     });
     setCurrentRoom(room);
     rooms = rooms.map((elm) => {
@@ -49,45 +53,75 @@
     });
     document
       .getElementById(room.id)
-      .classList.add("border-l-8", "border-l-blue-400");
+      .classList.add("md:border-l-8", "md:border-l-blue-400");
   }
 
   /**
    * @param {boolean} val
    */
-  function setOpenDialogBoxRoom(val) {
-    openDialogBoxRoom = val;
+  function setopenDialogBoxNewRoom(val) {
+    openDialogBoxNewRoom = val;
+  }
+
+  /**
+   * @param {boolean} val
+   */
+  function setopenDialogBoxNewFriend(val) {
+    openDialogBoxNewFriend = val;
+  }
+
+  function Search() {
+    searchRooms = rooms.filter((room) => room.name.includes(search));
   }
 </script>
 
 <div
-  class="Room w-full min-w-fit float-left bg-white flex flex-col h-full overflow-y-scroll"
+  class="w-full min-w-fit float-left bg-white flex flex-col h-full overflow-y-scroll"
 >
-  <div class="p-1 h-24 flex">
+  <div class="p-1 h-24 flex border-b-2 border-gray-300">
     <input
       bind:value={search}
       class="input-field my-auto bg-gray-100 border-0 h-14 w-full text-lg"
       placeholder="Search..."
+      on:input={Search}
     />
     <button
-      class="my-auto rounded-full hover:bg-slate-200 p-2"
+      class="my-auto rounded-full hover:bg-slate-200 p-2 m-1"
       on:click={() => {
-        openDialogBoxRoom = true;
+        openDialogBoxNewRoom = true;
       }}
     >
       <img
         src="/icons-pack/chatbox-ellipses-outline.svg"
         alt="new_room"
-        class="h-10"
+        class="w-10"
+      /></button
+    >
+    <button
+      class="my-auto rounded-full hover:bg-slate-200 p-2 m-1"
+      on:click={() => {
+        openDialogBoxNewFriend = true;
+      }}
+    >
+      <img
+        src="/icons-pack/add-outline.svg"
+        alt="new_room"
+        class="w-10"
       /></button
     >
 
-    {#if openDialogBoxRoom}
-      <NewRoom setOpenDialogBox={setOpenDialogBoxRoom} />
+    {#if openDialogBoxNewRoom}
+      <NewRoom setOpenDialogBox={setopenDialogBoxNewRoom} />
+    {/if}
+    {#if openDialogBoxNewFriend}
+      <NewFriend setOpenDialogBox={setopenDialogBoxNewFriend} />
     {/if}
   </div>
-  <ul class="w-full list-none overflow-y-scroll border-t-2 border-gray-300">
-    {#each rooms as room}
+  {#if searchRooms.length === 0}
+    No rooms available
+  {/if}
+  <ul class="w-full list-none overflow-y-scroll">
+    {#each searchRooms as room}
       <li
         class="flex p-2 w-full border-b-2 border-gray-300 items-center hover:bg-blue-200"
         id={room.id}

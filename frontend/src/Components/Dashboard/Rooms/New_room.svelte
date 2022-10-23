@@ -3,15 +3,11 @@
   import { socket, username } from "../../../store";
 
   export let setOpenDialogBox;
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
   let usernameValue;
   username.subscribe((val) => (usernameValue = val));
   let friendList = [];
   let listNewRoom = [usernameValue];
   let finalMsg = "";
-  let friendMsg = "";
-  let addFriend = "";
 
   axios
     .get("http://" + window.location.host + "/api/getFriends", {
@@ -21,86 +17,65 @@
       friendList = res.data.friends;
     });
 
-  /**
-   * @param {{ target: { type: string; className: string; parentNode: any; checked: any; }; preventDefault: () => void; }} e
-   */
-  function handleClickFriend(e) {
-    if (e.target.type !== "checkbox") e.preventDefault();
-    let obj;
-    if (e.target.className !== "room") obj = e.target.parentNode;
-    else obj = e.target;
-
-    let state;
-    if (e.target.type !== "checkbox") {
-      let checkbox = obj.childNodes[0];
-      if (!checkbox.checked) checkbox.checked = true;
-      else checkbox.checked = false;
-      state = checkbox.checked;
-    } else state = e.target.checked;
-    if (state) listNewRoom = [...listNewRoom, obj.innerText];
-    else listNewRoom = listNewRoom.filter((elm) => elm !== obj.innerText);
+  function handleClickFriend(friend) {
+    if (listNewRoom.includes(friend.username)) {
+      listNewRoom = listNewRoom.filter((str) => str !== friend.username);
+      // @ts-ignore
+      document.getElementById(friend.id).checked = false;
+    } else {
+      listNewRoom.push(friend.username);
+      // @ts-ignore
+      document.getElementById(friend.id).checked = true;
+    }
+    console.log(listNewRoom);
   }
 
   function handleNewRoom(e) {
     if (listNewRoom.length === 1) return;
-    socketValue.emit("create Room", listNewRoom);
+    $socket.emit("create Room", listNewRoom);
   }
 
-  socketValue.on("create Room return", (msg) => {
+  $socket.on("create Room return", (msg) => {
     finalMsg = msg;
-  });
-
-  function handleAddFriend(e) {
-    e.preventDefault();
-    if (addFriend === "") return;
-    socketValue.emit("add Friend", addFriend);
-    addFriend = "";
-  }
-
-  socketValue.on("add Friend return", (msg) => {
-    friendMsg = msg;
   });
 </script>
 
 <div class="Dialog_box">
-  <div class="Container">
+  <div class="Container min-w-[300px]">
     <button
       on:click={() => {
         setOpenDialogBox(false);
       }}
     >
       <img
-        class="w-12 float-right"
+        class="w-12 float-right hover:bg-slate-500 rounded-full"
         src="/icons-pack/close-outline.svg"
         alt="close"
       /></button
     >
-    Add new friend :
-    <input
-      placeholder="Add friend..."
-      value={addFriend}
-      on:change={(e) => {
-        addFriend = e.target.value;
-      }}
-    />
-    <button on:click={handleAddFriend}>Send invitation</button>
-    <div class="friend_msg">{friendMsg}</div>
-    Create room by adding your friends :
-    <ul>
+    New message group :
+    <ul class="overflow-y-scroll m-3">
       {#each friendList as friend}
         <li
-          class="room"
-          key={friend._id}
-          id={friend._id}
-          on:click={handleClickFriend}
+          class="flex hover:bg-slate-400 items-center p-2 border-b-2"
+          on:click={() => handleClickFriend(friend)}
+          aria-hidden="true"
         >
-          <input type="checkbox" />
-          <img src="/room_image.png" alt="user_image" />
+          <input type="checkbox" id={friend.id} />
+          <img
+            src="/room_image.png"
+            alt="user_image"
+            class="h-12 rounded-full"
+          />
           <span>{friend.username}</span>
         </li>
       {/each}
     </ul>
-    <button on:click={handleNewRoom}>Create Room</button>
+    <button
+      on:click={handleNewRoom}
+      class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"
+      >Create Room</button
+    >
     {finalMsg}
   </div>
 </div>
