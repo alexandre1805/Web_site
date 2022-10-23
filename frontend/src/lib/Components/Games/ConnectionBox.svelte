@@ -1,6 +1,5 @@
 <script>
   import { push } from "svelte-spa-router";
-  import "../../../styles/Games/Connection_Box.css";
   import { socket, currentGame, username } from "../../store";
   let game_id;
   currentGame.subscribe((val) => (game_id = val));

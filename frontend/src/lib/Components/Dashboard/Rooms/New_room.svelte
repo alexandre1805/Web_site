@@ -1,6 +1,7 @@
 <script>
   import axios from "axios";
   import { socket, username } from "../../../store";
+  import closeButton from "../../../../assets/icons-pack/close-outline.svg";
 
   export let setOpenDialogBox;
   let usernameValue;
@@ -49,7 +50,7 @@
     >
       <img
         class="w-12 float-right hover:bg-slate-500 rounded-full"
-        src="/icons-pack/close-outline.svg"
+        src={closeButton}
         alt="close"
       /></button
     >
