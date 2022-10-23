@@ -1,6 +1,6 @@
 <script>
   import { push, link } from "svelte-spa-router";
-  import { username } from "../../store";
+  import { username, currentGame, socket } from "../../store";
   import notificationsLogo from "../../../assets/icons-pack/notifications.svg";
   import logoutLogo from "../../../assets/icons-pack/log-out-outline.svg";
   import menuLogo from "../../../assets/icons-pack/menu-outline.svg";
@@ -13,6 +13,19 @@
     { name: "About Us", route: "/about" },
     { name: "Log In", route: "/dashboard" },
   ];
+
+  function log_out() {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    push("/home");
+    username.set("");
+    if ($currentGame !== "") {
+      $socket.emit("leave", {
+        id: $currentGame,
+        username: $username,
+      });
+      currentGame.set("");
+    }
+  }
 </script>
 
 <div
@@ -46,14 +59,7 @@
       >
         <img src={notificationsLogo} alt="notif" class="h-10 m-2" />
       </button>
-      <button
-        on:click={() => {
-          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-          push("/home");
-          username.set("");
-        }}
-        class="rounded-full hover:bg-slate-200 m-1"
-      >
+      <button on:click={log_out} class="rounded-full hover:bg-slate-200 m-1">
         <img src={logoutLogo} alt="log-out" class="h-10 m-2" /></button
       >
       <h3 class="mr-3 my-auto hidden">Welcome {$username} !</h3>

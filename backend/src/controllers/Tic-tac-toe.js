@@ -5,6 +5,8 @@ exports.create = function (io, id, users) {
   let game = { board: ["", "", "", "", "", "", "", "", ""] };
   game[users[0]] = "X";
   game[users[1]] = "O";
+  game["X"] = users[0];
+  game["Y"] = users[1];
   game["current_player"] = users[Math.floor(Math.random() * 2)];
   game["winner"] = null;
 

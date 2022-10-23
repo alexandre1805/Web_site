@@ -4,6 +4,8 @@
   import "../../../../styles/Games/Tic-tac-toe.css";
   import Connection_Box from "../ConnectionBox.svelte";
   import Square from "./Square.svelte";
+  import X from "../../../../assets/Tic-Tac-Toe/X.png";
+  import O from "../../../../assets/Tic-Tac-Toe/O.png";
 
   const winningConditions = [
     [0, 1, 2],
@@ -16,37 +18,27 @@
     [2, 4, 6],
   ];
 
-  let socketValue;
-  socket.subscribe((val) => (socketValue = val));
-  let game_id;
-  currentGame.subscribe((val) => (game_id = val));
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
   let game = { board: ["", "", "", "", "", "", "", "", ""] };
-  game[usernameValue] = "";
+  game[$username] = "";
   game.current_player = "";
   game.winner = null;
 
-  if (socketValue === null) push("/dashboard");
+  if ($socket === null) push("/dashboard");
   else {
-    socketValue.emit("join", { id: game_id, username: usernameValue });
+    $socket.emit("join", { id: $currentGame, username: $username });
 
-    socketValue.on("Tic-tac-toe update", (data) => {
+    $socket.on("Tic-tac-toe update", (data) => {
       game = data;
     });
   }
 
   function handleClickCase(id) {
-    if (game.current_player != usernameValue) return;
+    if (game.current_player != $username) return;
     if (game.board[id] !== "") return;
-    game.board[id] = game[usernameValue];
+    game.board[id] = game[$username];
 
-    for (const [key, value] of Object.entries(game)) {
-      if (game[usernameValue] === "O" && value === "X")
-        game.current_player = key;
-      else if (game[usernameValue] === "X" && value === "O")
-        game.current_player = key;
-    }
+    if (game[game.current_player] === "X") game.current_player = game["Y"];
+    else game.current_player = game["X"];
 
     //check win conditions
     for (let i in winningConditions) {
@@ -68,14 +60,16 @@
     }
     if (draw) game.winner = undefined;
 
-    socketValue.emit("Tic-tac-toe update-client", { id: game_id, game: game });
+    $socket.emit("Tic-tac-toe update-client", { id: $currentGame, game: game });
   }
 </script>
 
-<div class="Tic-Tac-Toe">
+<div
+  class="w-full h-full flex items-center justify-center bg-cyan-800 flex-col md:flex-row"
+>
   <Connection_Box />
-  <div class="Board">
-    <table>
+  <div class="p-5 flex justify-center items-center m-auto">
+    <table class="border-collapse w-[70vw] h-[70vw] max-h-[448px] max-w-md">
       <tr>
         <Square handler={() => handleClickCase(0)} value={game.board[0]} />
         <Square handler={() => handleClickCase(1)} value={game.board[1]} />
@@ -94,13 +88,15 @@
     </table>
   </div>
 
-  <div class="Information">
-    <div class="youAre">
+  <div
+    class="text-black text-lg font-bold flex p-3 md:border-l-2 md:border-b-2 md:border-t-2 md:border-black md:bg-white rounded-md flex-col w-64"
+  >
+    <div class="flex items-center">
       You are :
-      {#if game[usernameValue] === "X"}
-        <img src="X.png" alt="X" />
+      {#if game[$username] === "X"}
+        <img src={X} alt="X" class="h-5 w-5 m-2" />
       {:else}
-        <img src="O.png" alt="O" />
+        <img src={O} alt="O" class="h-5 w-5 m-2" />
       {/if}
     </div>
     Current player : {game.current_player}

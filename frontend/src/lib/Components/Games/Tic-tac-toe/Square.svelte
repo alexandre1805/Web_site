@@ -1,12 +1,26 @@
 <script>
   export let handler;
   export let value;
+  import X from "../../../../assets/Tic-Tac-Toe/X.png";
+  import O from "../../../../assets/Tic-Tac-Toe/O.png";
 </script>
 
 {#if value === "X"}
-  <td on:click={handler}><img src="X.png" alt="X" /></td>
+  <td
+    on:click={handler}
+    class="border-8 border-white w-1/3 h-1/3"
+    aria-hidden="true"><img src={X} alt="X" class="h-full w-full" /></td
+  >
 {:else if value === "O"}
-  <td on:click={handler}><img src="O.png" alt="O" /></td>
+  <td
+    on:click={handler}
+    class="border-8 border-white w-1/3 h-1/3"
+    aria-hidden="true"><img src={O} alt="O" class="h-full w-full" /></td
+  >
 {:else}
-  <td on:click={handler} />
+  <td
+    on:click={handler}
+    class="border-8 border-white w-1/3 h-1/3"
+    aria-hidden="true"
+  />
 {/if}

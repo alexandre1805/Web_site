@@ -141,7 +141,7 @@
         </div>
         {#if room.unread !== 0}
           <div
-            class="w-8 h-8 flex bg-blue-400 rounded-full justify-center items-center text-white font-bold"
+            class="w-8 h-8 flex bg-blue-400 rounded-full justify-center items-center text-white font-bold ml-auto"
           >
             {room.unread}
           </div>

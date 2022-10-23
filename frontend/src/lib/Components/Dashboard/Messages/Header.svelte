@@ -1,13 +1,14 @@
 <script>
   export let current_room;
   export let return_room;
+  import leftArrow from "../../../../assets/icons-pack/arrow-back-outline.svg";
 </script>
 
 <div class="bg-gray-500 text-center flex h-24 items-center">
   <button class="mx-2" on:click={return_room}
     ><img
       id="arrow"
-      src="/left-arrow.svg"
+      src={leftArrow}
       alt="left arrow"
       class="h-16 md:hidden"
     /></button
