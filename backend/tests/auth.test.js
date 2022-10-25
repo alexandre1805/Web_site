@@ -2,6 +2,8 @@ const app = require("../src/utils/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 const userModel = require("../src/models/users");
+const helper = require("./helper");
+const { use } = require("../src/routes/routes");
 
 let server;
 beforeAll(() => {
@@ -95,12 +97,18 @@ describe("Authentification", () => {
     });
 
     test("a user with the same email already exist", async () => {
+      let user = {
+        username: "username",
+        email: "email@test.com",
+        password: "password",
+      };
+      await helper.createUser(server, user);
       const response = await request(server)
         .post("/register")
         .send({
-          username: "toto",
-          email: "bour816@gmail.com",
-          password: "toto",
+          username: "test",
+          email: "email@test.com",
+          password: "password",
         })
         .expect("Content-Type", /json/)
         .expect(200);
@@ -108,22 +116,35 @@ describe("Authentification", () => {
       expect(response.body).toMatchObject({
         message: "Email already exists.",
       });
+
+      await helper.deleteUser(server, user);
     });
 
     test("classic registration", async () => {
+      let user = {
+        username: "test",
+        email: "test@gmail.com",
+        password: "password",
+      };
       const response = await request(server)
         .post("/register")
-        .send({
-          username: "test",
-          email: "test@gmail.com",
-          password: "toto",
-        })
+        .send(user)
         .expect("Content-Type", /json/)
         .expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "OK",
       });
+
+      let db_user = await userModel.find({
+        username: user.username,
+        email: user.email,
+      });
+      expect(db_user).not.toMatchObject({
+        username: user.username,
+        email: user.email,
+      });
+      helper.deleteUser(user);
     });
   });
 
@@ -202,11 +223,17 @@ describe("Authentification", () => {
     });
 
     test("classic login", async () => {
+      let user = {
+        username: "test",
+        email: "test@gmail.com",
+        password: "password",
+      };
+      helper.createUser(server, user);
       const response = await request(server)
         .post("/login")
         .send({
-          username: "test",
-          password: "toto",
+          username: user.username,
+          password: user.password,
         })
         .expect("Content-Type", /json/)
         .expect(200);
@@ -215,6 +242,8 @@ describe("Authentification", () => {
         message: "OK",
       });
       expect(response.headers.hasOwnProperty("set-cookie"));
+
+      helper.deleteUser(user);
     });
   });
 
@@ -243,9 +272,16 @@ describe("Authentification", () => {
     });
 
     test("Good token", async () => {
-      const login = await request(server).post("/login").send({
+      let user = {
         username: "test",
-        password: "toto",
+        email: "test@gmail.com",
+        password: "password",
+      };
+      await helper.createUser(server, user);
+
+      const login = await request(server).post("/login").send({
+        username: user.username,
+        password: user.password,
       });
 
       let token = login.headers["set-cookie"][0];
@@ -258,12 +294,11 @@ describe("Authentification", () => {
       expect(response.body).toMatchObject({
         message: "OK",
       });
+      await helper.deleteUser(user);
     });
   });
 });
 
-afterAll(async () => {
-  //delete user test
-  await userModel.deleteOne({ username: "test" });
+afterAll(() => {
   mongoose.disconnect();
 });

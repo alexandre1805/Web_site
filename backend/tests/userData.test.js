@@ -1,4 +1,4 @@
-const app = require("../src/utils/app");
+/*const app = require("../src/utils/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 const userModel = require("../src/models/users");
@@ -29,7 +29,7 @@ async function createUser(user) {
 
 beforeAll(async () => {
   server = app();
-  server.listen(3000);
+  server.listen(4000);
   //create the user
 });
 beforeEach(async () => {
@@ -208,3 +208,4 @@ afterAll(async () => {
   await server.close();
   mongoose.disconnect();
 });
+*/
