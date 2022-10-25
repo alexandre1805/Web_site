@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const userModel = require("../src/models/users");
+const userModel = require("../../src/models/users");
+const request = require("supertest");
+const io = require("socket.io-client");
 
 async function createUser(server, user, logged = false) {
   if (mongoose.connection.readyState !== 1) {
@@ -12,28 +14,28 @@ async function createUser(server, user, logged = false) {
 
   if (logged) {
     const response = await request(server).post("/login").send({
-      username: username,
-      password: password,
+      username: user.username,
+      password: user.password,
     });
 
     user.cookie = response.headers["set-cookie"][0];
-    user.socket = io("http://localhost:3050", {
+    user.socket = await io("http://localhost:4001", {
       query: {
         username: user.username,
       },
     });
   }
-
   return user;
 }
 
-async function deleteUser(user) {
+async function deleteUser(user, logged = false) {
   if (mongoose.connection.readyState !== 1) {
     console.error("DB not connected");
     return;
   }
 
   await userModel.deleteOne({ username: user.username, email: user.email });
+  if (logged) user.socket.close();
 }
 
 module.exports = {

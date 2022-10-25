@@ -9,7 +9,6 @@ const Tictactoe = require("../controllers/Tic-tac-toe");
 const Connect4 = require("../controllers/Connect-4");
 const games = require("../controllers/games-connection");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 
 function app() {
   require("dotenv").config();
@@ -22,17 +21,6 @@ function app() {
   app.use(cookieParser());
   app.use("/", router);
   app.use(cors());
-
-  // **********************************
-  // *                                *
-  // *        DATABASE : MONGODB      *
-  // *                                *
-  // **********************************
-  mongoose.connect(process.env.MONGO_URL);
-  const db = mongoose.connection;
-  db.on("error", (err) => {
-    console.log(err);
-  });
 
   // **********************************
   // *                                *

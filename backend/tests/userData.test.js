@@ -1,42 +1,25 @@
-/*const app = require("../src/utils/app");
+const app = require("../src/utils/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 const userModel = require("../src/models/users");
 const notificationModel = require("../src/models/notification");
-const io = require("socket.io-client");
-require("dotenv").config();
+const helper = require("./lib/helper");
+const MemoryDatabaseServer = require("./lib/MemoryDatabaseServer");
 
-let user1, user2, server;
-async function createUser(user) {
-  await request(server).post("/register").send({
-    username: user.username,
-    email: user.email,
-    password: user.password,
-  });
-  const response = await request(server).post("/login").send({
-    username: user.username,
-    password: user.password,
-  });
-  user["cookie"] = response.headers["set-cookie"][0];
-  user["socket"] = io("http://localhost:3050", {
-    query: {
-      username: user.username,
-    },
-  });
-
-  return user;
-}
+let server;
+var user1;
+var user2;
 
 beforeAll(async () => {
+  await MemoryDatabaseServer.start();
   server = app();
-  server.listen(4000);
-  //create the user
-});
-beforeEach(async () => {
+  await mongoose.connect(MemoryDatabaseServer.getConnectionString());
+  server.listen(4001);
+
   user1 = { username: "test1", email: "test1@gmail.com", password: "toto" };
-  user1 = await createUser(user1);
+  user1 = await helper.createUser(server, user1, true);
   user2 = { username: "test2", email: "test2@gmail.com", password: "toto" };
-  user2 = await createUser(user2);
+  user2 = await helper.createUser(server, user2, true);
 });
 
 describe("User Data", () => {
@@ -49,7 +32,7 @@ describe("User Data", () => {
       });
     });
 
-    test("Get Notification without token", async () => {
+    /*test("Get Notification without token", async () => {
       const response = await request(server).get("/getNotifs").expect(404);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
@@ -193,19 +176,15 @@ describe("User Data", () => {
         }, 500);
       }, 500);
     });
+    */
   });
 });
 
-afterEach(async () => {
-  await userModel.deleteOne({ username: user1.username });
-  await userModel.deleteOne({ username: user2.username });
-  await notificationModel.deleteMany({ from: user1.username });
-  await user1.socket.close();
-  await user2.socket.close();
-});
-
 afterAll(async () => {
+  helper.deleteUser(user1, true);
+  helper.deleteUser(user2, true);
+
+  await mongoose.disconnect();
   await server.close();
-  mongoose.disconnect();
+  await MemoryDatabaseServer.stop();
 });
-*/

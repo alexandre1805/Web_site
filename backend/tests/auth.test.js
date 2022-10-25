@@ -2,12 +2,15 @@ const app = require("../src/utils/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 const userModel = require("../src/models/users");
-const helper = require("./helper");
+const helper = require("./lib/helper");
 const { use } = require("../src/routes/routes");
+const MemoryDatabaseServer = require("./lib/MemoryDatabaseServer");
 
 let server;
-beforeAll(() => {
+beforeAll(async () => {
+  await MemoryDatabaseServer.start();
   server = app();
+  await mongoose.connect(MemoryDatabaseServer.getConnectionString());
 });
 
 describe("Authentification", () => {
@@ -85,9 +88,20 @@ describe("Authentification", () => {
     });
 
     test("a user with the same username already exist", async () => {
+      let user = {
+        username: "username",
+        email: "email@test.com",
+        password: "password",
+      };
+      await helper.createUser(server, user);
+
       const response = await request(server)
         .post("/register")
-        .send({ username: "alex", email: "toto@gmail.com", password: "toto" })
+        .send({
+          username: user.username,
+          email: "toto@gmail.com",
+          password: user.password,
+        })
         .expect("Content-Type", /json/)
         .expect(200);
       expect(response.body.hasOwnProperty("message"));
@@ -107,8 +121,8 @@ describe("Authentification", () => {
         .post("/register")
         .send({
           username: "test",
-          email: "email@test.com",
-          password: "password",
+          email: user.email,
+          password: user.password,
         })
         .expect("Content-Type", /json/)
         .expect(200);
@@ -117,7 +131,7 @@ describe("Authentification", () => {
         message: "Email already exists.",
       });
 
-      await helper.deleteUser(server, user);
+      await helper.deleteUser(user);
     });
 
     test("classic registration", async () => {
@@ -299,6 +313,7 @@ describe("Authentification", () => {
   });
 });
 
-afterAll(() => {
-  mongoose.disconnect();
+afterAll(async () => {
+  await mongoose.disconnect();
+  await MemoryDatabaseServer.stop();
 });
