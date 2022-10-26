@@ -7,6 +7,7 @@ const { use } = require("../src/routes/routes");
 const MemoryDatabaseServer = require("./lib/MemoryDatabaseServer");
 
 let server;
+let port = 4001;
 beforeAll(async () => {
   await MemoryDatabaseServer.start();
   server = app();
@@ -93,7 +94,7 @@ describe("Authentification", () => {
         email: "email@test.com",
         password: "password",
       };
-      await helper.createUser(server, user);
+      await helper.createUser(server, port, user);
 
       const response = await request(server)
         .post("/register")
@@ -116,7 +117,7 @@ describe("Authentification", () => {
         email: "email@test.com",
         password: "password",
       };
-      await helper.createUser(server, user);
+      await helper.createUser(server, port, user);
       const response = await request(server)
         .post("/register")
         .send({
@@ -242,7 +243,7 @@ describe("Authentification", () => {
         email: "test@gmail.com",
         password: "password",
       };
-      helper.createUser(server, user);
+      helper.createUser(server, port, user);
       const response = await request(server)
         .post("/login")
         .send({
@@ -291,7 +292,7 @@ describe("Authentification", () => {
         email: "test@gmail.com",
         password: "password",
       };
-      await helper.createUser(server, user);
+      await helper.createUser(server, port, user);
 
       const login = await request(server).post("/login").send({
         username: user.username,

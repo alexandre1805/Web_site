@@ -3,13 +3,14 @@ const userModel = require("../../src/models/users");
 const request = require("supertest");
 const io = require("socket.io-client");
 
-async function createUser(server, user, logged = false) {
+async function createUser(server, port, user, logged = false, friends = []) {
   if (mongoose.connection.readyState !== 1) {
     console.error("DB not connected");
     return;
   }
 
   const new_user = new userModel(user);
+  if (friends.length !== 0) new_user.friends = friends;
   new_user.save();
 
   if (logged) {
@@ -19,12 +20,13 @@ async function createUser(server, user, logged = false) {
     });
 
     user.cookie = response.headers["set-cookie"][0];
-    user.socket = await io("http://localhost:4001", {
+    user.socket = await io("http://localhost:" + port, {
       query: {
         username: user.username,
       },
     });
   }
+
   return user;
 }
 
@@ -38,7 +40,16 @@ async function deleteUser(user, logged = false) {
   if (logged) user.socket.close();
 }
 
+function timeout(ms) {
+  return new Promise((resolve) => {
+    let t = setTimeout(resolve, ms);
+    t.unref();
+    return t;
+  });
+}
+
 module.exports = {
   createUser,
   deleteUser,
+  timeout,
 };

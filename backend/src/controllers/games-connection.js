@@ -76,7 +76,7 @@ async function update(io, id, type) {
       game.max_players +
       ")";
   else if (game.state === "Running" && type === "join")
-    console.log("[" + game.id + "]: ERROR: player joins running game");
+    console.error("[" + game.id + "]: ERROR: player joins running game");
   else if (game.state === "Running" && type === "leave") {
     await gameModel.updateOne(
       { _id: convert_id(id) },
