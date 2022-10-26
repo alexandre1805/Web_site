@@ -6,6 +6,7 @@ const notificationModel = require("../models/notification");
 exports.getFriends = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
   if (username === undefined) return;
+  /*
   const user = await userModel.findOne({ username: username });
   let friends = [];
   for (const friend in user.friends) {
@@ -13,18 +14,20 @@ exports.getFriends = async function (req, res) {
     friends.push({ id: f.id, username: f.username });
   }
   res.status(200).json({ friends: friends });
+  */
 };
 
 exports.getNotif = async function (req, res) {
   var username = userAuth.checkAuth(req, res);
   if (username === undefined) return;
-
+  /*
   const notifs = await notificationModel.find({ username: username }).lean();
   notifs.forEach((elt) => {
     elt.id = elt._id;
     delete elt._id;
   });
   res.status(200).json(notifs);
+  */
 };
 
 exports.addFriend = async (socket, friend) => {
