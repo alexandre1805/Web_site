@@ -17,9 +17,18 @@ beforeAll(async () => {
   server.listen(4001);
 
   user1 = { username: "test1", email: "test1@gmail.com", password: "toto" };
-  user1 = await helper.createUser(server, user1, true);
   user2 = { username: "test2", email: "test2@gmail.com", password: "toto" };
+});
+
+beforeEach(async () => {
+  user1 = await helper.createUser(server, user1, true);
   user2 = await helper.createUser(server, user2, true);
+});
+
+afterEach(async () => {
+  await helper.deleteUser(user1, true);
+  await helper.deleteUser(user2, true);
+  await notificationModel.deleteMany({});
 });
 
 describe("User Data", () => {
@@ -31,7 +40,7 @@ describe("User Data", () => {
         message: "No token",
       });
     });
-    /*
+
     test("Get Notification without token", async () => {
       const response = await request(server).get("/getNotifs").expect(404);
       expect(response.body.hasOwnProperty("message"));
@@ -39,7 +48,7 @@ describe("User Data", () => {
         message: "No token",
       });
     });
-    
+
     test("Get Friends with no friends", async () => {
       const response = await request(server)
         .get("/getFriends")
@@ -62,7 +71,7 @@ describe("User Data", () => {
     test("Add friend with unknown username", (done) => {
       user1.socket.emit("add Friend", "unknwon_user");
       user1.socket.on("add Friend return", (arg) => {
-        expect(arg).toMatch("the user does not exist");
+        expect(arg).toMatch("The user does not exist");
         done();
       });
     });
@@ -74,6 +83,7 @@ describe("User Data", () => {
         done();
       });
     });
+
     test("Add friend, with expect return for the sender", (done) => {
       user1.socket.emit("add Friend", user2.username);
       user1.socket.on("add Friend return", (arg) => {
@@ -176,14 +186,10 @@ describe("User Data", () => {
         }, 500);
       }, 500);
     });
-    */
   });
 });
 
 afterAll(async () => {
-  await helper.deleteUser(user1, true);
-  await helper.deleteUser(user2, true);
-
   await mongoose.disconnect();
   await server.close();
   await MemoryDatabaseServer.stop();
