@@ -26,7 +26,7 @@ exports.createRoom = async (io, socket, connected_users, args) => {
   //creation
   let new_room = {
     type: room_users.length > 2 ? "group" : "PM",
-    name: room_users.join(),
+    name: room_users.join(", "),
     users: room_users,
   };
 

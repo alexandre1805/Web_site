@@ -58,6 +58,21 @@ describe("User Room", () => {
       expect(arg).toMatch("Room already exists.");
     });
   });
+
+  test("PM Room creation : check DB", async () => {
+    user1.socket.emit("create Room", [user1.username, user2.username]);
+    await helper.timeout(500);
+    let room = await roomModel.find({
+      users: [user1.username, user2.username],
+    });
+    expect(room).toMatchObject([
+      {
+        type: "PM",
+        name: user1.username + ", " + user2.username,
+        users: [user1.username, user2.username],
+      },
+    ]);
+  });
 });
 
 afterAll(async () => {
