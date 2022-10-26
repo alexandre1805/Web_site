@@ -31,7 +31,7 @@ describe("User Data", () => {
         message: "No token",
       });
     });
-
+    /*
     test("Get Notification without token", async () => {
       const response = await request(server).get("/getNotifs").expect(404);
       expect(response.body.hasOwnProperty("message"));
@@ -39,7 +39,7 @@ describe("User Data", () => {
         message: "No token",
       });
     });
-    /*
+    
     test("Get Friends with no friends", async () => {
       const response = await request(server)
         .get("/getFriends")
@@ -181,8 +181,8 @@ describe("User Data", () => {
 });
 
 afterAll(async () => {
-  helper.deleteUser(user1, true);
-  helper.deleteUser(user2, true);
+  await helper.deleteUser(user1, true);
+  await helper.deleteUser(user2, true);
 
   await mongoose.disconnect();
   await server.close();

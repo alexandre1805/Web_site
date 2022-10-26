@@ -109,7 +109,9 @@ router.get("/verifToken", userAuth.verifToken);
  *     }
  * @apiSampleRequest http://localhost:4000/getFriends
  */
-router.get("/getFriends", userData.getFriends);
+router.get("/getFriends", async (req, res) => {
+    await userData.getFriends(req, res);
+});
 /**
  * @api {get} /getMsg Request User get messages
  * @apiName Get Messages

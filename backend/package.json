@@ -15,10 +15,11 @@
   },
   "scripts": {
     "start": "nodemon src/app.js",
-    "test": "jest --coverage --testTimeout=3000"
+    "test": "jest --coverage --testTimeout=5000"
   },
   "devDependencies": {
     "jest": "^28.1.3",
+    "mongodb-memory-server": "^8.9.3",
     "nodemon": "2.0.*",
     "socket.io-client": "^4.5.1",
     "supertest": "^6.2.4"
