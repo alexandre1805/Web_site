@@ -186,6 +186,24 @@ describe("User Data", () => {
         }, 500);
       }, 500);
     });
+
+    test("Delete Notification", (done) => {
+      const new_notification = new notificationModel({
+        type: "add_friend",
+        username: user1.username,
+        from: user2.username,
+        message: user1.username + " wants to add you as friend !",
+      });
+      setTimeout(async () => {
+        await new_notification.save();
+        await notificationModel.findOne({}, "id");
+        user1.socket.emit("delete notification", new_notification);
+        setTimeout(async () => {
+          expect(await notificationModel.find({})).toMatchObject([]);
+          done();
+        }, 500);
+      }, 500);
+    });
   });
 });
 

@@ -91,13 +91,13 @@ exports.verifToken = function (req, res) {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
-        res.status(400).json({ message: "Token is invalid." });
+        res.status(200).json({ message: "Token is invalid." });
       } else {
         res.status(200).json({ username: verifiedJwt.username, message: "OK" });
       }
     });
   } else {
-    res.status(404).json({ message: "No token." });
+    res.status(200).json({ message: "No token." });
   }
 };
 
@@ -108,7 +108,7 @@ exports.checkAuth = (req, res) => {
   if (token) {
     return jwt.verify(token, process.env.JWT_SECRET, (err, verifiedJwt) => {
       if (err) {
-        res.status(401);
+        res.status(500);
         return;
       } else {
         return verifiedJwt.username;

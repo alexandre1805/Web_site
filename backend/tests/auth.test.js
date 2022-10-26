@@ -266,7 +266,7 @@ describe("Authentification", () => {
       const response = await request(server)
         .get("/verifToken")
         .expect("Content-Type", /json/)
-        .expect(404);
+        .expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "No token.",
@@ -278,7 +278,7 @@ describe("Authentification", () => {
         .get("/verifToken")
         .set("Cookie", ["token=12345667"])
         .expect("Content-Type", /json/)
-        .expect(400);
+        .expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "Token is invalid.",
