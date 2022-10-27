@@ -40,6 +40,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await helper.deleteUser(user1, true);
   await helper.deleteUser(user2, true);
+  await helper.deleteUser(user3, true);
   await roomModel.deleteMany({});
 });
 

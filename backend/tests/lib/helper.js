@@ -3,7 +3,14 @@ const userModel = require("../../src/models/users");
 const request = require("supertest");
 const io = require("socket.io-client");
 
-async function createUser(server, port, user, logged = false, friends = []) {
+async function createUser(
+  server,
+  port,
+  user,
+  logged = false,
+  friends = [],
+  rooms = []
+) {
   if (mongoose.connection.readyState !== 1) {
     console.error("DB not connected");
     return;
@@ -11,6 +18,7 @@ async function createUser(server, port, user, logged = false, friends = []) {
 
   const new_user = new userModel(user);
   if (friends.length !== 0) new_user.friends = friends;
+  if (rooms.length !== 0) new_user.rooms = rooms;
   new_user.save();
 
   if (logged) {
