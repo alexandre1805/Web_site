@@ -61,6 +61,7 @@ exports.createRoom = async (io, socket, connected_users, args) => {
 
 exports.getRooms = async (req, res) => {
   var username = userAuth.checkAuth(req, res);
+  if(username === undefined) return;
   var user_rooms = await userModel
     .findOne({ username: username })
     .then((user) => {

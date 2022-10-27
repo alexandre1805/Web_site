@@ -41,7 +41,7 @@ describe("User Data", () => {
       });
     });
 
-    /*test("Get Notification without token", async () => {
+    test("Get Notification without token", async () => {
       const response = await request(server).get("/getNotifs").expect(404);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
@@ -199,7 +199,7 @@ describe("User Data", () => {
           done();
         }, 500);
       }, 500);
-    });*/
+    });
   });
 });
 

@@ -48,30 +48,151 @@ describe("User Room", () => {
     const room = new roomModel({
       type: "PM",
       name: "test",
-      users: [user1.username, user2.username],
-      lastMessage: "635577e5a3286fdb25dd997b",
+      users: [user1.username, user2.username, user3.username],
     });
     await room.save();
-    user1.socket.emit("create Room", [user1.username, user2.username]);
+    user1.socket.emit("create Room", [
+      user1.username,
+      user2.username,
+      user3.username,
+    ]);
     await helper.timeout(500);
     user1.socket.on("create Room return", (arg) => {
       expect(arg).toMatch("Room already exists.");
     });
   });
 
-  test("PM Room creation : check DB", async () => {
-    user1.socket.emit("create Room", [user1.username, user2.username]);
-    await helper.timeout(500);
-    let room = await roomModel.find({
-      users: [user1.username, user2.username],
+  describe("Groups", () => {
+    test("Room creation : check DB", async () => {
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+      await helper.timeout(500);
+      let room = await roomModel.find({
+        users: [user1.username, user2.username, user3.username],
+      });
+      expect(room).toMatchObject([
+        {
+          type: "group",
+          name: user1.username + ", " + user2.username + ", " + user3.username,
+          users: [user1.username, user2.username, user3.username],
+        },
+      ]);
     });
-    expect(room).toMatchObject([
-      {
+
+    test("Room creation : check return for the creator", (done) => {
+      user1.socket.on("create Room return", (arg) => {
+        expect(arg).toMatch("Room created");
+        done();
+      });
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+    });
+
+    test("Room creation : check return for all users", (done) => {
+      user1.socket.on("new room", (arg) => {
+        expect(arg).toMatchObject({
+          name: user1.username + ", " + user2.username + ", " + user3.username,
+          type: "group",
+          unread: 0,
+          users: [user1.username, user2.username, user3.username],
+        });
+        done();
+      });
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+    });
+
+    test("Room creation : check DB", async () => {
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+      await helper.timeout(500);
+      let room = await roomModel.find({
+        users: [user1.username, user2.username, user3.username],
+      });
+      expect(room).toMatchObject([
+        {
+          type: "group",
+          name: user1.username + ", " + user2.username + ", " + user3.username,
+          users: [user1.username, user2.username, user3.username],
+        },
+      ]);
+    });
+
+    test("Room creation : check return for the creator", (done) => {
+      user1.socket.on("create Room return", (arg) => {
+        expect(arg).toMatch("Room created");
+        done();
+      });
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+    });
+
+    test("Room creation : check return for all users", (done) => {
+      user1.socket.on("new room", (arg) => {
+        expect(arg).toMatchObject({
+          name: user1.username + ", " + user2.username + ", " + user3.username,
+          type: "group",
+          unread: 0,
+          users: [user1.username, user2.username, user3.username],
+        });
+        done();
+      });
+      user1.socket.emit("create Room", [
+        user1.username,
+        user2.username,
+        user3.username,
+      ]);
+    });
+  });
+
+  describe("/getRooms", () => {
+    test("Get Rooms without token", async () => {
+      const response = await request(server).get("/getRooms").expect(404);
+      expect(response.body.hasOwnProperty("message"));
+      expect(response.body).toMatchObject({
+        message: "No token",
+      });
+    });
+
+    test("Get Rooms normale", async () => {
+      const room = new roomModel({
         type: "PM",
-        name: user1.username + ", " + user2.username,
+        name: "test",
         users: [user1.username, user2.username],
-      },
-    ]);
+      });
+      await room.save();
+
+      const response = await request(server)
+        .get("/getRooms")
+        .set("Cookie", [user2.cookie])
+        .expect(200);
+      expect(response.body.hasOwnProperty("message"));
+      expect(response.body).toMatchObject({
+        rooms: [
+          {
+            name: user1.username,
+            type: "PM",
+            unread: 0,
+            users: [user1.username, user2.username],
+          },
+        ],
+      });
+    });
   });
 });
 
