@@ -68,124 +68,132 @@ afterEach(async () => {
 });
 
 describe("User Msg", () => {
-  test("Regular message when user1 connected", (done) => {
-    user1.socket.on("new message", (args) => {
-      expect(args).toMatchObject({
-        message: "test",
-        read: [],
-        type: "regular",
-        user: user1.username,
-      });
-      done();
-    });
-    user1.socket.emit("message", {
-      type: "regular",
-      room: room_id,
-      message: "test",
-      user: user1.username,
-    });
-  });
-
-  test("Regular message when user2 connected", (done) => {
-    user2.socket.on("new message", (args) => {
-      expect(args).toMatchObject({
-        message: "test",
-        read: [],
-        type: "regular",
-        user: user1.username,
-      });
-      done();
-    });
-    user1.socket.emit("message", {
-      type: "regular",
-      room: room_id,
-      message: "test",
-      user: user1.username,
-    });
-  });
-
-  test("Game message when user1 connected", (done) => {
-    user2.socket.on("new message", (args) => {
-      expect(args).toMatchObject({
-        type: "game",
-        room: room_id,
-        message: user1.username + " want to start a game : ",
-        user: user1.username,
-        game: "Connect 4",
-        state: "Not started",
-      });
-      done();
-    });
-    user1.socket.emit("message", {
-      type: "game",
-      room: room_id,
-      message: user1.username + " want to start a game : ",
-      user: user1.username,
-      game: "Connect 4",
-      state: "Not started",
-    });
-  });
-
-  test("Message read", async () => {
-    user1.socket.emit("message", {
-      type: "regular",
-      room: room_id,
-      message: "test",
-      user: user1.username,
-    });
-    await helper.timeout(200);
-    user1.socket.emit("read", { room: room_id, username: user1.username });
-    await helper.timeout(200);
-    let response = await messageModel.findOne({ message: "test" });
-    expect(response).toMatchObject({
-      message: "test",
-      read: ["test1"],
-      room: room_id,
-      type: "regular",
-      user: "test1",
-    });
-  });
-
-  test("/getMsg regular", async () => {
-    user1.socket.emit("message", {
-      type: "regular",
-      room: room_id,
-      message: "test",
-      user: user1.username,
-    });
-    await helper.timeout(200);
-    let response = await request(server)
-      .get("/getMsg")
-      .set("Cookie", [user1.cookie])
-      .query({ room: room_id })
-      .expect(200);
-    expect(response.body).toMatchObject({
-      messages: [
-        {
-          message: "test",
-          read: [],
-          room: room_id,
+  describe("Real-time Msg", () => {
+    describe("Regular", () => {
+      test("Regular message when user1 connected", (done) => {
+        user1.socket.on("new message", (args) => {
+          expect(args).toMatchObject({
+            message: "test",
+            read: [],
+            type: "regular",
+            user: user1.username,
+          });
+          done();
+        });
+        user1.socket.emit("message", {
           type: "regular",
+          room: room_id,
+          message: "test",
           user: user1.username,
-        },
-      ],
+        });
+      });
+
+      test("Regular message when user2 connected", (done) => {
+        user2.socket.on("new message", (args) => {
+          expect(args).toMatchObject({
+            message: "test",
+            read: [],
+            type: "regular",
+            user: user1.username,
+          });
+          done();
+        });
+        user1.socket.emit("message", {
+          type: "regular",
+          room: room_id,
+          message: "test",
+          user: user1.username,
+        });
+      });
+    });
+    describe("Games Msg", () => {
+      test("Game message when user1 connected", (done) => {
+        user2.socket.on("new message", (args) => {
+          expect(args).toMatchObject({
+            type: "game",
+            room: room_id,
+            message: user1.username + " want to start a game : ",
+            user: user1.username,
+            game: "Connect 4",
+            state: "Not started",
+          });
+          done();
+        });
+        user1.socket.emit("message", {
+          type: "game",
+          room: room_id,
+          message: user1.username + " want to start a game : ",
+          user: user1.username,
+          game: "Connect 4",
+          state: "Not started",
+        });
+      });
     });
   });
 
-  test("/getMsg no token", async () => {
-    user1.socket.emit("message", {
-      type: "regular",
-      room: room_id,
-      message: "test",
-      user: user1.username,
+  describe("Msg reading", () => {
+    test("Message read", async () => {
+      user1.socket.emit("message", {
+        type: "regular",
+        room: room_id,
+        message: "test",
+        user: user1.username,
+      });
+      await helper.timeout(200);
+      user1.socket.emit("read", { room: room_id, username: user1.username });
+      await helper.timeout(200);
+      let response = await messageModel.findOne({ message: "test" });
+      expect(response).toMatchObject({
+        message: "test",
+        read: ["test1"],
+        room: room_id,
+        type: "regular",
+        user: "test1",
+      });
     });
-    await helper.timeout(200);
-    let response = await request(server)
-      .get("/getMsg")
-      .query({ room: room_id })
-      .expect(200);
-    expect(response.body).toMatchObject({
-      message: "No token",
+  });
+  describe("/getMsg", () => {
+    test("/getMsg regular", async () => {
+      user1.socket.emit("message", {
+        type: "regular",
+        room: room_id,
+        message: "test",
+        user: user1.username,
+      });
+      await helper.timeout(200);
+      let response = await request(server)
+        .get("/getMsg")
+        .set("Cookie", [user1.cookie])
+        .query({ room: room_id })
+        .expect(200);
+      expect(response.body).toMatchObject({
+        messages: [
+          {
+            message: "test",
+            read: [],
+            room: room_id,
+            type: "regular",
+            user: user1.username,
+          },
+        ],
+      });
+    });
+
+    test("/getMsg no token", async () => {
+      user1.socket.emit("message", {
+        type: "regular",
+        room: room_id,
+        message: "test",
+        user: user1.username,
+      });
+      await helper.timeout(200);
+      let response = await request(server)
+        .get("/getMsg")
+        .query({ room: room_id })
+        .expect(200);
+      expect(response.body).toMatchObject({
+        message: "No token",
+      });
     });
   });
 });

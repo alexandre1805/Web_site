@@ -56,12 +56,16 @@ exports.getMessages = async function (req, res) {
 };
 
 exports.updateGameMsg = async function (io, game_id, state) {
-  const msg = await messagesModel.findOne({ game_id: game_id });
-  msg.state = state;
-  if (state == "Running") msg.message = "Game running ...";
-  else if (state == "Cancelled") msg.message = "Game cancelled";
-  else msg.message = state;
-  await msg.save();
+  let message;
+  if (state == "Running") message = "Game running ...";
+  else if (state == "Cancelled") message = "Game cancelled";
+  else message = state;
+
+  let msg = await messagesModel.findOneAndUpdate(
+    { game_id: game_id },
+    { message: message, state: state },
+    { new: true }
+  );
 
   io.to(game_id).emit("update message", msg);
 };

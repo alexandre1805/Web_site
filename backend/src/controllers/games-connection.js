@@ -36,7 +36,7 @@ exports.join = async function (io, args) {
     { _id: convert_id(args.id) },
     { $push: { players: args.username }, $inc: { nb_players: 1 } }
   );
-  update(io, args.id, "join");
+  await update(io, args.id, "join");
 };
 
 exports.leave = async function (io, args) {
@@ -44,7 +44,7 @@ exports.leave = async function (io, args) {
     { _id: convert_id(args.id) },
     { $pull: { players: args.username }, $inc: { nb_players: -1 } }
   );
-  update(io, args.id, "leave");
+  await update(io, args.id, "leave");
 };
 
 /* Update : send update of connection to the user :
@@ -54,6 +54,7 @@ exports.leave = async function (io, args) {
  */
 async function update(io, id, type) {
   let game = await gameModel.findById(convert_id(id));
+
   if (game.state === "Finished") return;
   let msg = "";
   if (
@@ -68,14 +69,14 @@ async function update(io, id, type) {
     await userMsg.updateGameMsg(io, id, "Running");
     if (game.name === "Tic-tac-toe") Tictactoe.create(io, id, game.players);
     else Connect4.create(io, id, game.players);
-  } else if (game.state === "Not started")
+  } else if (game.state === "Not started") {
     msg =
       "Waiting for other player ... (" +
       game.nb_players +
       "/" +
       game.max_players +
       ")";
-  else if (game.state === "Running" && type === "join")
+  } else if (game.state === "Running" && type === "join")
     console.error("[" + game.id + "]: ERROR: player joins running game");
   else if (game.state === "Running" && type === "leave") {
     await gameModel.updateOne(

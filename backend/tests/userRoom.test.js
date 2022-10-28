@@ -111,22 +111,20 @@ describe("User Room", () => {
         user3.username,
       ]);
     });
+  });
 
+  describe("Private message", () => {
     test("Room creation : check DB", async () => {
-      user1.socket.emit("create Room", [
-        user1.username,
-        user2.username,
-        user3.username,
-      ]);
+      user1.socket.emit("create Room", [user1.username, user2.username]);
       await helper.timeout(500);
       let room = await roomModel.find({
-        users: [user1.username, user2.username, user3.username],
+        users: [user1.username, user2.username],
       });
       expect(room).toMatchObject([
         {
-          type: "group",
-          name: user1.username + ", " + user2.username + ", " + user3.username,
-          users: [user1.username, user2.username, user3.username],
+          type: "PM",
+          name: user1.username + ", " + user2.username,
+          users: [user1.username, user2.username],
         },
       ]);
     });
@@ -136,28 +134,20 @@ describe("User Room", () => {
         expect(arg).toMatch("Room created");
         done();
       });
-      user1.socket.emit("create Room", [
-        user1.username,
-        user2.username,
-        user3.username,
-      ]);
+      user1.socket.emit("create Room", [user1.username, user2.username]);
     });
 
     test("Room creation : check return for all users", (done) => {
       user1.socket.on("new room", (arg) => {
         expect(arg).toMatchObject({
-          name: user1.username + ", " + user2.username + ", " + user3.username,
-          type: "group",
+          name: user2.username,
+          type: "PM",
           unread: 0,
-          users: [user1.username, user2.username, user3.username],
+          users: [user1.username, user2.username],
         });
         done();
       });
-      user1.socket.emit("create Room", [
-        user1.username,
-        user2.username,
-        user3.username,
-      ]);
+      user1.socket.emit("create Room", [user1.username, user2.username]);
     });
   });
 
