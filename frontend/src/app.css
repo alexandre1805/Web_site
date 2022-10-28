@@ -22,6 +22,7 @@
     @apply left-0;
     @apply top-0;
     @apply bg-slate-200;
+    @apply bg-opacity-40;
     @apply w-full;
     @apply h-full;
     @apply z-10;
