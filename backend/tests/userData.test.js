@@ -34,7 +34,7 @@ afterEach(async () => {
 describe("User Data", () => {
   describe("Friends", () => {
     test("Get Friends without token", async () => {
-      const response = await request(server).get("/getFriends").expect(404);
+      const response = await request(server).get("/getFriends").expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "No token",
@@ -42,7 +42,7 @@ describe("User Data", () => {
     });
 
     test("Get Notification without token", async () => {
-      const response = await request(server).get("/getNotifs").expect(404);
+      const response = await request(server).get("/getNotifs").expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "No token",

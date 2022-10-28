@@ -26,7 +26,7 @@ exports.handleMsg = async function (socket, args) {
   roomModel.findByIdAndUpdate(
     args.room,
     { $set: { lastMessage: args.id } },
-    (err, doc) => {
+    (err, _doc) => {
       if (err) {
         console.log(err);
       }

@@ -115,7 +115,7 @@ exports.checkAuth = (req, res) => {
       }
     });
   } else {
-    res.status(404).json({ message: "No token" });
+    res.status(200).json({ message: "No token" });
     return;
   }
 };

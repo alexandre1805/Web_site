@@ -163,7 +163,7 @@ describe("User Room", () => {
 
   describe("/getRooms", () => {
     test("Get Rooms without token", async () => {
-      const response = await request(server).get("/getRooms").expect(404);
+      const response = await request(server).get("/getRooms").expect(200);
       expect(response.body.hasOwnProperty("message"));
       expect(response.body).toMatchObject({
         message: "No token",
