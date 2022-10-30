@@ -90,7 +90,7 @@
     on:click={() => {
       gamesOpen = !gamesOpen;
     }}
-    ><img src={gamesLogo} alt="games" class="h-16" />
+    ><img src={gamesLogo} alt="games" class="h-12" />
   </button>
 
   <input
@@ -101,7 +101,7 @@
     bind:value={current_message}
   />
   <button on:click={openEmoji} class="flex justify-center items-center"
-    ><img src={emojiLogo} alt="emojis" class="h-16" /></button
+    ><img src={emojiLogo} alt="emojis" class="h-12" /></button
   >
 
   <div id="emoji-container" class="hidden right-5 bottom-16 absolute">
@@ -112,6 +112,6 @@
     on:click={(e) => {
       e.preventDefault();
       handleSubmitMessage();
-    }}><img src={sendLogo} alt="send_button" class="h-16" /></button
+    }}><img src={sendLogo} alt="send_button" class="h-12" /></button
   >
 </div>

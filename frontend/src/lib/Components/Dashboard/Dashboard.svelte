@@ -15,10 +15,10 @@
 </script>
 
 <div class="Dashboard w-full h-full flex">
-  <div id="room_container" class="w-full h-full md:inline md:w-2/5">
+  <div id="room_container" class="w-full h-full md:inline md:w-2/5 ">
     <Room {setCurrentRoom} {current_room} />
   </div>
-  <div id="message_container" class="w-full h-full hidden md:inline md:w-3/5">
+  <div id="message_container" class="w-full h-full hidden md:inline md:w-3/5 border-l-2 ">
     <Messages {current_room} {return_room} />
   </div>
 </div>

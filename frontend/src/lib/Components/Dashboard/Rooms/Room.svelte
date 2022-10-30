@@ -29,6 +29,7 @@
   if ($socket !== null) {
     $socket.on("new room", (elt) => {
       rooms = [...rooms, elt];
+      Search()
     });
     $socket.on("new message", (elt) => {
       rooms = rooms.map((room) => {
@@ -38,6 +39,7 @@
         }
         return room;
       });
+      Search()
     });
   }
 

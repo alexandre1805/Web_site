@@ -4,7 +4,7 @@
   import leftArrow from "../../../../assets/icons-pack/arrow-back-outline.svg";
 </script>
 
-<div class="bg-gray-500 text-center flex h-24 items-center">
+<div class="bg-white text-center flex h-24 items-center">
   <button class="mx-2" on:click={return_room}
     ><img
       id="arrow"

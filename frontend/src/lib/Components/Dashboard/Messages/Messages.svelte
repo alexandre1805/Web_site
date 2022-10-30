@@ -20,7 +20,7 @@
   }
 </script>
 
-<div class="h-full float-right w-full flex flex-col bg-slate-300">
+<div class="h-full float-right w-full flex flex-col bg-slate-200">
   {#if errorBox}
     <Log_Box message={errorMsg} open={setOpenErrorBox} />
   {/if}
