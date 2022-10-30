@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const userModel = require("../../src/models/users");
-const request = require("supertest");
-const io = require("socket.io-client");
+const mongoose = require('mongoose')
+const UserModel = require('../../src/models/users')
+const request = require('supertest')
+const io = require('socket.io-client')
 
-async function createUser(
+async function createUser (
   server,
   port,
   user,
@@ -12,52 +12,64 @@ async function createUser(
   rooms = []
 ) {
   if (mongoose.connection.readyState !== 1) {
-    console.error("DB not connected");
-    return;
+    console.error('DB not connected')
+    return
   }
 
-  const new_user = new userModel(user);
-  if (friends.length !== 0) new_user.friends = friends;
-  if (rooms.length !== 0) new_user.rooms = rooms;
-  new_user.save();
+  try {
+    user.friends = friends
+    user.rooms = rooms
+    const newUser = new UserModel(user)
+    await newUser.save()
+  } catch (error) {
+    console.error(error)
+  }
 
   if (logged) {
-    const response = await request(server).post("/login").send({
+    const response = await request(server).post('/login').send({
       username: user.username,
-      password: user.password,
-    });
+      password: user.password
+    })
+    user.cookie = response.headers['set-cookie'][0]
 
-    user.cookie = response.headers["set-cookie"][0];
-    user.socket = await io("http://localhost:" + port, {
+    user.socket = await io('http://localhost:' + port, {
       query: {
-        username: user.username,
-      },
-    });
+        username: user.username
+      }
+    })
+
+    const connection = () => {
+      return new Promise(function (resolve, reject) {
+        user.socket.once('connect', () => { resolve('done') })
+      })
+    }
+
+    await connection()
   }
 
-  return user;
+  return user
 }
 
-async function deleteUser(user, logged = false) {
+async function deleteUser (user, logged = false) {
   if (mongoose.connection.readyState !== 1) {
-    console.error("DB not connected");
-    return;
+    console.error('DB not connected')
+    return
   }
 
-  await userModel.deleteOne({ username: user.username, email: user.email });
-  if (logged) user.socket.close();
+  await UserModel.deleteOne({ username: user.username, email: user.email })
+  if (logged) user.socket.close()
 }
 
-function timeout(ms) {
+function timeout (ms) {
   return new Promise((resolve) => {
-    let t = setTimeout(resolve, ms);
-    t.unref();
-    return t;
-  });
+    const t = setTimeout(resolve, ms)
+    t.unref()
+    return t
+  })
 }
 
 module.exports = {
   createUser,
   deleteUser,
-  timeout,
-};
+  timeout
+}

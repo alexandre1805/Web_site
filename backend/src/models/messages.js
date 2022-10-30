@@ -1,29 +1,29 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const MessagesSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      required: true,
+      required: true
     },
     message: {
       type: String,
-      required: true,
+      required: true
     },
     user: {
       type: String,
-      required: true,
+      required: true
     },
     room: {
       type: String,
-      required: true,
+      required: true
     },
     read: [{ type: String }],
     game: { type: String },
     state: { type: String },
-    game_id: { type: String },
+    game_id: { type: String }
   },
   { timestamps: true }
-);
-const Messages = mongoose.model("Messages", MessagesSchema);
-module.exports = Messages;
+)
+const Messages = mongoose.model('Messages', MessagesSchema)
+module.exports = Messages
