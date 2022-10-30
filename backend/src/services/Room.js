@@ -37,7 +37,8 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
   newRoom.unread = 0
 
   newRoom.users.forEach((roomUser) => {
-    userModel.updateOne({ username: roomUser }, { $push: { rooms: newRoom.id } })
+    userModel.updateOne({ username: roomUser },
+      { $push: { rooms: newRoom.id } })
   })
 
   // real-time socket io conection
@@ -80,4 +81,11 @@ exports.getRooms = async (req, res) => {
 exports.getRoomsTab = async (username) => {
   const query = await userModel.findOne({ username }).select('rooms')
   return query.rooms
+}
+
+exports.updateLastMessage = async (roomID, msgID) => {
+  await RoomModel.findByIdAndUpdate(
+    roomID,
+    { $set: { lastMessage: msgID } }
+  )
 }

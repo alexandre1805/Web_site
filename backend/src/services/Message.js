@@ -1,44 +1,29 @@
 const MessagesModel = require('../models/messages')
-const gamesModel = require('../models/games')
-const roomModel = require('../models/rooms')
-const games = require('./Games-Connection')
+const gameService = require('./Games-Connection')
+const roomService = require('./Room')
 
-async function handleMsgGame (socket, args) {
-  const response = await gamesModel.find({
-    room: args.room,
-    state: { $nin: ['Finished', 'Cancelled'] }
-  })
-  if (response !== null && response.length >= 2) {
+exports.handleMsg = async function (socket, args) {
+  if (args.type === 'game' && gameService.checkRunningGame(args.room) >= 2) {
     socket.emit(
       'error message',
       'Two games are already running, please wait...'
     )
-    return false
+    return
   }
-  args.game_id = await games.createGame(args)
-  return true
-}
 
-exports.handleMsg = async function (socket, args) {
-  // check if already two games exists
-  if (args.type === 'game' && !(await handleMsgGame(socket, args))) return null
+  if (args.type === 'game') {
+    args.game_id = await gameService.createGame(args)
+  }
 
   const newMessage = new MessagesModel(args)
-  args.id = await newMessage.save().then((obj) => {
+  newMessage.id = await newMessage.save().then((obj) => {
     return obj.id
   })
-  roomModel.findByIdAndUpdate(
-    args.room,
-    { $set: { lastMessage: args.id } },
-    (err, _doc) => {
-      if (err) {
-        console.log(err)
-      }
-    }
-  )
 
-  args.read = []
-  return args
+  await roomService.updateLastMessage(newMessage.room, newMessage.id)
+
+  console.log(newMessage)
+  return newMessage
 }
 
 exports.handleRead = async function (args) {

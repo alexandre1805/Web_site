@@ -3,8 +3,8 @@ const Tictactoe = require('./Tic-tac-toe')
 const Connect4 = require('./Connect-4')
 const userMsg = require('./Message')
 const gameInfo = [
-  { name: 'Tic-tac-toe', max_players: 2 },
-  { name: 'Connect 4', max_players: 2 }
+  { name: 'Tic-tac-toe', min_players: 2, max_players: 2 },
+  { name: 'Connect 4', min_players: 2, max_players: 2 }
 ]
 
 function convertID (id) {
@@ -15,6 +15,15 @@ exports.getGames = async function (_req, res) {
   res.status(200).json({ games: gameInfo })
 }
 
+exports.checkRunningGame = async function (roomID) {
+  const response = await GameModel.find({
+    room: roomID,
+    state: { $nin: ['Finished', 'Cancelled'] }
+  })
+
+  return response.length
+}
+
 exports.createGame = async function (args) {
   const curGameInfo = gameInfo.find((val) => val.name === args.game)
   const newGame = new GameModel({
@@ -22,6 +31,7 @@ exports.createGame = async function (args) {
     state: args.state,
     room: args.room,
     nb_players: 0,
+    min_players: curGameInfo.min_players,
     max_players: curGameInfo.max_players
   })
 
@@ -76,7 +86,9 @@ async function update (io, id, type) {
       '/' +
       game.max_players +
       ')'
-  } else if (game.state === 'Running' && type === 'join') { console.error('[' + game.id + ']: ERROR: player joins running game') } else if (game.state === 'Running' && type === 'leave') {
+  } else if (game.state === 'Running' && type === 'join') {
+    console.error('[' + game.id + ']: ERROR: player joins running game')
+  } else if (game.state === 'Running' && type === 'leave') {
     await GameModel.updateOne(
       { _id: convertID(id) },
       { $set: { state: 'Cancelled' } }
