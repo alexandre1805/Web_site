@@ -15,9 +15,6 @@
   ];
 
   function log_out() {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-    push("/home");
-    username.set("");
     if ($currentGame !== "") {
       $socket.emit("leave", {
         id: $currentGame,
@@ -25,6 +22,10 @@
       });
       currentGame.set("");
     }
+
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    push("/home");
+    username.set("");
   }
 </script>
 

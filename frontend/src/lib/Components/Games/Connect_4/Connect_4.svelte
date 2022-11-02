@@ -15,7 +15,6 @@
     $socket.emit("join", { id: game_id, username: usernameValue });
     $socket.on("Connect-4 update", (data) => {
       game = data;
-      console.log(game.last_move);
       if (game.last_move !== undefined && game.last_move.p !== usernameValue) {
         if (game[game.last_move.p] === "R")
           document

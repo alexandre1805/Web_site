@@ -27,7 +27,7 @@
 
     $socket.on("update message", (elt) => {
       messages = messages.map((elm) => {
-        if (elm !== undefined && elm.id === elt.id) elm = elt;
+        if (elm !== undefined && elm._id === elt._id) elm = elt;
       });
     });
   }

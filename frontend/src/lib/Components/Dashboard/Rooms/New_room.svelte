@@ -28,7 +28,6 @@
       // @ts-ignore
       document.getElementById(friend.id).checked = true;
     }
-    console.log(listNewRoom);
   }
 
   function handleNewRoom(e) {

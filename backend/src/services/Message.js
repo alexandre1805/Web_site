@@ -22,7 +22,6 @@ exports.handleMsg = async function (socket, args) {
 
   await roomService.updateLastMessage(newMessage.room, newMessage.id)
 
-  console.log(newMessage)
   return newMessage
 }
 
@@ -48,7 +47,7 @@ exports.updateGameMsg = async function (io, gameID, state) {
   else message = state
 
   const msg = await MessagesModel.findOneAndUpdate(
-    { gameID },
+    { game_id: gameID },
     { message, state },
     { new: true }
   )

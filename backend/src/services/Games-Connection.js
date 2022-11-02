@@ -65,38 +65,39 @@ exports.leave = async function (io, args) {
 async function update (io, id, type) {
   const game = await GameModel.findById(convertID(id))
 
-  if (game.state === 'Finished') return
-  let msg = ''
-  if (
-    game.state === 'Not started' &&
-    type === 'join' &&
-    game.nb_players === game.max_players
-  ) {
-    await GameModel.updateOne(
-      { _id: convertID(id) },
-      { $set: { state: 'Running' } }
-    )
-    await userMsg.updateGameMsg(io, id, 'Running')
-    if (game.name === 'Tic-tac-toe') Tictactoe.create(io, id, game.players)
-    else Connect4.create(io, id, game.players)
-  } else if (game.state === 'Not started') {
-    msg =
-      'Waiting for other player ... (' +
-      game.nb_players +
-      '/' +
-      game.max_players +
-      ')'
-  } else if (game.state === 'Running' && type === 'join') {
-    console.error('[' + game.id + ']: ERROR: player joins running game')
-  } else if (game.state === 'Running' && type === 'leave') {
-    await GameModel.updateOne(
-      { _id: convertID(id) },
-      { $set: { state: 'Cancelled' } }
-    )
-    msg = 'Someone has been disconnected, game cancelled'
-    await userMsg.updateGameMsg(io, id, 'Cancelled')
-  } else if (game.state === 'Cancelled') return
-  io.to(id).emit('Status update', msg)
+  switch (game.state) {
+    case 'Not started' :
+      if (game.nb_players === game.max_players) {
+        await GameModel.updateOne(
+          { _id: convertID(id) },
+          { $set: { state: 'Running' } }
+        )
+        await userMsg.updateGameMsg(io, id, 'Running')
+
+        if (game.name === 'Tic-tac-toe') Tictactoe.create(io, id, game.players)
+        else Connect4.create(io, id, game.players)
+
+        io.to(id).emit('Status update', '')
+      } else {
+        io.to(id).emit('Status update',
+          // eslint-disable-next-line max-len
+          `Waiting for other player ... (${game.nb_players}/${game.max_players})`)
+      }
+      break
+    case 'Running':
+      if (type === 'leave') {
+        await GameModel.updateOne(
+          { _id: convertID(id) },
+          { $set: { state: 'Cancelled' } }
+        )
+        io.to(id).emit('Status update',
+          'Someone has been disconnected, game cancelled')
+        await userMsg.updateGameMsg(io, id, 'Cancelled')
+      }
+      break
+    default:
+      break
+  }
 }
 
 exports.finish = async function (io, id, msg) {
