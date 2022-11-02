@@ -40,5 +40,6 @@
     @apply md:p-8;
     @apply flex;
     @apply flex-col;
+    @apply z-20;
   }
 }

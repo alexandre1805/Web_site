@@ -20,12 +20,12 @@
 
 <div class="Dialog_box">
   <div class="Container">
-    <button
+    <button class="w-12 ml-auto"
       on:click={() => {
         setOpenDialogBox(false);
       }}
     >
-      <img class="w-12 float-right" src={closeButton} alt="close" /></button
+      <img class="w-12 hover:bg-slate-200 rounded-full" src={closeButton} alt="close" /></button
     >
     Add new friend :
     <input

@@ -22,11 +22,11 @@
     if (listNewRoom.includes(friend.username)) {
       listNewRoom = listNewRoom.filter((str) => str !== friend.username);
       // @ts-ignore
-      document.getElementById(friend.id).checked = false;
+      document.getElementById(friend._id).checked = false;
     } else {
       listNewRoom.push(friend.username);
       // @ts-ignore
-      document.getElementById(friend.id).checked = true;
+      document.getElementById(friend._id).checked = true;
     }
   }
 
@@ -42,13 +42,13 @@
 
 <div class="Dialog_box">
   <div class="Container min-w-[300px]">
-    <button
+    <button class="w-12 ml-auto"
       on:click={() => {
         setOpenDialogBox(false);
       }}
     >
       <img
-        class="w-12 float-right hover:bg-slate-500 rounded-full"
+        class="w-12 hover:bg-slate-200 rounded-full"
         src={closeButton}
         alt="close"
       /></button
@@ -61,7 +61,7 @@
           on:click={() => handleClickFriend(friend)}
           aria-hidden="true"
         >
-          <input type="checkbox" id={friend.id} />
+          <input type="checkbox" id={friend._id} />
           <img
             src="/room_image.png"
             alt="user_image"
