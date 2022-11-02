@@ -75,8 +75,9 @@ describe('Game connection', () => {
       const response = await request(server).get('/getGames').expect(200)
       expect(response.body).toMatchObject({
         games: [
-          { name: 'Tic-tac-toe', max_players: 2 },
-          { name: 'Connect 4', max_players: 2 }
+          { name: 'Tic-tac-toe', min_players: 2, max_players: 2 },
+          { name: 'Connect 4', min_players: 2, max_players: 2 },
+          { name: 'Le président', min_players: 3, max_players: 6 }
         ]
       })
     })
