@@ -19,12 +19,12 @@
   });
 
   function deleteNotification(e) {
-    $socket.emit("delete notification", e.id);
-    notifications = notifications.filter((elm) => elm.id !== e.id);
+    $socket.emit("delete notification", e._id);
+    notifications = notifications.filter((elm) => elm._id !== e._id);
   }
   function handleAccpetInvit(e) {
     $socket.emit("accept invitation", e);
-    notifications = notifications.filter((elm) => elm.id !== e.id);
+    notifications = notifications.filter((elm) => elm._id !== e._id);
   }
 </script>
 

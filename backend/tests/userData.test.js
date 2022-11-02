@@ -92,35 +92,37 @@ describe('User Data', () => {
         })
       })
 
-      test('Add friend, with expect return for the receiver (test on socket)', (done) => {
-        user2.socket.on('notification', (arg) => {
-          expect(arg).toMatchObject({
-            type: 'add_friend',
-            username: 'test2',
-            message: 'test1 wants to add you as friend !',
-            from: 'test1'
+      test('Add friend, with expect return for the receiver (test on socket)',
+        (done) => {
+          user2.socket.on('notification', (arg) => {
+            expect(arg).toMatchObject({
+              type: 'add_friend',
+              username: 'test2',
+              message: 'test1 wants to add you as friend !',
+              from: 'test1'
+            })
+            done()
           })
-          done()
+          user1.socket.emit('add Friend', user2.username)
         })
-        user1.socket.emit('add Friend', user2.username)
-      })
 
-      test('Add friend, with expect return for the receiver (test on api route)', async () => {
-        user1.socket.emit('add Friend', user2.username)
-        await helper.timeout(500)
-        const response = await request(server)
-          .get('/getNotifs')
-          .set('Cookie', [user2.cookie])
-          .expect(200)
-        expect(response.body).toMatchObject([
-          {
-            type: 'add_friend',
-            username: 'test2',
-            message: 'test1 wants to add you as friend !',
-            from: 'test1'
-          }
-        ])
-      })
+      test('Add friend, with expect return for the receiver (test on api route)'
+        , async () => {
+          user1.socket.emit('add Friend', user2.username)
+          await helper.timeout(500)
+          const response = await request(server)
+            .get('/getNotifs')
+            .set('Cookie', [user2.cookie])
+            .expect(200)
+          expect(response.body).toMatchObject([
+            {
+              type: 'add_friend',
+              username: 'test2',
+              message: 'test1 wants to add you as friend !',
+              from: 'test1'
+            }
+          ])
+        })
     })
     describe("Friend's invatation", () => {
       test('Accept invitation (check notif of user)', async () => {

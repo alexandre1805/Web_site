@@ -43,7 +43,7 @@ exports.socketIO = function (io, socket, users) {
   // ====================== ACCEPT INVITATION ==================================
   const checkAcceptInvitation = (args) => {
     if (args.username === '' || args.username === undefined) return false
-    if (args.id === '' || args.id === undefined) return false
+    if (args._id === '' || args._id === undefined) return false
     if (args.from === '' || args.from === undefined) return false
 
     return true

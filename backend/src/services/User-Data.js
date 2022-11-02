@@ -16,10 +16,7 @@ exports.getNotif = async function (req, res) {
   const notifs = await NotificationModel
     .find({ username: req.username })
     .lean()
-  notifs.forEach((elt) => {
-    elt.id = elt._id
-    delete elt._id
-  })
+
   res.status(200).json(notifs)
 }
 
@@ -62,9 +59,9 @@ exports.acceptInvation = async (args) => {
     { $push: { friends: args.username } }
   )
 
-  await NotificationModel.deleteOne({ id: args.id })
+  await NotificationModel.deleteOne({ id: args._id })
 }
 
-exports.deleteNotifications = async (id) => {
-  await NotificationModel.deleteOne({ id })
+exports.deleteNotifications = async (_id) => {
+  await NotificationModel.deleteOne({ _id })
 }
