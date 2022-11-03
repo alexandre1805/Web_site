@@ -16,7 +16,7 @@ exports.socketIO = function (io, socket, _users) {
     return true
   }
 
-  socket.on('join', async (args) => {
+  socket.on('GameConnection:join', async (args) => {
     if (!checkJoinGame(args)) return
     socket.join(args.id)
     await gameConnection.join(io, args)
@@ -29,7 +29,7 @@ exports.socketIO = function (io, socket, _users) {
     return true
   }
 
-  socket.on('leave', async (args) => {
+  socket.on('GameConnection:leave', async (args) => {
     if (!checkLeaveGame(args)) return
     socket.leave(args.id)
     await gameConnection.leave(io, args)

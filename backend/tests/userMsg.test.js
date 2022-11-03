@@ -72,7 +72,7 @@ describe('User Msg', () => {
   describe('Real-time Msg', () => {
     describe('Regular', () => {
       test('Regular message when user1 connected', (done) => {
-        user1.socket.on('new message', (args) => {
+        user1.socket.on('Message:New', (args) => {
           expect(args).toMatchObject({
             message: 'test',
             read: [],
@@ -81,7 +81,7 @@ describe('User Msg', () => {
           })
           done()
         })
-        user1.socket.emit('message', {
+        user1.socket.emit('Message:newClient', {
           type: 'regular',
           room: roomID,
           message: 'test',
@@ -90,7 +90,7 @@ describe('User Msg', () => {
       })
 
       test('Regular message when user2 connected', (done) => {
-        user2.socket.on('new message', (args) => {
+        user2.socket.on('Message:New', (args) => {
           expect(args).toMatchObject({
             message: 'test',
             read: [],
@@ -99,7 +99,7 @@ describe('User Msg', () => {
           })
           done()
         })
-        user1.socket.emit('message', {
+        user1.socket.emit('Message:newClient', {
           type: 'regular',
           room: roomID,
           message: 'test',
@@ -109,7 +109,7 @@ describe('User Msg', () => {
     })
     describe('Games Msg', () => {
       test('Game message when user1 connected', (done) => {
-        user2.socket.on('new message', (args) => {
+        user2.socket.on('Message:New', (args) => {
           expect(args).toMatchObject({
             type: 'game',
             room: roomID,
@@ -120,7 +120,7 @@ describe('User Msg', () => {
           })
           done()
         })
-        user1.socket.emit('message', {
+        user1.socket.emit('Message:newClient', {
           type: 'game',
           room: roomID,
           message: user1.username + ' want to start a game : ',
@@ -134,14 +134,15 @@ describe('User Msg', () => {
 
   describe('Msg reading', () => {
     test('Message read', async () => {
-      user1.socket.emit('message', {
+      user1.socket.emit('Message:newClient', {
         type: 'regular',
         room: roomID,
         message: 'test',
         user: user1.username
       })
       await helper.timeout(200)
-      user1.socket.emit('read', { room: roomID, username: user1.username })
+      user1.socket.emit('Message:read',
+        { room: roomID, username: user1.username })
       await helper.timeout(200)
       const response = await messageModel.findOne({ message: 'test' })
       expect(response).toMatchObject({
@@ -155,7 +156,7 @@ describe('User Msg', () => {
   })
   describe('/getMsg', () => {
     test('/getMsg regular', async () => {
-      user1.socket.emit('message', {
+      user1.socket.emit('Message:newClient', {
         type: 'regular',
         room: roomID,
         message: 'test',
@@ -181,7 +182,7 @@ describe('User Msg', () => {
     })
 
     test('/getMsg no token', async () => {
-      user1.socket.emit('message', {
+      user1.socket.emit('Message:newClient', {
         type: 'regular',
         room: roomID,
         message: 'test',

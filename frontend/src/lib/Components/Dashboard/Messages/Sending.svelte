@@ -41,7 +41,7 @@
   }
   function handleSubmitMessage() {
     if (current_message === "" || current_room.name === "") return;
-    $socket.emit("message", {
+    $socket.emit("Message:newClient", {
       type: "regular",
       user: $username,
       message: current_message,
@@ -55,7 +55,7 @@
   }
   function handleCreateGame(game_name) {
     if (current_room.name === "") return;
-    $socket.emit("message", {
+    $socket.emit("Message:newClient", {
       type: "game",
       user: $username,
       message: $username + " want to start a game : ",

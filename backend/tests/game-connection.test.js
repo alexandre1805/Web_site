@@ -84,7 +84,7 @@ describe('Game connection', () => {
   })
 
   test('Game connection : message when connection', (done) => {
-    user1.socket.on('new message', (args) => {
+    user1.socket.on('Message:New', (args) => {
       expect(args).toMatchObject({
         type: 'game',
         room: roomID,
@@ -93,13 +93,14 @@ describe('Game connection', () => {
         game: 'Connect 4',
         state: 'Not started'
       })
-      user1.socket.on('Status update', (args) => {
+      user1.socket.on('GameConnection:update', (args) => {
         expect(args).toMatch('Waiting for other player ... (1/2)')
         done()
       })
-      user1.socket.emit('join', { id: args.game_id, username: user1.username })
+      user1.socket.emit('GameConnection:join',
+        { id: args.game_id, username: user1.username })
     })
-    user1.socket.emit('message', {
+    user1.socket.emit('Message:newClient', {
       type: 'game',
       room: roomID,
       message: user1.username + ' want to start a game : ',
@@ -110,7 +111,7 @@ describe('Game connection', () => {
   })
 
   test('Game connection : game start', (done) => {
-    user1.socket.on('new message', (args) => {
+    user1.socket.on('Message:New', (args) => {
       expect(args).toMatchObject({
         type: 'game',
         room: roomID,
@@ -119,12 +120,12 @@ describe('Game connection', () => {
         game: 'Connect 4',
         state: 'Not started'
       })
-      user1.socket.once('Status update', (arg) => {
-        user2.socket.emit('join', {
+      user1.socket.once('GameConnection:update', (arg) => {
+        user2.socket.emit('GameConnection:join', {
           id: args.game_id,
           username: user2.username
         })
-        user2.socket.on('update message', (msg) => {
+        user2.socket.on('Message:Update', (msg) => {
           expect(msg).toMatchObject({
             type: 'game',
             message: 'Game running ...',
@@ -137,9 +138,10 @@ describe('Game connection', () => {
           done()
         })
       })
-      user1.socket.emit('join', { id: args.game_id, username: user1.username })
+      user1.socket.emit('GameConnection:join',
+        { id: args.game_id, username: user1.username })
     })
-    user1.socket.emit('message', {
+    user1.socket.emit('Message:newClient', {
       type: 'game',
       room: roomID,
       message: user1.username + ' want to start a game : ',

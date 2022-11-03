@@ -27,11 +27,11 @@
   });
 
   if ($socket !== null) {
-    $socket.on("new room", (elt) => {
+    $socket.on("Room:New", (elt) => {
       rooms = [...rooms, elt];
       Search()
     });
-    $socket.on("new message", (elt) => {
+    $socket.on("Message:New", (elt) => {
       rooms = rooms.map((room) => {
         if (room.id === elt.room) {
           room.lastMessage = elt.message;

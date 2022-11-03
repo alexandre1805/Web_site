@@ -18,7 +18,7 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
   const roomUsers = args.sort()
   const existingRoom = await RoomModel.findOne({ users: roomUsers })
   if (existingRoom) {
-    socket.emit('create Room return', 'Room already exists.')
+    socket.emit('Room:Create:Return', 'Room already exists.')
     return
   }
 
@@ -49,11 +49,11 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
       const tmpRoomName = convertNameForPM(newRoom, roomUser)
 
       userSocket.join(tmpRoomName.id)
-      io.to(userSocket.id).emit('new room', tmpRoomName)
+      io.to(userSocket.id).emit('Room:New', tmpRoomName)
     }
   })
 
-  socket.emit('create Room return', 'Room created')
+  socket.emit('Room:Create:Return', 'Room created')
 }
 
 exports.getRooms = async (req, res) => {

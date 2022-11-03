@@ -5,7 +5,7 @@ const roomService = require('./Room')
 exports.handleMsg = async function (socket, args) {
   if (args.type === 'game' && gameService.checkRunningGame(args.room) >= 2) {
     socket.emit(
-      'error message',
+      'Message:Error',
       'Two games are already running, please wait...'
     )
     return
@@ -52,5 +52,5 @@ exports.updateGameMsg = async function (io, gameID, state) {
     { new: true }
   )
 
-  io.to(gameID).emit('update message', msg)
+  io.to(gameID).emit('Message:Update', msg)
 }

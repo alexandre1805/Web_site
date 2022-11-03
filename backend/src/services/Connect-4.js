@@ -17,17 +17,19 @@ exports.create = function (io, id, users) {
   game.winner = null
 
   games.set(id, game)
-  io.to(id).emit('Connect-4 update', game)
+  io.to(id).emit('Connect-4:Update', game)
 }
 
 exports.update = async function (io, id, game) {
   games.set(id, game)
-  io.to(id).emit('Connect-4 update', game)
+  io.to(id).emit('Connect-4:Update', game)
   if (game.winner !== null) {
     if (game.winner === undefined) await gameConnection.finish(io, id, 'Draw')
     else {
       let winner
-      for (const [key, value] of Object.entries(game)) { if (key !== 'winner' && value === game.winner) winner = key }
+      for (const [key, value] of Object.entries(game)) {
+        if (key !== 'winner' && value === game.winner) { winner = key }
+      }
 
       await gameConnection.finish(io, id, 'The winner is ' + winner)
     }

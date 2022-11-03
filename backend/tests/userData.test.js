@@ -61,32 +61,32 @@ describe('User Data', () => {
     })
     describe('Add friend', () => {
       test('Add friend with empty username', (done) => {
-        user1.socket.emit('add Friend', '')
-        user1.socket.on('add Friend return', (arg) => {
+        user1.socket.emit('User:Friend:Add', '')
+        user1.socket.on('User:Friend:Add:Return', (arg) => {
           expect(arg).toMatch('You must specify a friend.')
           done()
         })
       })
 
       test('Add friend with unknown username', (done) => {
-        user1.socket.emit('add Friend', 'unknwon_user')
-        user1.socket.on('add Friend return', (arg) => {
+        user1.socket.emit('User:Friend:Add', 'unknwon_user')
+        user1.socket.on('User:Friend:Add:Return', (arg) => {
           expect(arg).toMatch('The user does not exist')
           done()
         })
       })
 
       test('Add friend with empty username', (done) => {
-        user1.socket.emit('add Friend', '')
-        user1.socket.on('add Friend return', (arg) => {
+        user1.socket.emit('User:Friend:Add', '')
+        user1.socket.on('User:Friend:Add:Return', (arg) => {
           expect(arg).toMatch('You must specify a friend.')
           done()
         })
       })
 
       test('Add friend, with expect return for the sender', (done) => {
-        user1.socket.emit('add Friend', user2.username)
-        user1.socket.on('add Friend return', (arg) => {
+        user1.socket.emit('User:Friend:Add', user2.username)
+        user1.socket.on('User:Friend:Add:Return', (arg) => {
           expect(arg).toMatch('Invitation sended.')
           done()
         })
@@ -94,7 +94,7 @@ describe('User Data', () => {
 
       test('Add friend, with expect return for the receiver (test on socket)',
         (done) => {
-          user2.socket.on('notification', (arg) => {
+          user2.socket.on('User:Notification:New', (arg) => {
             expect(arg).toMatchObject({
               type: 'add_friend',
               username: 'test2',
@@ -103,12 +103,12 @@ describe('User Data', () => {
             })
             done()
           })
-          user1.socket.emit('add Friend', user2.username)
+          user1.socket.emit('User:Friend:Add', user2.username)
         })
 
       test('Add friend, with expect return for the receiver (test on api route)'
         , async () => {
-          user1.socket.emit('add Friend', user2.username)
+          user1.socket.emit('User:Friend:Add', user2.username)
           await helper.timeout(500)
           const response = await request(server)
             .get('/getNotifs')
@@ -126,12 +126,12 @@ describe('User Data', () => {
     })
     describe("Friend's invatation", () => {
       test('Accept invitation (check notif of user)', async () => {
-        user1.socket.emit('add Friend', user2.username)
+        user1.socket.emit('User:Friend:Add', user2.username)
         await helper.timeout(500)
         const response = await request(server)
           .get('/getNotifs')
           .set('Cookie', [user2.cookie])
-        user2.socket.emit('accept invitation', response.body[0])
+        user2.socket.emit('User:Notification:Accept', response.body[0])
 
         await helper.timeout(500)
         const response2 = await request(server)
@@ -142,12 +142,12 @@ describe('User Data', () => {
       })
 
       test('Accept invitation (check friend of users)', (done) => {
-        user1.socket.emit('add Friend', user2.username)
+        user1.socket.emit('User:Friend:Add', user2.username)
         setTimeout(async () => {
           const response = await request(server)
             .get('/getNotifs')
             .set('Cookie', [user2.cookie])
-          user2.socket.emit('accept invitation', response.body[0])
+          user2.socket.emit('User:Notification:Accept', response.body[0])
           setTimeout(async () => {
             const response = await request(server)
               .get('/getFriends')
@@ -170,15 +170,15 @@ describe('User Data', () => {
       })
 
       test('Send invitation to a user who is already a friend', (done) => {
-        user1.socket.emit('add Friend', user2.username)
+        user1.socket.emit('User:Friend:Add', user2.username)
         setTimeout(async () => {
           const response = await request(server)
             .get('/getNotifs')
             .set('Cookie', [user2.cookie])
-          user2.socket.emit('accept invitation', response.body[0])
+          user2.socket.emit('User:Notification:Accept', response.body[0])
           setTimeout(async () => {
-            user1.socket.emit('add Friend', user2.username)
-            user1.socket.on('add Friend return', (arg) => {
+            user1.socket.emit('User:Friend:Add', user2.username)
+            user1.socket.on('User:Friend:Add:Return', (arg) => {
               expect(arg).toMatch(user2.username + ' is already your friend.')
               done()
             })
@@ -198,7 +198,7 @@ describe('User Data', () => {
       setTimeout(async () => {
         await newNotification.save()
         await NotificationModel.findOne({}, 'id')
-        user1.socket.emit('delete notification', newNotification)
+        user1.socket.emit('User:Notification:Delete', newNotification)
         setTimeout(async () => {
           expect(await NotificationModel.find({})).toMatchObject([])
           done()

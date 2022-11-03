@@ -54,20 +54,20 @@ describe('User Room', () => {
       users: [user1.username, user2.username, user3.username]
     })
     await room.save()
-    user1.socket.emit('create Room', [
+    user1.socket.emit('Room:create', [
       user1.username,
       user2.username,
       user3.username
     ])
     await helper.timeout(500)
-    user1.socket.on('create Room return', (arg) => {
+    user1.socket.on('Room:Create:Return', (arg) => {
       expect(arg).toMatch('Room already exists.')
     })
   })
 
   describe('Groups', () => {
     test('Room creation : check DB', async () => {
-      user1.socket.emit('create Room', [
+      user1.socket.emit('Room:create', [
         user1.username,
         user2.username,
         user3.username
@@ -86,11 +86,11 @@ describe('User Room', () => {
     })
 
     test('Room creation : check return for the creator', (done) => {
-      user1.socket.on('create Room return', (arg) => {
+      user1.socket.on('Room:Create:Return', (arg) => {
         expect(arg).toMatch('Room created')
         done()
       })
-      user1.socket.emit('create Room', [
+      user1.socket.emit('Room:create', [
         user1.username,
         user2.username,
         user3.username
@@ -98,7 +98,7 @@ describe('User Room', () => {
     })
 
     test('Room creation : check return for all users', (done) => {
-      user1.socket.on('new room', (arg) => {
+      user1.socket.on('Room:New', (arg) => {
         expect(arg).toMatchObject({
           name: user1.username + ', ' + user2.username + ', ' + user3.username,
           type: 'group',
@@ -107,7 +107,7 @@ describe('User Room', () => {
         })
         done()
       })
-      user1.socket.emit('create Room', [
+      user1.socket.emit('Room:create', [
         user1.username,
         user2.username,
         user3.username
@@ -117,7 +117,7 @@ describe('User Room', () => {
 
   describe('Private message', () => {
     test('Room creation : check DB', async () => {
-      user1.socket.emit('create Room', [user1.username, user2.username])
+      user1.socket.emit('Room:create', [user1.username, user2.username])
       await helper.timeout(500)
       const room = await RoomModel.find({
         users: [user1.username, user2.username]
@@ -132,15 +132,15 @@ describe('User Room', () => {
     })
 
     test('Room creation : check return for the creator', (done) => {
-      user1.socket.on('create Room return', (arg) => {
+      user1.socket.on('Room:Create:Return', (arg) => {
         expect(arg).toMatch('Room created')
         done()
       })
-      user1.socket.emit('create Room', [user1.username, user2.username])
+      user1.socket.emit('Room:create', [user1.username, user2.username])
     })
 
     test('Room creation : check return for all users', (done) => {
-      user1.socket.on('new room', (arg) => {
+      user1.socket.on('Room:New', (arg) => {
         expect(arg).toMatchObject({
           name: user2.username,
           type: 'PM',
@@ -149,7 +149,7 @@ describe('User Room', () => {
         })
         done()
       })
-      user1.socket.emit('create Room', [user1.username, user2.username])
+      user1.socket.emit('Room:create', [user1.username, user2.username])
     })
   })
 

@@ -21,11 +21,11 @@
 
   //check for update
   if ($socket !== null) {
-    $socket.on("new message", (elt) => {
+    $socket.on("Message:New", (elt) => {
       if (elt.room === current_room.id) messages = [...messages, elt];
     });
 
-    $socket.on("update message", (elt) => {
+    $socket.on("Message:Update", (elt) => {
       messages = messages.map((elm) => {
         if (elm !== undefined && elm._id === elt._id) elm = elt;
       });
@@ -36,7 +36,7 @@
     let obj = document.getElementById("chat");
     obj.scrollTo(0, obj.scrollHeight);
     if (messages.length !== 0 && !messages.at(-1).read.includes($username))
-      $socket.emit("read", {
+      $socket.emit("Message:read", {
         username: $username,
         room: current_room.id,
       });

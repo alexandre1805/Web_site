@@ -16,7 +16,7 @@
 
   function log_out() {
     if ($currentGame !== "") {
-      $socket.emit("leave", {
+      $socket.emit("GameConnection:leave", {
         id: $currentGame,
         username: $username,
       });

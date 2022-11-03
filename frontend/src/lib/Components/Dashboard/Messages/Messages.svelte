@@ -10,7 +10,7 @@
   let errorBox = false;
   let errorMsg = "";
 
-  $socket.on("error message", (elt) => {
+  $socket.on("Message:Error", (elt) => {
     errorBox = true;
     errorMsg = elt;
   });

@@ -14,13 +14,13 @@ exports.router = router
 
 exports.socketIO = function (io, socket, _users) {
   // ======================== SEND MESSAGE =====================================
-  socket.on('message', async (args) => {
+  socket.on('Message:newClient', async (args) => {
     const obj = await message.handleMsg(socket, args)
-    if (obj !== null) io.to(args.room).emit('new message', obj)
+    if (obj !== null) io.to(args.room).emit('Message:New', obj)
   })
 
   // ======================= READ MESSAGE ======================================
-  socket.on('read', (args) => {
+  socket.on('Message:read', (args) => {
     message.handleRead(args)
   })
 }

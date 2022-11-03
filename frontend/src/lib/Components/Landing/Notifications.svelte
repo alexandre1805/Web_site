@@ -14,16 +14,16 @@
     });
 
   //real-times get notifications
-  $socket.on("notification", (elt) => {
+  $socket.on("User:Notification:New", (elt) => {
     notifications = [...notifications, elt];
   });
 
   function deleteNotification(e) {
-    $socket.emit("delete notification", e._id);
+    $socket.emit("User:Notification:Delete", e._id);
     notifications = notifications.filter((elm) => elm._id !== e._id);
   }
   function handleAccpetInvit(e) {
-    $socket.emit("accept invitation", e);
+    $socket.emit("User:Notification:Accept", e);
     notifications = notifications.filter((elm) => elm._id !== e._id);
   }
 </script>

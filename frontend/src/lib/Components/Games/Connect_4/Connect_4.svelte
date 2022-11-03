@@ -12,8 +12,8 @@
 
   if ($socket === null) push("/dashboard");
   else {
-    $socket.emit("join", { id: game_id, username: usernameValue });
-    $socket.on("Connect-4 update", (data) => {
+    $socket.emit("GameConnection:join", { id: game_id, username: usernameValue });
+    $socket.on("Connect-4:Update", (data) => {
       game = data;
       if (game.last_move !== undefined && game.last_move.p !== usernameValue) {
         if (game[game.last_move.p] === "R")
@@ -72,7 +72,7 @@
     }
 
     checkWinning();
-    $socket.emit("Connect-4 update-client", { id: game_id, game: game });
+    $socket.emit("Connect-4:UpdateClient", { id: game_id, game: game });
   }
 </script>
 

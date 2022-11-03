@@ -8,6 +8,12 @@ const gameInfo = [
   { name: 'Le président', min_players: 3, max_players: 6 }
 ]
 
+/**
+ * GameConnection:update response :
+ * param {string} state
+ * param {string} message
+ */
+
 function convertID (id) {
   return id.split('-')[1]
 }
@@ -59,9 +65,9 @@ exports.join = async function (io, args) {
 
     if (game.nb_players === game.max_players) {
       handleStartGame(io, args.id)
-      io.to(args.id).emit('Status update', '')
+      io.to(args.id).emit('GameConnection:update', '')
     } else {
-      io.to(args.id).emit('Status update',
+      io.to(args.id).emit('GameConnection:update',
           // eslint-disable-next-line max-len
           `Waiting for other player ... (${game.nb_players}/${game.max_players})`)
     }
@@ -97,7 +103,7 @@ exports.finish = async function (io, id, msg) {
 
   await userMsg.updateGameMsg(io, id, msg)
 
-  io.to(id).emit('Status update', msg)
+  io.to(id).emit('GameConnection:update', msg)
 }
 
 /**
@@ -131,7 +137,7 @@ async function handleCancelGame (io, params) {
     { _id: convertID(params.id) },
     { $set: { state: 'Cancelled' } }
   )
-  io.to(params.id).emit('Status update',
+  io.to(params.id).emit('GameConnection:update',
     'Someone has been disconnected, game cancelled')
   await userMsg.updateGameMsg(io, params.id, 'Cancelled')
 }

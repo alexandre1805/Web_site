@@ -9,11 +9,11 @@
   function handleAddFriend(e) {
     e.preventDefault();
     if (addFriend === "") return;
-    $socket.emit("add Friend", addFriend);
+    $socket.emit("User:Friend:Add", addFriend);
     addFriend = "";
   }
 
-  $socket.on("add Friend return", (msg) => {
+  $socket.on("User:Friend:Add:Return", (msg) => {
     friendMsg = msg;
   });
 </script>

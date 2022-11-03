@@ -26,18 +26,18 @@ exports.socketIO = function (io, socket, users) {
   // ======================== ADD FRIEND =======================================
   const checkAddFriend = (socket, friend) => {
     if (friend === '' || friend === undefined) {
-      socket.emit('add Friend return', 'You must specify a friend.')
+      socket.emit('User:Friend:Add:Return', 'You must specify a friend.')
       return false
     }
     return true
   }
-  socket.on('add Friend', async (friendName) => {
+  socket.on('User:Friend:Add', async (friendName) => {
     if (!checkAddFriend(socket, friendName)) return
     const newNotif = await userData.addFriend(socket, friendName)
 
     // send invitation to user
     const friend = users.get(friendName)
-    io.to(friend).emit('notification', newNotif)
+    io.to(friend).emit('User:Notification:New', newNotif)
   })
 
   // ====================== ACCEPT INVITATION ==================================
@@ -49,7 +49,7 @@ exports.socketIO = function (io, socket, users) {
     return true
   }
 
-  socket.on('accept invitation', async (args) => {
+  socket.on('User:Notification:Accept', async (args) => {
     if (!checkAcceptInvitation(args)) return
     await userData.acceptInvation(args)
   })
@@ -60,7 +60,7 @@ exports.socketIO = function (io, socket, users) {
     return true
   }
 
-  socket.on('delete notification', async (id) => {
+  socket.on('User:Notification:Delete', async (id) => {
     if (!checkDeleteNotifications(id)) return
     await userData.deleteNotifications(id)
   })

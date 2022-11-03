@@ -18,8 +18,8 @@ exports.socketIO = function (io, socket, users) {
     return true
   }
 
-  // =========================== CREATE ROOM ===================================
-  socket.on('create Room', async (arg) => {
+  // =========================== Room:create ===================================
+  socket.on('Room:create', async (arg) => {
     if (!checkCreateRoom(arg)) return
     await room.createRoom(io, socket, users, arg)
   })

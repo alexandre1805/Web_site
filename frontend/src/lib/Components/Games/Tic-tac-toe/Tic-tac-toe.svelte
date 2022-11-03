@@ -24,9 +24,9 @@
 
   if ($socket === null) push("/dashboard");
   else {
-    $socket.emit("join", { id: $currentGame, username: $username });
+    $socket.emit("GameConnection:join", { id: $currentGame, username: $username });
 
-    $socket.on("Tic-tac-toe update", (data) => {
+    $socket.on("Tic-tac-toe:Update", (data) => {
       game = data;
     });
   }
@@ -59,7 +59,7 @@
     }
     if (draw) game.winner = undefined;
 
-    $socket.emit("Tic-tac-toe update-client", { id: $currentGame, game: game });
+    $socket.emit("Tic-tac-toe:Update-client", { id: $currentGame, game: game });
   }
 </script>
 

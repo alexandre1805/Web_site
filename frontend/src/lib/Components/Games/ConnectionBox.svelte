@@ -8,7 +8,7 @@
   let message = "Waiting for informations...";
   let open = true;
 
-  $socket.on("Status update", (msg) => {
+  $socket.on("GameConnection:update", (msg) => {
     if (msg !== "") {
       open = true;
       message = msg;
@@ -19,7 +19,7 @@
   });
 
   function handleLeaveGame() {
-    $socket.emit("leave", {
+    $socket.emit("GameConnection:leave", {
       id: game_id,
       username: usernameValue,
     });

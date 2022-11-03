@@ -32,10 +32,10 @@
 
   function handleNewRoom(e) {
     if (listNewRoom.length === 1) return;
-    $socket.emit("create Room", listNewRoom);
+    $socket.emit("Room:create", listNewRoom);
   }
 
-  $socket.on("create Room return", (msg) => {
+  $socket.on("Room:Create:Return", (msg) => {
     finalMsg = msg;
   });
 </script>

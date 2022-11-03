@@ -26,13 +26,13 @@ exports.addFriend = async (socket, friend) => {
   })
 
   if (dbUser.friends.includes(friend)) {
-    socket.emit('add Friend return', friend + ' is already your friend.')
+    socket.emit('User:Friend:Add:Return', friend + ' is already your friend.')
     return
   }
 
   const dbFriend = await userModel.findOne({ username: friend })
   if (dbFriend === null) {
-    socket.emit('add Friend return', 'The user does not exist')
+    socket.emit('User:Friend:Add:Return', 'The user does not exist')
     return
   }
 
@@ -45,7 +45,7 @@ exports.addFriend = async (socket, friend) => {
 
   await newNotification.save()
 
-  socket.emit('add Friend return', 'Invitation sended.')
+  socket.emit('User:Friend:Add:Return', 'Invitation sended.')
   return newNotification
 }
 
