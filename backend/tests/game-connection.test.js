@@ -94,7 +94,7 @@ describe('Game connection', () => {
         state: 'Not started'
       })
       user1.socket.on('GameConnection:update', (args) => {
-        expect(args).toMatch('Waiting for other player ... (1/2)')
+        expect(args.message).toMatch('Waiting for other player ... (1/2)')
         done()
       })
       user1.socket.emit('GameConnection:join',

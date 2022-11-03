@@ -58,18 +58,31 @@ exports.createGame = async function (args) {
 exports.join = async function (io, args) {
   let game = await GameModel.findById(convertID(args.id))
 
-  if (game.state === 'Not started') {
+  if (game.state !== 'Running') {
     game = await GameModel.findByIdAndUpdate(convertID(args.id),
-      { $push: { players: args.username }, $inc: { nb_players: 1 } },
+      {
+        $push: { players: args.username },
+        $inc: { nb_players: 1 },
+        $set: {
+          state: (game.nb_players > game.max_players)
+            ? 'Not started'
+            : 'Ready'
+        }
+      },
       { new: true })
 
     if (game.nb_players === game.max_players) {
       handleStartGame(io, args.id)
-      io.to(args.id).emit('GameConnection:update', '')
+      io.to(args.id).emit('GameConnection:update',
+        { state: 'Running', message: '' })
     } else {
       io.to(args.id).emit('GameConnection:update',
+        {
+          state: game.state,
+          message:
           // eslint-disable-next-line max-len
-          `Waiting for other player ... (${game.nb_players}/${game.max_players})`)
+          `Waiting for other player ... (${game.nb_players}/${game.max_players})`
+        })
     }
   } else {
     console.error('Someone try to join but the game started')
@@ -103,7 +116,7 @@ exports.finish = async function (io, id, msg) {
 
   await userMsg.updateGameMsg(io, id, msg)
 
-  io.to(id).emit('GameConnection:update', msg)
+  io.to(id).emit('GameConnection:update', { state: 'Finished', message: msg })
 }
 
 /**
@@ -138,6 +151,9 @@ async function handleCancelGame (io, params) {
     { $set: { state: 'Cancelled' } }
   )
   io.to(params.id).emit('GameConnection:update',
-    'Someone has been disconnected, game cancelled')
+    {
+      state: 'Cancelled',
+      message: 'Someone has been disconnected, game cancelled'
+    })
   await userMsg.updateGameMsg(io, params.id, 'Cancelled')
 }

@@ -19,11 +19,11 @@
         if (game[game.last_move.p] === "R")
           document
             .getElementById(game.last_move.x + "-" + game.last_move.y)
-            .classList.add("bg-red-500");
+            .classList.replace("bg-blue-900", "bg-red-500");
         else
           document
             .getElementById(game.last_move.x + "-" + game.last_move.y)
-            .classList.add("bg-yellow-500");
+            .classList.replace("bg-blue-900", "bg-yellow-500");
       }
     });
   }
@@ -59,8 +59,8 @@
     if (game.board[x][y] !== "") return;
     while (x < 5 && game.board[x + 1][y] === "") x++;
     if (game[game.current_player] === "R")
-      document.getElementById(x + "-" + y).classList.add("bg-red-500");
-    else document.getElementById(x + "-" + y).classList.add("bg-yellow-500");
+      document.getElementById(x + "-" + y).classList.replace("bg-blue-900", "bg-red-500");
+    else document.getElementById(x + "-" + y).classList.replace("bg-blue-900", "bg-yellow-500");
     game.board[x][y] = game[game.current_player];
     game.last_move = { p: game.current_player, x: x, y: y };
 

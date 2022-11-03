@@ -8,10 +8,10 @@
   let message = "Waiting for informations...";
   let open = true;
 
-  $socket.on("GameConnection:update", (msg) => {
-    if (msg !== "") {
+  $socket.on("GameConnection:update", (obj) => {
+    if (obj.state !== 'Running') {
       open = true;
-      message = msg;
+      message = obj.message;
     } else {
       open = false;
       message = "Waiting for informations...";
