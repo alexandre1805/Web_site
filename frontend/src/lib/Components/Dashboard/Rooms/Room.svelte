@@ -44,7 +44,7 @@
   }
 
   /**
-   * @param {{ id: string; }} room
+   * @param {{ _id: string; }} room
    */
   function handleChangeRoom(room) {
     document.querySelectorAll(".Room li").forEach((element) => {
@@ -52,11 +52,11 @@
     });
     setCurrentRoom(room);
     rooms = rooms.map((elm) => {
-      if (room.id === elm.id) elm.unread = 0;
+      if (room._id === elm._id) elm.unread = 0;
       return elm;
     });
     document
-      .getElementById(room.id)
+      .getElementById(room._id)
       .classList.add("md:border-l-8", "md:border-l-blue-400");
   }
 

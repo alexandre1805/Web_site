@@ -11,6 +11,7 @@
   function return_room() {
     document.getElementById("room_container").classList.remove("hidden");
     document.getElementById("message_container").classList.add("hidden");
+    current_room = {name: ""}
   }
 </script>
 
