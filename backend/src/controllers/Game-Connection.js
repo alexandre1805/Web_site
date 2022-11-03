@@ -34,4 +34,14 @@ exports.socketIO = function (io, socket, _users) {
     socket.leave(args.id)
     await gameConnection.leave(io, args)
   })
+
+  const checkStartGame = (id) => {
+    if (id === '' || id === undefined) return false
+    return true
+  }
+
+  socket.on('GameConnection:start', async (id) => {
+    if (!checkStartGame(id)) return
+    await gameConnection.start(io, id)
+  })
 }

@@ -1,0 +1,262 @@
+[
+  {
+    "suite": "spades",
+    "value": "A",
+    "file": "ace_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "2",
+    "file": "2_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "3",
+    "file": "3_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "4",
+    "file": "4_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "5",
+    "file": "5_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "6",
+    "file": "6_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "7",
+    "file": "7_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "8",
+    "file": "8_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "9",
+    "file": "9_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "10",
+    "file": "10_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "J",
+    "file": "jack_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "Q",
+    "file": "queen_of_spades.png"
+  },
+  {
+    "suite": "spades",
+    "value": "K",
+    "file": "king_of_spades.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "A",
+    "file": "ace_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "2",
+    "file": "2_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "3",
+    "file": "3_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "4",
+    "file": "4_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "5",
+    "file": "5_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "6",
+    "file": "6_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "7",
+    "file": "7_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "8",
+    "file": "8_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "9",
+    "file": "9_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "10",
+    "file": "10_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "J",
+    "file": "jack_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "Q",
+    "file": "queen_of_diamonds.png"
+  },
+  {
+    "suite": "diamonds",
+    "value": "K",
+    "file": "king_of_diamonds.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "A",
+    "file": "ace_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "2",
+    "file": "2_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "3",
+    "file": "3_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "4",
+    "file": "4_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "5",
+    "file": "5_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "6",
+    "file": "6_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "7",
+    "file": "7_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "8",
+    "file": "8_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "9",
+    "file": "9_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "10",
+    "file": "10_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "J",
+    "file": "jack_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "Q",
+    "file": "queen_of_clubs.png"
+  },
+  {
+    "suite": "clubs",
+    "value": "K",
+    "file": "king_of_clubs.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "A",
+    "file": "ace_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "2",
+    "file": "2_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "3",
+    "file": "3_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "4",
+    "file": "4_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "5",
+    "file": "5_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "6",
+    "file": "6_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "7",
+    "file": "7_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "8",
+    "file": "8_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "9",
+    "file": "9_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "10",
+    "file": "10_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "J",
+    "file": "jack_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "Q",
+    "file": "queen_of_hearts.png"
+  },
+  {
+    "suite": "hearts",
+    "value": "K",
+    "file": "king_of_hearts.png"
+  }
+]

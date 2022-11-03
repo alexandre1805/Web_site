@@ -1,6 +1,7 @@
 const GameModel = require('../models/games')
 const Tictactoe = require('./Tic-tac-toe')
 const Connect4 = require('./Connect-4')
+const President = require('./President')
 const userMsg = require('./Message')
 const gameInfo = [
   { name: 'Tic-tac-toe', min_players: 2, max_players: 2 },
@@ -132,7 +133,8 @@ async function handleStartGame (io, gameID) {
   )
 
   if (game.name === 'Tic-tac-toe') Tictactoe.create(io, gameID, game.players)
-  else Connect4.create(io, gameID, game.players)
+  else if (game.name === 'Connect 4') Connect4.create(io, gameID, game.players)
+  else President.create(io, gameID, game.players)
 
   await userMsg.updateGameMsg(io, gameID, 'Running')
 }
@@ -146,8 +148,7 @@ async function handleStartGame (io, gameID) {
  * @param {object} io  the instance of websocket
  */
 async function handleCancelGame (io, params) {
-  await GameModel.updateOne(
-    { _id: convertID(params.id) },
+  await GameModel.findByIdAndUpdate(convertID(params.id),
     { $set: { state: 'Cancelled' } }
   )
   io.to(params.id).emit('GameConnection:update',
@@ -156,4 +157,15 @@ async function handleCancelGame (io, params) {
       message: 'Someone has been disconnected, game cancelled'
     })
   await userMsg.updateGameMsg(io, params.id, 'Cancelled')
+}
+
+/**
+ * @function function triggered by "GameConnection:start"
+ * @param {object} io the websocket instance
+ * @param {string} id the id of the game
+ */
+exports.start = async (io, id) => {
+  const game = await GameModel.findById(convertID(id))
+  if (game.state !== 'Ready') return
+  handleStartGame(io, id)
 }
