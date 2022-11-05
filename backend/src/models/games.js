@@ -16,7 +16,8 @@ const GamesSchema = new mongoose.Schema(
     },
     players: [{ type: String }],
     nb_players: { type: Number, required: true },
-    max_players: { type: Number, required: true }
+    max_players: { type: Number, required: true },
+    min_players: { type: Number, required: true }
   },
   {
     timestamps: true

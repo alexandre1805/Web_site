@@ -1,30 +1,32 @@
 <script>
-  import { push } from "svelte-spa-router";
-  import { socket, currentGame, username } from "../../store";
-  let game_id;
-  currentGame.subscribe((val) => (game_id = val));
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
-  let message = "Waiting for informations...";
-  let open = true;
+  import { push } from 'svelte-spa-router'
+  import { socket, currentGame, username } from '../../store'
+  let message = 'Waiting for informations...'
+  let open = true
+  let startButton = false
 
-  $socket.on("GameConnection:update", (obj) => {
-    if (obj.state !== 'Running') {
-      open = true;
-      message = obj.message;
+  $socket.on('GameConnection:update', (obj) => {
+    message = obj.message
+
+    if (obj.state === 'Running') {
+      open = false
+      message = 'Waiting for informations...'
+      startButton = false
+    } else if (obj.state === 'Ready') {
+      startButton = true
     } else {
-      open = false;
-      message = "Waiting for informations...";
+      open = true
+      startButton = false
     }
-  });
+  })
 
   function handleLeaveGame() {
-    $socket.emit("GameConnection:leave", {
-      id: game_id,
-      username: usernameValue,
-    });
-    currentGame.set("");
-    push("/dashboard");
+    $socket.emit('GameConnection:leave', {
+      id: $currentGame,
+      username: $username,
+    })
+    currentGame.set('')
+    push('/dashboard')
   }
 </script>
 
@@ -33,11 +35,20 @@
     <div class="Dialog_box">
       <div class="Container">
         {message}
-        <button
-          on:click={handleLeaveGame}
-          class="text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500"
-          >Leave</button
-        >
+        <div class="flex">
+          {#if startButton}
+            <button
+              on:click={handleLeaveGame}
+              class="text-white bg-blue-500 rounded-full p-1 my-3 mx-1 w-full hover:bg-slate-500"
+              >Start</button
+            >
+          {/if}
+          <button
+            on:click={handleLeaveGame}
+            class="text-white bg-blue-500 rounded-full p-1 my-3 mx-1 w-full hover:bg-slate-500"
+            >Leave</button
+          >
+        </div>
       </div>
     </div>
   {/if}

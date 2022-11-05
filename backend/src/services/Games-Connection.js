@@ -65,9 +65,9 @@ exports.join = async function (io, args) {
         $push: { players: args.username },
         $inc: { nb_players: 1 },
         $set: {
-          state: (game.nb_players > game.max_players)
-            ? 'Not started'
-            : 'Ready'
+          state: (game.nb_players >= game.min_players)
+            ? 'Ready'
+            : 'Not started'
         }
       },
       { new: true })
@@ -98,12 +98,27 @@ exports.join = async function (io, args) {
  * @param {object} io the instance of websocket
  */
 exports.leave = async function (io, args) {
-  const game = await GameModel.findById(convertID(args.id))
-  if (game.state === 'Not started') {
-    await GameModel.updateOne(
-      { _id: convertID(args.id) },
-      { $pull: { players: args.username }, $inc: { nb_players: -1 } }
+  let game = await GameModel.findById(convertID(args.id))
+  if (game.state === 'Not started' || game.state === 'Ready') {
+    game = await GameModel.findByIdAndUpdate(convertID(args.id),
+      {
+        $pull: { players: args.username },
+        $inc: { nb_players: -1 },
+        $set: {
+          state: ((game.nb_players - 1) >= game.min_players)
+            ? 'Ready'
+            : 'Not started'
+        }
+      },
+      { new: true }
     )
+    io.to(args.id).emit('GameConnection:update',
+      {
+        state: game.state,
+        message:
+          // eslint-disable-next-line max-len
+          `Waiting for other player ... (${game.nb_players}/${game.max_players})`
+      })
   } else if (game.state === 'Running') {
     await handleCancelGame(io, args)
   }
