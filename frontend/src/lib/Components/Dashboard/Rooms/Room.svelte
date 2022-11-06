@@ -81,7 +81,7 @@
 </script>
 
 <div
-  class="Room w-full min-w-fit float-left bg-white flex flex-col h-full overflow-y-scroll"
+  class="Room w-full min-w-fit float-left bg-white flex flex-col h-full overflow-y-auto"
 >
   <div class="p-1 h-24 flex border-b-2 border-gray-300">
     <input
@@ -117,7 +117,7 @@
   {#if searchRooms.length === 0}
     No rooms available
   {/if}
-  <ul class="w-full list-none overflow-y-scroll">
+  <ul class="w-full list-none overflow-y-auto">
     {#each searchRooms as room}
       <li
         class="flex p-2 w-full border-b-2 border-gray-300 items-center hover:bg-blue-200"

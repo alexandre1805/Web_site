@@ -28,6 +28,10 @@
     currentGame.set('')
     push('/dashboard')
   }
+
+  function handleStartGame() {
+    $socket.emit('GameConnection:start', $currentGame)
+  }
 </script>
 
 <div class="Connection_Box">
@@ -38,7 +42,7 @@
         <div class="flex">
           {#if startButton}
             <button
-              on:click={handleLeaveGame}
+              on:click={handleStartGame}
               class="text-white bg-blue-500 rounded-full p-1 my-3 mx-1 w-full hover:bg-slate-500"
               >Start</button
             >

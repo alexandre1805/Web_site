@@ -54,7 +54,7 @@
       /></button
     >
     New message group :
-    <ul class="overflow-y-scroll m-3">
+    <ul class="overflow-y-auto m-3">
       {#each friendList as friend}
         <li
           class="flex hover:bg-slate-400 items-center p-2 border-b-2"

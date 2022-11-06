@@ -50,7 +50,7 @@
   }
 </script>
 
-<ul id="chat" class="h-full overflow-scroll">
+<ul id="chat" class="h-full overflow-auto">
   {#each messages as msg}
     <li
       class={`${msg.user === $username ? "text-right" : "text-left"} px-3 py-3`}

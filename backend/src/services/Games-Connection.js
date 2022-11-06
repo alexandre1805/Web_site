@@ -74,8 +74,6 @@ exports.join = async function (io, args) {
 
     if (game.nb_players === game.max_players) {
       handleStartGame(io, args.id)
-      io.to(args.id).emit('GameConnection:update',
-        { state: 'Running', message: '' })
     } else {
       io.to(args.id).emit('GameConnection:update',
         {
@@ -150,6 +148,9 @@ async function handleStartGame (io, gameID) {
   if (game.name === 'Tic-tac-toe') Tictactoe.create(io, gameID, game.players)
   else if (game.name === 'Connect 4') Connect4.create(io, gameID, game.players)
   else President.create(io, gameID, game.players)
+
+  io.to(gameID).emit('GameConnection:update',
+    { state: 'Running', message: '' })
 
   await userMsg.updateGameMsg(io, gameID, 'Running')
 }

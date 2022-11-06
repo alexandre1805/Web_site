@@ -16,7 +16,8 @@
       game = data
       game[$username].cards.forEach((card) => {
         let img = document.createElement('img')
-        img.src = card.file
+        img.src = "/cards/" + card.file
+        img.classList.add('w-24')
         document.getElementById('board').appendChild(img)
       })
     })
@@ -26,5 +27,5 @@
 <Connection_Box />
 <div
   id="board"
-  class="w-full h-full flex items-center justify-center bg-poker flex-col md:flex-row"
+  class="w-full h-full flex items-center justify-center bg-poker md:flex-row"
 />

@@ -29,7 +29,7 @@
 </script>
 
 <div
-  class="absolute top-full right-3 h-[70vh] w-[95vw] bg-white border-black border-2 rounded-xl overflow-scroll z-10 md:w-[30vw]"
+  class="absolute top-full right-3 h-[70vh] w-[95vw] bg-white border-black border-2 rounded-xl overflow-auto z-10 md:w-[30vw]"
 >
   {#each notifications as e}
     {#if e.type === "add_friend"}
