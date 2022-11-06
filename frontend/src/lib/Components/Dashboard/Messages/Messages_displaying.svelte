@@ -46,6 +46,7 @@
     currentGame.set(id);
     if (name === "Tic-tac-toe") push("/tic-tac-toe");
     else if (name === "Connect 4") push("/connect-4");
+    else if (name === "Le président") push("/president");
   }
 </script>
 

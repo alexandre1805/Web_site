@@ -65,7 +65,7 @@ exports.join = async function (io, args) {
         $push: { players: args.username },
         $inc: { nb_players: 1 },
         $set: {
-          state: (game.nb_players >= game.min_players)
+          state: ((game.nb_players + 1) >= game.min_players)
             ? 'Ready'
             : 'Not started'
         }

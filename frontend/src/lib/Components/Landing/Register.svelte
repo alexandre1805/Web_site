@@ -96,7 +96,7 @@
       class="input-field"
       type="text"
       placeholder="Username"
-      value={username}
+      bind:value={username}
       on:change={() => {
         if (username === "")
           usernameMsg =
@@ -110,7 +110,7 @@
       class="input-field"
       type="text"
       placeholder="E-mail"
-      value={email}
+      bind:value={email}
       on:change={verifyEmail}
     />
     {@html emailMsg}
@@ -119,7 +119,7 @@
       class="input-field"
       type="password"
       placeholder="Password"
-      value={password}
+      bind:value={password}
       on:change={verifyPassword}
     />
     {@html passwordMsg}
@@ -128,7 +128,7 @@
       class="input-field"
       type="password"
       placeholder="Password"
-      value={confirmPassword}
+      bind:value={confirmPassword}
       on:change={verifyConfirmPassword}
     />
     {@html confirmPasswordMsg}

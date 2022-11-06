@@ -13,6 +13,7 @@
   import Dashboard from "./lib/Components/Dashboard/Dashboard.svelte";
   import TicTacToe from "./lib/Components/Games/Tic-tac-toe/Tic-tac-toe.svelte";
   import Connect_4 from "./lib/Components/Games/Connect_4/Connect_4.svelte";
+  import President from "./lib/Components/Games/President.svelte";
 
   async function fetchLogin() {
     try {
@@ -65,6 +66,7 @@
       }),
       "/tic-tac-toe": TicTacToe,
       "/connect-4": Connect_4,
+      "/president": President,
     }}
     on:conditionsFailed={conditionsFailed}
   />

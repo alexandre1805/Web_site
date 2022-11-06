@@ -15,51 +15,54 @@
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
-  ];
+  ]
 
-  let game = { board: ["", "", "", "", "", "", "", "", ""] };
-  game[$username] = "";
-  game.current_player = "";
-  game.winner = null;
+  let game = { board: ['', '', '', '', '', '', '', '', ''] }
+  game[$username] = ''
+  game.current_player = ''
+  game.winner = null
 
-  if ($socket === null) push("/dashboard");
+  if ($socket === null) push('/dashboard')
   else {
-    $socket.emit("GameConnection:join", { id: $currentGame, username: $username });
+    $socket.emit('GameConnection:join', {
+      id: $currentGame,
+      username: $username,
+    })
 
-    $socket.on("Tic-tac-toe:Update", (data) => {
-      game = data;
-    });
+    $socket.on('Tic-tac-toe:Update', (data) => {
+      game = data
+    })
   }
 
   function handleClickCase(id) {
-    if (game.current_player != $username) return;
-    if (game.board[id] !== "") return;
-    game.board[id] = game[$username];
+    if (game.current_player != $username) return
+    if (game.board[id] !== '') return
+    game.board[id] = game[$username]
 
-    if (game[game.current_player] === "X") game.current_player = game["Y"];
-    else game.current_player = game["X"];
+    if (game[game.current_player] === 'X') game.current_player = game['Y']
+    else game.current_player = game['X']
 
     //check win conditions
     for (let i in winningConditions) {
-      let a = game.board[winningConditions[i][0]];
-      let b = game.board[winningConditions[i][1]];
-      let c = game.board[winningConditions[i][2]];
-      if (a === "" || b === "" || c === "") {
-        continue;
+      let a = game.board[winningConditions[i][0]]
+      let b = game.board[winningConditions[i][1]]
+      let c = game.board[winningConditions[i][2]]
+      if (a === '' || b === '' || c === '') {
+        continue
       }
       if (a === b && b === c) {
-        game.winner = a;
-        break;
+        game.winner = a
+        break
       }
     }
 
-    let draw = true;
+    let draw = true
     for (let index in game.board) {
-      if (game.board[index] === "") draw = false;
+      if (game.board[index] === '') draw = false
     }
-    if (draw) game.winner = undefined;
+    if (draw) game.winner = undefined
 
-    $socket.emit("Tic-tac-toe:Update-client", { id: $currentGame, game: game });
+    $socket.emit('Tic-tac-toe:Update-client', { id: $currentGame, game: game })
   }
 </script>
 
@@ -92,7 +95,7 @@
   >
     <div class="flex items-center">
       You are :
-      {#if game[$username] === "X"}
+      {#if game[$username] === 'X'}
         <img src={X} alt="X" class="h-5 w-5 m-2" />
       {:else}
         <img src={O} alt="O" class="h-5 w-5 m-2" />

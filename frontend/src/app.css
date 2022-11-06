@@ -42,4 +42,9 @@
     @apply flex-col;
     @apply z-20;
   }
+
+  .bg-poker {
+    background: rgb(0,195,65);
+    background: radial-gradient(circle, rgba(0,195,65,1) 0%, rgba(0,153,51,1) 100%);
+  }
 }

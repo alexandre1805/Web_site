@@ -36,8 +36,8 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
   })
   newRoom.unread = 0
 
-  newRoom.users.forEach((roomUser) => {
-    userModel.updateOne({ username: roomUser },
+  await newRoom.users.forEach(async (roomUser) => {
+    await userModel.updateOne({ username: roomUser },
       { $push: { rooms: newRoom.id } })
   })
 
@@ -59,7 +59,7 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
 exports.getRooms = async (req, res) => {
   const userRooms = await userModel.findOne({ username: req.username }, 'rooms')
 
-  const rooms = await RoomModel.find({ id: userRooms }).lean()
+  const rooms = await RoomModel.find({ _id: { $in: userRooms.rooms } }).lean()
   for (const room of rooms) {
     room.id = room._id
     convertNameForPM(room, req.username)
