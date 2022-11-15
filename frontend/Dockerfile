@@ -3,8 +3,8 @@ FROM node:16.17.0-bullseye-slim
 WORKDIR /app
 
 COPY ./package.json ./
-RUN npm install --include=dev
+RUN yarn install --include=dev
 
 COPY . .
 
-CMD [ "npm", "run", "dev"]
+CMD [ "yarn", "run", "dev"]
