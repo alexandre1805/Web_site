@@ -7,4 +7,6 @@ RUN yarn install --include=dev
 
 COPY . .
 
+RUN chown -R node:node /app/node_modules
+
 CMD [ "yarn", "run", "dev"]
