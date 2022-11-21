@@ -162,29 +162,27 @@ describe('User Room', () => {
       })
     })
 
-    test('Get Rooms normale', async () => {
-      const room = new RoomModel({
-        type: 'PM',
-        name: 'test',
-        users: [user1.username, user2.username]
-      })
-      await room.save()
+    test('Get Rooms normal', (done) => {
+      setTimeout(async () => {
+        const response = await request(server)
+          .get('/getRooms')
+          .set('Cookie', [user2.cookie])
+          .expect(200)
+        expect(response.body.hasOwnProperty('message'))
+        expect(response.body).toMatchObject({
+          rooms: [
+            {
+              name: user1.username,
+              type: 'PM',
+              unread: 0,
+              users: [user1.username, user2.username]
+            }
+          ]
+        })
+        done()
+      }, 200)
 
-      const response = await request(server)
-        .get('/getRooms')
-        .set('Cookie', [user2.cookie])
-        .expect(200)
-      expect(response.body.hasOwnProperty('message'))
-      expect(response.body).toMatchObject({
-        rooms: [
-          {
-            name: user1.username,
-            type: 'PM',
-            unread: 0,
-            users: [user1.username, user2.username]
-          }
-        ]
-      })
+      user1.socket.emit('Room:create', [user1.username, user2.username])
     })
   })
 })
