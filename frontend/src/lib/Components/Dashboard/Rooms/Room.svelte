@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import axios from 'axios'
   import messageLogo from '../../../../assets/icons-pack/chatbox-ellipses-outline.svg'
   import addLogo from '../../../../assets/icons-pack/add-outline.svg'

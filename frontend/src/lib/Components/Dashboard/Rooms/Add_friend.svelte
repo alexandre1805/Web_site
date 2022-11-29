@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import closeButton from "../../../../assets/icons-pack/close-outline.svg";
   import { socket } from "../../../store";
 

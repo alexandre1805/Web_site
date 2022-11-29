@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Header from "./Header.svelte";
   import MessagesDisplaying from "./Messages_displaying.svelte";
   import Sending from "./Sending.svelte";

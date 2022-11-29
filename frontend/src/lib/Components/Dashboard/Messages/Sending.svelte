@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import "emoji-picker-element/svelte";
   import gamesLogo from "../../../../assets/icons-pack/game-controller-outline.svg";
   import emojiLogo from "../../../../assets/icons-pack/happy-outline.svg";

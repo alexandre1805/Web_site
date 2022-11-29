@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let current_room;
   export let return_room;
   import leftArrow from "../../../../assets/icons-pack/arrow-back-outline.svg";

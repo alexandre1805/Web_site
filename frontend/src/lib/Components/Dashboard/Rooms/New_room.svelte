@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import axios from "axios";
   import { socket, username } from "../../../store";
   import closeButton from "../../../../assets/icons-pack/close-outline.svg";

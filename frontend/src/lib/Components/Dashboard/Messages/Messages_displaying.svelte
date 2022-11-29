@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import axios from "axios";
   import { socket, username, currentGame } from "../../../store";
   import { push } from "svelte-spa-router";

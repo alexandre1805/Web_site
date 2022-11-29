@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Room from "./Rooms/Room.svelte";
   import Messages from "./Messages/Messages.svelte";
   let current_room = { name: "" };

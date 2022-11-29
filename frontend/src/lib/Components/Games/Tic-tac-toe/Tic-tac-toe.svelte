@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { push } from "svelte-spa-router";
   import { socket, currentGame, username } from "../../../store";
   import Connection_Box from "../ConnectionBox.svelte";

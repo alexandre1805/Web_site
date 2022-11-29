@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let handler;
   export let value;
   import X from "../../../../assets/Tic-Tac-Toe/X.png";

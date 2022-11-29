@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import axios from "axios";
   import NavBar from "./lib/Components/Landing/NavBar.svelte";
   import { socket, username } from "./lib/store";
