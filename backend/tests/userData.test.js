@@ -123,6 +123,26 @@ describe('User Data', () => {
             }
           ])
         })
+
+      test('Add friend : with the username of the user', (done) => {
+        user1.socket.on('User:Friend:Add:Return', (arg) => {
+          expect(arg).toMatch('You cannot add yourself as a friend')
+          done()
+        })
+        user1.socket.emit('User:Friend:Add', user1.username)
+      })
+
+      test('Add friend : multiple invitation (must be stopped)', (done) => {
+        user1.socket.once('User:Friend:Add:Return', (arg) => {
+          expect(arg).toMatch('Invitation sended.')
+          user1.socket.once('User:Friend:Add:Return', (arg) => {
+            expect(arg).toMatch('You cannot send multiple invitations')
+            done()
+          })
+          user1.socket.emit('User:Friend:Add', user2.username)
+        })
+        user1.socket.emit('User:Friend:Add', user2.username)
+      })
     })
     describe("Friend's invatation", () => {
       test('Accept invitation (check notif of user)', async () => {

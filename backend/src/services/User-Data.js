@@ -21,6 +21,11 @@ exports.getNotif = async function (req, res) {
 }
 
 exports.addFriend = async (socket, friend) => {
+  if (socket.handshake.query.username === friend) {
+    socket.emit('User:Friend:Add:Return', 'You cannot add yourself as a friend')
+    return
+  }
+
   const dbUser = await userModel.findOne({
     username: socket.handshake.query.username
   })
@@ -33,6 +38,16 @@ exports.addFriend = async (socket, friend) => {
   const dbFriend = await userModel.findOne({ username: friend })
   if (dbFriend === null) {
     socket.emit('User:Friend:Add:Return', 'The user does not exist')
+    return
+  }
+
+  if (await NotificationModel.exists({
+    type: 'add_friend',
+    from: socket.handshake.query.username,
+    username: friend
+  })) {
+    socket.emit('User:Friend:Add:Return',
+      'You cannot send multiple invitations')
     return
   }
 
