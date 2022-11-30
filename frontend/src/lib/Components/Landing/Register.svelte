@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
   import axios from "axios";
   import { push } from "svelte-spa-router";
 
-  let username = "";
-  let usernameMsg = "";
-  let email = "";
-  let emailMsg = "";
-  let password = "";
-  let passwordMsg = "";
-  let confirmPassword = "";
-  let confirmPasswordMsg = "";
-  let finalMsg = "";
+  let username: string = "";
+  let usernameMsg: string = "";
+  let email: string = "";
+  let emailMsg: string = "";
+  let password: string = "";
+  let passwordMsg: string = "";
+  let confirmPassword: string = "";
+  let confirmPasswordMsg: string = "";
+  let finalMsg: string = "";
 
   const validEmail =
     /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -43,7 +43,7 @@
     else confirmPasswordMsg = "";
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: any) {
     e.preventDefault();
 
     if (
@@ -70,7 +70,7 @@
           if (msg === "OK") push("/login");
           else finalMsg = msg;
         },
-        (error) => {
+        () => {
           finalMsg = "API not connected";
         }
       );

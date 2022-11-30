@@ -39,7 +39,7 @@
   }
   fetchLogin();
 
-  function conditionsFailed(e) {
+  function conditionsFailed(e: any) {
     if (e.detail.route === "/") push("/home");
     else push("/login");
   }

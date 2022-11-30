@@ -1,11 +1,12 @@
 <script lang="ts">
-  export let current_room;
-  export let return_room;
+  export let current_room: RoomType;
+  export let return_room: Function;
   import leftArrow from "../../../../assets/icons-pack/arrow-back-outline.svg";
+  import type { RoomType } from "../../../types"
 </script>
 
 <div class="bg-white text-center flex h-24 items-center">
-  <button class="mx-2" on:click={return_room}
+  <button class="mx-2" on:click={(e) => return_room(e)}
     ><img
       id="arrow"
       src={leftArrow}

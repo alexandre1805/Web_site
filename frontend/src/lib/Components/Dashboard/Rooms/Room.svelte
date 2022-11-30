@@ -6,9 +6,10 @@
   import NewFriend from './Add_friend.svelte'
   import { socket } from '../../../store'
   import { onMount } from 'svelte'
+  import type { GameMsgType, MsgType, RoomType } from '../../../types'
 
-  export let setCurrentRoom
-  export let current_room
+  export let setCurrentRoom: Function
+  export let current_room: RoomType
   let rooms = []
   let search = ''
   let searchRooms = rooms
@@ -27,15 +28,15 @@
   })
 
   if ($socket !== null) {
-    $socket.on('Room:New', (elt) => {
+    $socket.on('Room:New', (elt: RoomType) => {
       rooms = [...rooms, elt]
       Search()
     })
-    $socket.on('Message:New', (elt) => {
+    $socket.on('Message:New', (elt: MsgType | GameMsgType) => {
       rooms = rooms.map((room) => {
-        if (room.id === elt.room) {
+        if (room._id === elt.room) {
           room.lastMessage = elt.message
-          if (current_room.id !== elt.room) room.unread++
+          if (current_room._id !== elt.room) room.unread++
         }
         return room
       })
@@ -43,10 +44,7 @@
     })
   }
 
-  /**
-   * @param {{ _id: string; }} room
-   */
-  function handleChangeRoom(room) {
+  function handleChangeRoom(room: RoomType) {
     document.querySelectorAll('.Room li').forEach((element) => {
       element.classList.remove('md:border-l-8', 'md:border-l-blue-400')
     })
@@ -64,14 +62,14 @@
   /**
    * @param {boolean} val
    */
-  function setopenDialogBoxNewRoom(val) {
+  function setopenDialogBoxNewRoom(val: boolean) {
     openDialogBoxNewRoom = val
   }
 
   /**
    * @param {boolean} val
    */
-  function setopenDialogBoxNewFriend(val) {
+  function setopenDialogBoxNewFriend(val: boolean) {
     openDialogBoxNewFriend = val
   }
 
@@ -121,7 +119,7 @@
     {#each searchRooms as room}
       <li
         class="flex p-2 w-full border-b-2 border-gray-300 items-center hover:bg-blue-200"
-        id={room.id}
+        id={room._id}
         on:click={() => {
           handleChangeRoom(room)
         }}

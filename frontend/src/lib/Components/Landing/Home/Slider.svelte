@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import slider1 from '../../../../assets/slider/tchat.png'
   import slider2 from '../../../../assets/slider/connect4.png'
   import slider3 from '../../../../assets/slider/ticTacToe.png'
   import leftArrow from '../../../../assets/icons-pack/caret-back-circle-outline.svg'
   import rightArrow from '../../../../assets/icons-pack/caret-forward-circle-outline.svg'
 
-  let current_image = 1
+  let current_image : number = 1
 
-  function changeImage(numero) {
-    for (let index = 0; index < 3; index++) {
+  function changeImage(numero: number) {
+    for (let index : number = 0; index < 3; index++) {
       document.getElementById('slider-' + index).classList.add('invisible')
     }
     current_image = current_image > 3 ? 1 : current_image++

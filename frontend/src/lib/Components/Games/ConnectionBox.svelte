@@ -1,11 +1,12 @@
 <script lang="ts">
   import { push } from 'svelte-spa-router'
   import { socket, currentGame, username } from '../../store'
+  import type { GameMsgType } from '../../types'
   let message = 'Waiting for informations...'
   let open = true
   let startButton = false
 
-  $socket.on('GameConnection:update', (obj) => {
+  $socket.on('GameConnection:update', (obj: GameMsgType) => {
     message = obj.message
 
     if (obj.state === 'Running') {

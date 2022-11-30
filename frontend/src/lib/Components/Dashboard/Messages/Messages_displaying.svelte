@@ -3,15 +3,16 @@
   import { socket, username, currentGame } from "../../../store";
   import { push } from "svelte-spa-router";
   import { afterUpdate } from "svelte";
+  import type { GameMsgType, MsgType, RoomType } from "../../../types"
 
   let messages = [];
-  export let current_room;
+  export let current_room: RoomType;
 
   //get all the messages on the first load
   $: if (current_room.name !== "") {
     axios
       .get("http://" + window.location.host + "/api/getMsg", {
-        params: { room: current_room.id },
+        params: { room: current_room._id },
         withCredentials: true,
       })
       .then((res) => {
@@ -21,11 +22,11 @@
 
   //check for update
   if ($socket !== null) {
-    $socket.on("Message:New", (elt) => {
-      if (elt.room === current_room.id) messages = [...messages, elt];
+    $socket.on("Message:New", (elt: MsgType | GameMsgType) => {
+      if (elt.room === current_room._id) messages = [...messages, elt];
     });
 
-    $socket.on("Message:Update", (elt) => {
+    $socket.on("Message:Update", (elt: MsgType | GameMsgType) => {
       messages = messages.map((elm) => {
         if (elm !== undefined && elm._id === elt._id) elm = elt;
       });
@@ -38,11 +39,11 @@
     if (messages.length !== 0 && !messages.at(-1).read.includes($username))
       $socket.emit("Message:read", {
         username: $username,
-        room: current_room.id,
+        room: current_room._id,
       });
   });
 
-  function handleStartGame(name, id) {
+  function handleStartGame(name: string, id: string) {
     currentGame.set(id);
     if (name === "Tic-tac-toe") push("/tic-tac-toe");
     else if (name === "Connect 4") push("/connect-4");

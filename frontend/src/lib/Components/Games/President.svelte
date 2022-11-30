@@ -1,9 +1,9 @@
 <script lang="ts">
   import { push } from 'svelte-spa-router'
   import { socket, currentGame, username } from '../../store'
+  import type { CardType, PresidentType } from '../../types'
   import Connection_Box from './ConnectionBox.svelte'
-
-  let game
+  let game: PresidentType
 
   if ($socket === null) push('/dashboard')
   else {
@@ -12,9 +12,9 @@
       username: $username,
     })
 
-    $socket.on('President:Update', (data) => {
+    $socket.on('President:Update', (data: PresidentType) => {
       game = data
-      game[$username].cards.forEach((card) => {
+      game[$username].cards.forEach((card: CardType) => {
         let li = document.createElement('li')
         let img = document.createElement('img')
         img.src = '/cards/' + card.file

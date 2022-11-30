@@ -4,18 +4,19 @@
   import Sending from "./Sending.svelte";
   import Log_Box from "../Log_Box.svelte";
   import { socket } from "../../../store";
+  import type { RoomType } from "../../../types"
 
-  export let current_room;
-  export let return_room;
+  export let current_room: RoomType;
+  export let return_room: Function;
   let errorBox = false;
   let errorMsg = "";
 
-  $socket.on("Message:Error", (elt) => {
+  $socket.on("Message:Error", (elt: string) => {
     errorBox = true;
     errorMsg = elt;
   });
 
-  function setOpenErrorBox(val) {
+  function setOpenErrorBox(val: boolean) {
     errorBox = val;
   }
 </script>

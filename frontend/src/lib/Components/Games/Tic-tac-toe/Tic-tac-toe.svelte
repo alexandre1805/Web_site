@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
-  import { socket, currentGame, username } from "../../../store";
-  import Connection_Box from "../ConnectionBox.svelte";
-  import Square from "./Square.svelte";
-  import X from "../../../../assets/Tic-Tac-Toe/X.png";
-  import O from "../../../../assets/Tic-Tac-Toe/O.png";
+  import { push } from 'svelte-spa-router'
+  import { socket, currentGame, username } from '../../../store'
+  import type { TicTacToeGameType } from '../../../types'
+  import Connection_Box from '../ConnectionBox.svelte'
+  import Square from './Square.svelte'
+  import X from '../../../../assets/Tic-Tac-Toe/X.png'
+  import O from '../../../../assets/Tic-Tac-Toe/O.png'
 
   const winningConditions = [
     [0, 1, 2],
@@ -17,10 +18,12 @@
     [2, 4, 6],
   ]
 
-  let game = { board: ['', '', '', '', '', '', '', '', ''] }
+  let game: TicTacToeGameType = {
+    board: ['', '', '', '', '', '', '', '', ''],
+    winner: null,
+    current_player: '',
+  }
   game[$username] = ''
-  game.current_player = ''
-  game.winner = null
 
   if ($socket === null) push('/dashboard')
   else {
@@ -29,12 +32,12 @@
       username: $username,
     })
 
-    $socket.on('Tic-tac-toe:Update', (data) => {
+    $socket.on('Tic-tac-toe:Update', (data: TicTacToeGameType) => {
       game = data
     })
   }
 
-  function handleClickCase(id) {
+  function handleClickCase(id: number) {
     if (game.current_player != $username) return
     if (game.board[id] !== '') return
     game.board[id] = game[$username]

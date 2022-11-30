@@ -2,18 +2,18 @@
   import closeButton from "../../../../assets/icons-pack/close-outline.svg";
   import { socket } from "../../../store";
 
-  export let setOpenDialogBox;
+  export let setOpenDialogBox: Function;
   let friendMsg = "";
   let addFriend = "";
 
-  function handleAddFriend(e) {
+  function handleAddFriend(e: any) {
     e.preventDefault();
     if (addFriend === "") return;
     $socket.emit("User:Friend:Add", addFriend);
     addFriend = "";
   }
 
-  $socket.on("User:Friend:Add:Return", (msg) => {
+  $socket.on("User:Friend:Add:Return", (msg: string) => {
     friendMsg = msg;
   });
 </script>

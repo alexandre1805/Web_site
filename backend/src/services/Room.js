@@ -31,14 +31,14 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
 
   // database save
   const databaseSave = new RoomModel(newRoom)
-  newRoom.id = await databaseSave.save().then((obj) => {
+  newRoom._id = await databaseSave.save().then((obj) => {
     return obj.id
   })
   newRoom.unread = 0
 
   await newRoom.users.forEach(async (roomUser) => {
     await userModel.updateOne({ username: roomUser },
-      { $push: { rooms: newRoom.id } })
+      { $push: { rooms: newRoom._id } })
   })
 
   // real-time socket io conection
@@ -48,7 +48,7 @@ exports.createRoom = async (io, socket, connectedUsers, args) => {
       const userSocket = io.sockets.sockets.get(userID)
       const tmpRoomName = convertNameForPM(newRoom, roomUser)
 
-      userSocket.join(tmpRoomName.id)
+      userSocket.join(tmpRoomName._id)
       io.to(userSocket.id).emit('Room:New', tmpRoomName)
     }
   })
@@ -61,7 +61,6 @@ exports.getRooms = async (req, res) => {
 
   const rooms = await RoomModel.find({ _id: { $in: userRooms.rooms } }).lean()
   for (const room of rooms) {
-    room.id = room._id
     convertNameForPM(room, req.username)
 
     // get the last message
@@ -71,7 +70,7 @@ exports.getRooms = async (req, res) => {
     }
     // get number of unread message
     room.unread = (
-      await userMsg.find({ room: room.id, read: { $ne: req.username } })
+      await userMsg.find({ room: room._id, read: { $ne: req.username } })
     ).length
   }
 

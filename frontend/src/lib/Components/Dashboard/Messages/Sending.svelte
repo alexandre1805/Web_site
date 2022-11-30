@@ -6,8 +6,9 @@
   import axios from "axios";
   import { socket, username } from "../../../store";
   import { onMount } from "svelte";
+  import type { RoomType } from "../../../types"
 
-  export let current_room;
+  export let current_room: RoomType;
   let gamesOpen = false;
   let games = [];
   let current_message = "";
@@ -45,7 +46,7 @@
       type: "regular",
       user: $username,
       message: current_message,
-      room: current_room.id,
+      room: current_room._id,
     });
     current_message = "";
 
@@ -53,13 +54,13 @@
     emoji_container.classList.add("hidden");
     gamesOpen = false;
   }
-  function handleCreateGame(game_name) {
+  function handleCreateGame(game_name: string) {
     if (current_room.name === "") return;
     $socket.emit("Message:newClient", {
       type: "game",
       user: $username,
       message: $username + " want to start a game : ",
-      room: current_room.id,
+      room: current_room._id,
       game: game_name,
       state: "Not started",
     });

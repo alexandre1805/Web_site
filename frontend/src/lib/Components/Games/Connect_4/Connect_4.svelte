@@ -1,78 +1,87 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
-  import { socket, currentGame, username } from "../../../store";
-  import Connection_Box from "../ConnectionBox.svelte";
-  import winning_array from "./winning_array.json";
+  import { push } from 'svelte-spa-router'
+  import { socket, currentGame, username } from '../../../store'
+  import type { Connect4Type } from '../../../types'
+  import Connection_Box from '../ConnectionBox.svelte'
+  import winning_array from './winning_array.json'
 
-  let game_id;
-  currentGame.subscribe((val) => (game_id = val));
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
-  let game = {};
+  let game_id: string
+  currentGame.subscribe((val) => (game_id = val))
+  username.subscribe((val) => ($username = val))
+  let game: Connect4Type = {
+    last_move: null,
+    board: null,
+    winner: null,
+    current_player: null,
+  }
 
-  if ($socket === null) push("/dashboard");
+  if ($socket === null) push('/dashboard')
   else {
-    $socket.emit("GameConnection:join", { id: game_id, username: usernameValue });
-    $socket.on("Connect-4:Update", (data) => {
-      game = data;
-      if (game.last_move !== undefined && game.last_move.p !== usernameValue) {
-        if (game[game.last_move.p] === "R")
+    $socket.emit('GameConnection:join', { id: game_id, username: $username })
+    $socket.on('Connect-4:Update', (data: Connect4Type) => {
+      game = data
+      if (game.last_move !== undefined && game.last_move.p !== $username) {
+        if (game[game.last_move.p] === 'R')
           document
-            .getElementById(game.last_move.x + "-" + game.last_move.y)
-            .classList.replace("bg-blue-900", "bg-red-500");
+            .getElementById(game.last_move.x + '-' + game.last_move.y)
+            .classList.replace('bg-blue-900', 'bg-red-500')
         else
           document
-            .getElementById(game.last_move.x + "-" + game.last_move.y)
-            .classList.replace("bg-blue-900", "bg-yellow-500");
+            .getElementById(game.last_move.x + '-' + game.last_move.y)
+            .classList.replace('bg-blue-900', 'bg-yellow-500')
       }
-    });
+    })
   }
 
   function checkWinning() {
     for (let i in winning_array) {
-      let [x1, y1] = winning_array[i][0];
-      let [x2, y2] = winning_array[i][1];
-      let [x3, y3] = winning_array[i][2];
-      let [x4, y4] = winning_array[i][3];
-      let a = game.board[x1][y1];
-      let b = game.board[x2][y2];
-      let c = game.board[x3][y3];
-      let d = game.board[x4][y4];
+      let [x1, y1] = winning_array[i][0]
+      let [x2, y2] = winning_array[i][1]
+      let [x3, y3] = winning_array[i][2]
+      let [x4, y4] = winning_array[i][3]
+      let a = game.board[x1][y1]
+      let b = game.board[x2][y2]
+      let c = game.board[x3][y3]
+      let d = game.board[x4][y4]
 
-      if (a === "" || b === "" || c === "" || d === "") {
-        continue;
+      if (a === '' || b === '' || c === '' || d === '') {
+        continue
       }
       if (a === b && b === c && c === d) {
-        game.winner = a;
-        break;
+        game.winner = a
+        break
       }
     }
 
-    let draw = true;
+    let draw = true
     for (let x = 0; x < 6; x++)
-      for (let y = 0; y < 7; y++) if (game.board[x][y] === "") draw = false;
-    if (draw) game.winner = undefined;
+      for (let y = 0; y < 7; y++) if (game.board[x][y] === '') draw = false
+    if (draw) game.winner = undefined
   }
 
-  function handleClickCase(x, y) {
-    if (game.current_player !== usernameValue) return;
-    if (game.board[x][y] !== "") return;
-    while (x < 5 && game.board[x + 1][y] === "") x++;
-    if (game[game.current_player] === "R")
-      document.getElementById(x + "-" + y).classList.replace("bg-blue-900", "bg-red-500");
-    else document.getElementById(x + "-" + y).classList.replace("bg-blue-900", "bg-yellow-500");
-    game.board[x][y] = game[game.current_player];
-    game.last_move = { p: game.current_player, x: x, y: y };
+  function handleClickCase(x: number, y: number) {
+    if (game.current_player !== $username) return
+    if (game.board[x][y] !== '') return
+    while (x < 5 && game.board[x + 1][y] === '') x++
+    if (game[game.current_player] === 'R')
+      document
+        .getElementById(x + '-' + y)
+        .classList.replace('bg-blue-900', 'bg-red-500')
+    else
+      document
+        .getElementById(x + '-' + y)
+        .classList.replace('bg-blue-900', 'bg-yellow-500')
+    game.board[x][y] = game[game.current_player]
+    game.last_move = { p: game.current_player, x: x, y: y }
 
     for (const [key, value] of Object.entries(game)) {
-      if (game[usernameValue] === "Y" && value === "R")
-        game.current_player = key;
-      else if (game[usernameValue] === "R" && value === "Y")
-        game.current_player = key;
+      if (game[$username] === 'Y' && value === 'R') game.current_player = key
+      else if (game[$username] === 'R' && value === 'Y')
+        game.current_player = key
     }
 
-    checkWinning();
-    $socket.emit("Connect-4:UpdateClient", { id: game_id, game: game });
+    checkWinning()
+    $socket.emit('Connect-4:UpdateClient', { id: game_id, game: game })
   }
 </script>
 
@@ -87,7 +96,7 @@
       <tr>
         {#each { length: 7 } as _, y}
           <td
-            id={x + "-" + y}
+            id={x + '-' + y}
             class=" bg-blue-900 rounded-full m-2"
             on:click={() => handleClickCase(x, y)}
             aria-hidden="true"
@@ -101,14 +110,14 @@
   >
     <div class="youAre">
       You are :
-      {#if game[usernameValue] === "R"}
+      {#if game[$username] === 'R'}
         <span class="h-8 w-8 bg-red-500 rounded-full inline-block" />
       {:else}
         <span class="h-8 w-8 bg-yellow-500 rounded-full inline-block" />
       {/if}
     </div>
     Current player : {game.current_player === undefined
-      ? ""
+      ? ''
       : game.current_player}
   </div>
 </div>

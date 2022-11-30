@@ -1,5 +1,5 @@
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
-export const socket = writable(null);
-export const username = writable("");
-export const currentGame = writable("");
+export const socket : Writable<any> = writable(null);
+export const username : Writable<string> = writable("");
+export const currentGame : Writable<string> = writable("");

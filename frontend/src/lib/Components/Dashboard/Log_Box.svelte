@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let message;
-  export let open;
+  export let message: String;
+  export let open : Function;
 </script>
 
 <div class="Dialog_box">

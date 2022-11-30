@@ -2,13 +2,12 @@
   import axios from "axios";
   import { socket, username } from "../../../store";
   import closeButton from "../../../../assets/icons-pack/close-outline.svg";
+  import type { FriendType } from "../../../types"
 
-  export let setOpenDialogBox;
-  let usernameValue;
-  username.subscribe((val) => (usernameValue = val));
-  let friendList = [];
-  let listNewRoom = [usernameValue];
-  let finalMsg = "";
+  export let setOpenDialogBox: Function;
+  let friendList: FriendType[] = [];
+  let listNewRoom = [$username];
+  let finalMsg: string = "";
 
   axios
     .get("http://" + window.location.host + "/api/getFriends", {
@@ -18,7 +17,7 @@
       friendList = res.data.friends;
     });
 
-  function handleClickFriend(friend) {
+  function handleClickFriend(friend: FriendType) {
     if (listNewRoom.includes(friend.username)) {
       listNewRoom = listNewRoom.filter((str) => str !== friend.username);
       // @ts-ignore
@@ -30,12 +29,12 @@
     }
   }
 
-  function handleNewRoom(e) {
+  function handleNewRoom() {
     if (listNewRoom.length === 1) return;
     $socket.emit("Room:create", listNewRoom);
   }
 
-  $socket.on("Room:Create:Return", (msg) => {
+  $socket.on("Room:Create:Return", (msg: string) => {
     finalMsg = msg;
   });
 </script>
