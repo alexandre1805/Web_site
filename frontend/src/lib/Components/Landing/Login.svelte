@@ -1,17 +1,17 @@
 <script>
-  import { push } from "svelte-spa-router";
-  import axios from "axios";
-  export let fetchLogin;
+  import { push } from 'svelte-spa-router'
+  import axios from 'axios'
+  export let fetchLogin
 
-  let username = "";
-  let password = "";
-  let finalMsg = "";
+  let username = ''
+  let password = ''
+  let finalMsg = ''
 
   function handleSubmit() {
-    if (username === "" || password === "") return;
+    if (username === '' || password === '') return
     axios
       .post(
-        "http://" + window.location.host + "/api/login",
+        'http://' + window.location.host + '/api/login',
         {
           username: username,
           password: password,
@@ -19,19 +19,19 @@
         { withCredentials: true }
       )
       .then(async (res) => {
-        const msg = res.data.message;
+        const msg = res.data.message
 
-        if (msg === "OK") {
-          await fetchLogin();
-          push("/dashboard");
-        } else finalMsg = msg;
+        if (msg === 'OK') {
+          await fetchLogin()
+          push('/dashboard')
+        } else finalMsg = msg
       })
       .catch((error) => {
         if (error.response) {
-          if (error.response.data === undefined) finalMsg = "Internal Error";
-          else finalMsg = error.response.data.message;
+          if (error.response.data === undefined) finalMsg = 'Internal Error'
+          else finalMsg = error.response.data.message
         }
-      });
+      })
   }
 </script>
 
@@ -65,7 +65,7 @@
   <button
     class="text-white bg-blue-500 rounded-full w-fit p-2 mx-auto mb-4 hover:bg-slate-500"
     on:click={() => {
-      push("/register");
+      push('/register')
     }}>Sign Up</button
   >
 </div>

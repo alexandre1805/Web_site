@@ -1,31 +1,31 @@
 <script>
-  import { push, link } from "svelte-spa-router";
-  import { username, currentGame, socket } from "../../store";
-  import notificationsLogo from "../../../assets/icons-pack/notifications.svg";
-  import logoutLogo from "../../../assets/icons-pack/log-out-outline.svg";
-  import menuLogo from "../../../assets/icons-pack/menu-outline.svg";
-  import Notifications from "./Notifications.svelte";
+  import { push, link } from 'svelte-spa-router'
+  import { username, currentGame, socket } from '../../store'
+  import notificationsLogo from '../../../assets/icons-pack/notifications.svg'
+  import logoutLogo from '../../../assets/icons-pack/log-out-outline.svg'
+  import menuLogo from '../../../assets/icons-pack/menu-outline.svg'
+  import Notifications from './Notifications.svelte'
 
-  let notificationsOpen = false;
+  let notificationsOpen = false
 
   const default_routes = [
-    { name: "Home", route: "/" },
-    { name: "About Us", route: "/about" },
-    { name: "Log In", route: "/dashboard" },
-  ];
+    { name: 'Home', route: '/' },
+    { name: 'About Us', route: '/about' },
+    { name: 'Log In', route: '/dashboard' },
+  ]
 
   function log_out() {
-    if ($currentGame !== "") {
-      $socket.emit("GameConnection:leave", {
+    if ($currentGame !== '') {
+      $socket.emit('GameConnection:leave', {
         id: $currentGame,
         username: $username,
-      });
-      currentGame.set("");
+      })
+      currentGame.set('')
     }
 
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-    push("/home");
-    username.set("");
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
+    push('/home')
+    username.set('')
   }
 </script>
 
@@ -33,11 +33,11 @@
   class="navigation fixed flex bg-white top-0 w-full h-16 min-h-[5Opx] justify-between items-center z-10 border-b-2"
 >
   <div class="left-content h-full flex justify-center items-center ml-1">
-    {#if $username === ""}
+    {#if $username === ''}
       <button
         class="h-2/3 md:hidden"
         on:click={() => {
-          document.getElementById("menu").classList.toggle("invisible");
+          document.getElementById('menu').classList.toggle('invisible')
         }}
       >
         <img src={menuLogo} alt="menu" class="h-full" />
@@ -50,11 +50,11 @@
       LOGO
     </h2>
   </div>
-  {#if $username !== ""}
+  {#if $username !== ''}
     <div class="flex justify-center mx-4">
       <button
         on:click={() => {
-          notificationsOpen = !notificationsOpen;
+          notificationsOpen = !notificationsOpen
         }}
         class="rounded-full hover:bg-slate-200 m-1"
       >
@@ -81,7 +81,7 @@
             use:link
             href={page.route}
             on:click={() => {
-              document.getElementById("menu").classList.toggle("invisible");
+              document.getElementById('menu').classList.toggle('invisible')
             }}>{page.name}</a
           >
         </li>
@@ -93,7 +93,7 @@
           use:link
           href="/register"
           on:click={() => {
-            document.getElementById("menu").classList.toggle("invisible");
+            document.getElementById('menu').classList.toggle('invisible')
           }}>Sign Up</a
         >
       </li>
