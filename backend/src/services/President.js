@@ -9,6 +9,10 @@ function distribute (game, users) {
     i++
     if (i === users.length) { i = 0 }
   })
+
+  users.forEach(user => {
+    game[user].cards = helper.cards_sort(game[user].cards)
+  })
 }
 
 exports.create = function (io, id, users) {
