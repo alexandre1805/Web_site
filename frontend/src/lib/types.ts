@@ -29,7 +29,7 @@ export type CardType = {
   suite: CardType_suite
 }
 export type PresidentType = {
-  cards: CardType[]
+  current_player: string
 }
 
 export type Connect4Type = {
