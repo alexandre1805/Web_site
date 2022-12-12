@@ -15,6 +15,7 @@ let user2 = { username: 'test2', email: 'test2@gmail.com', password: 'toto' }
 beforeAll(async () => {
   await MemoryDatabaseServer.start()
   server = app()
+  mongoose.set('strictQuery', true)
   await mongoose.connect(MemoryDatabaseServer.getConnectionString())
   server.listen(port)
 })

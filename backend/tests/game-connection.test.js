@@ -18,6 +18,7 @@ let user3
 beforeAll(async () => {
   await MemoryDatabaseServer.start()
   server = app()
+  mongoose.set('strictQuery', true)
   await mongoose.connect(MemoryDatabaseServer.getConnectionString())
   server.listen(port)
 
