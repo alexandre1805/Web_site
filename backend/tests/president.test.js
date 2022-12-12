@@ -85,16 +85,12 @@ describe('The President', () => {
             expect(msg).toMatchObject(
               { state: 'Ready', message: 'Waiting for other player ... (3/6)' })
 
-            user2.socket.once('President:Update', (obj) => {
+            user2.socket.once('President:Create', (obj) => {
               expect(obj).toMatchObject({
-                [user1.username]: { cards: {} },
-                [user2.username]: { cards: {} },
-                [user3.username]: { cards: {} },
-                currentPlayer: {}
+                playZoneCards: []
               })
-              const expectedNumber = 52 - obj[user1.username].cards.length -
-                obj[user2.username].cards.length
-              expect(obj[user3.username].cards.length).toBe(expectedNumber)
+              expect(obj).toHaveProperty('cards')
+              expect(obj).toHaveProperty('playZoneCards')
               done()
             })
             user1.socket.emit('GameConnection:start', args.game_id)

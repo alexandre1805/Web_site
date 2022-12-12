@@ -8,7 +8,7 @@
   import { cards_sort } from './helper'
 
   let game: PresidentType = {
-    [$username]: { cards: [] },
+    cards: [],
     current_player: '',
     playZoneCards: [],
   }
@@ -21,7 +21,7 @@
       username: $username,
     })
 
-    $socket.on('President:Update', (data: PresidentType) => {
+    $socket.on('President:Create', (data: PresidentType) => {
       game = data
     })
   }
@@ -32,10 +32,10 @@
 
     if (game.playZoneCards.find(isTheCard)) {
       game.playZoneCards = game.playZoneCards.filter((e) => !isTheCard(e))
-      game[$username].cards.push(card)
-      game[$username].cards = cards_sort(game[$username].cards)
+      game.cards.push(card)
+      game.cards = cards_sort(game.cards)
     } else {
-      game[$username].cards = game[$username].cards.filter(
+      game.cards = game.cards.filter(
         (e: CardType) => !isTheCard(e)
       )
       game.playZoneCards.push(card)
@@ -49,5 +49,5 @@
   class="w-full h-full flex items-center justify-center bg-poker flex-col"
 >
   <PlayZone cards={game.playZoneCards} {toggleCard} />
-  <Hand cards={game[$username].cards} {toggleCard} />
+  <Hand cards={game.cards} {toggleCard} />
 </div>

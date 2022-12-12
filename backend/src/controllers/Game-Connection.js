@@ -8,7 +8,7 @@ router.get('/getGames', async (req, res) => {
 
 exports.router = router
 
-exports.socketIO = function (io, socket, _users) {
+exports.socketIO = function (io, socket, users) {
   // =========================== JOIN GAME ===================================
   const checkJoinGame = (args) => {
     if (args.id === '' || args.id === undefined) return false
@@ -19,7 +19,7 @@ exports.socketIO = function (io, socket, _users) {
   socket.on('GameConnection:join', async (args) => {
     if (!checkJoinGame(args)) return
     socket.join(args.id)
-    await gameConnection.join(io, args)
+    await gameConnection.join(io, args, users)
   })
 
   // =========================== LEAVE GAME ===================================
@@ -42,6 +42,6 @@ exports.socketIO = function (io, socket, _users) {
 
   socket.on('GameConnection:start', async (id) => {
     if (!checkStartGame(id)) return
-    await gameConnection.start(io, id)
+    await gameConnection.start(io, id, users)
   })
 }

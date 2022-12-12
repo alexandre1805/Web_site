@@ -55,8 +55,9 @@ exports.createGame = async function (args) {
  * @param {string} args.id the id of the game
  * @param {string} args.username the player
  * @param {object} io the instance of websocket
+ * @param {Map} connectedUsers contains links between users and their socketIO ids
  */
-exports.join = async function (io, args) {
+exports.join = async function (io, args, connectedUsers) {
   let game = await GameModel.findById(convertID(args.id))
 
   if (game.state !== 'Running') {
@@ -73,7 +74,7 @@ exports.join = async function (io, args) {
       { new: true })
 
     if (game.nb_players === game.max_players) {
-      handleStartGame(io, args.id)
+      handleStartGame(io, args.id, connectedUsers)
     } else {
       io.to(args.id).emit('GameConnection:update',
         {
@@ -134,12 +135,13 @@ exports.finish = async function (io, id, msg) {
 }
 
 /**
- * @function handle the start of the game, create it and update status
+ * @function handleStartGame handle the start of the game, create it and update status
  * for all players
  * @param {object} io the websocket instance
  * @param {string} gameID the id of the game
+ * @param {Map} connectedUsers contains links between users and their socketIO ids
  */
-async function handleStartGame (io, gameID) {
+async function handleStartGame (io, gameID, connectedUsers) {
   const game = await GameModel.findByIdAndUpdate(convertID(gameID),
     { $set: { state: 'Running' } },
     { new: true }
@@ -147,7 +149,7 @@ async function handleStartGame (io, gameID) {
 
   if (game.name === 'Tic-tac-toe') Tictactoe.create(io, gameID, game.players)
   else if (game.name === 'Connect 4') Connect4.create(io, gameID, game.players)
-  else President.create(io, gameID, game.players)
+  else President.create(io, gameID, game.players, connectedUsers)
 
   io.to(gameID).emit('GameConnection:update',
     { state: 'Running', message: '' })
@@ -179,9 +181,10 @@ async function handleCancelGame (io, params) {
  * @function function triggered by "GameConnection:start"
  * @param {object} io the websocket instance
  * @param {string} id the id of the game
+ * @param {Map} connectedUsers contains links between users and their socketIO ids
  */
-exports.start = async (io, id) => {
+exports.start = async (io, id, connectedUsers) => {
   const game = await GameModel.findById(convertID(id))
   if (game.state !== 'Ready') return
-  handleStartGame(io, id)
+  handleStartGame(io, id, connectedUsers)
 }
