@@ -13,8 +13,8 @@
 </script>
 
 <ul
-  id="playZone"
-  class="w-1/3 h-48 border-2 border-black flex"
+  id="hand"
+  class="flex max-w-5xl p-3 mb-2 absolute bottom-2"
   on:drop={drop}
   on:dragover={(e) => {
     e.preventDefault()
@@ -22,7 +22,9 @@
   }}
 >
   {#each cards as card}
-    <li>
+    <li
+      class="overflow-visible flex-grow w-8 last:w-24 last:grow-0 hover:-translate-y-7"
+    >
       <Card {card} />
     </li>
   {/each}

@@ -5,7 +5,6 @@
   import leftArrow from '../../../../assets/icons-pack/caret-back-circle-outline.svg'
   import rightArrow from '../../../../assets/icons-pack/caret-forward-circle-outline.svg'
   import { onMount } from 'svelte'
-  import { text } from 'svelte/internal'
 
   let slider = {
     1: {

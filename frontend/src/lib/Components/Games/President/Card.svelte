@@ -4,6 +4,7 @@
 
   function dragStart(e: any) {
     e.dataTransfer.setData('text/plain', JSON.stringify(card))
+    e.dataTransfer.dropEffect = 'move'
   }
 </script>
 

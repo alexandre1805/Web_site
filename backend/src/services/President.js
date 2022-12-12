@@ -26,6 +26,7 @@ exports.create = function (io, id, users) {
   distribute(game, users)
 
   game.currentPlayer = users[Math.floor(Math.random() * users.length)]
+  game.playZoneCards = []
 
   io.to(id).emit('President:Update', game)
 }
