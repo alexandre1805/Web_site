@@ -83,22 +83,27 @@ describe('The President', () => {
       user1.socket.once('GameConnection:update', (_arg) => {
         user2.socket.once('GameConnection:update', (_msg) => {
           user3.socket.once('GameConnection:update', (msg) => {
-            expect(msg).toMatchObject(
-              { state: 'Ready', message: 'Waiting for other player ... (3/6)' })
-
+            expect(msg).toMatchObject({
+              state: 'Ready',
+              message: 'Waiting for other player ... (3/6)'
+            })
             user2.socket.once('President:Create', (obj) => {
-              expect(obj).toMatchObject({
-                playZoneCards: []
-              })
               expect(obj).toHaveProperty('cards')
-              expect(obj).toHaveProperty('playZoneCards')
-              expect(obj).toHaveProperty('stack')
+              expect(obj).toHaveProperty('currrentPlayer')
+              expect(obj).toHaveProperty('handLength')
+              let totalCards = 0
+              for (const [, value] of Object.entries(obj.handLength)) {
+                totalCards += value
+              }
+              expect(totalCards).toBe(52)
               done()
             })
             user1.socket.emit('GameConnection:start', args.game_id)
           })
-          user3.socket.emit('GameConnection:join',
-            { id: args.game_id, username: user3.username })
+          user3.socket.emit('GameConnection:join', {
+            id: args.game_id,
+            username: user3.username
+          })
         })
 
         user2.socket.emit('GameConnection:join', {
@@ -106,8 +111,57 @@ describe('The President', () => {
           username: user2.username
         })
       })
-      user1.socket.emit('GameConnection:join',
-        { id: args.game_id, username: user1.username })
+      user1.socket.emit('GameConnection:join', {
+        id: args.game_id,
+        username: user1.username
+      })
+    })
+    user1.socket.emit('Message:newClient', {
+      type: 'game',
+      room: roomID,
+      message: user1.username + ' want to start a game : ',
+      user: user1.username,
+      game: 'Le président',
+      state: 'Not started'
+    })
+  })
+
+  test('First move', (done) => {
+    user1.socket.once('Message:New', (args) => {
+      user1.socket.once('GameConnection:update', (_arg) => {
+        user2.socket.once('GameConnection:update', (_msg) => {
+          user3.socket.once('GameConnection:update', (_msg) => {
+            const users = [user1, user2, user3]
+            users.forEach((user) => {
+              user.socket.once('President:Create', (obj) => {
+                if (obj.currrentPlayer === user.username) {
+                  user.socket.once('President:Update', (data) => {
+                    console.log(data)
+                    done()
+                  })
+                  user.socket.emit('President:UpdateClient', {
+                    id: args.game_id,
+                    cards: [obj.cards[0]]
+                  })
+                }
+              })
+            })
+            user1.socket.emit('GameConnection:start', args.game_id)
+          })
+          user3.socket.emit('GameConnection:join', {
+            id: args.game_id,
+            username: user3.username
+          })
+        })
+        user2.socket.emit('GameConnection:join', {
+          id: args.game_id,
+          username: user2.username
+        })
+      })
+      user1.socket.emit('GameConnection:join', {
+        id: args.game_id,
+        username: user1.username
+      })
     })
     user1.socket.emit('Message:newClient', {
       type: 'game',

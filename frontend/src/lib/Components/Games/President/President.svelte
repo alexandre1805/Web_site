@@ -20,6 +20,8 @@
     })
 
     $socket.on('President:Create', (data: PresidentType) => {
+      data.playZoneCards = []
+      data.stack = []
       game = data
     })
 

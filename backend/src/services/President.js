@@ -71,19 +71,25 @@ exports.create = function (io, id, users, connectedUsers) {
   })
   order.unshift(currrentPlayer)
 
-  let handLength
+  const handLength = {}
   users.forEach(user => {
     handLength[user] = cards[user].length
   })
 
-  const response = { playZoneCards: [], currrentPlayer, stack: [], handLength }
+  const response = { currrentPlayer, handLength }
   users.forEach((user) => {
     response.cards = cards[user]
     const userID = connectedUsers.get(user)
     io.to(userID).emit('President:Create', response)
   })
 
-  games.set(id, { playZoneCards: [], currrentPlayer, handLength, order })
+  games.set(id, {
+    playZoneCards: [],
+    currrentPlayer,
+    handLength,
+    order,
+    stack: []
+  })
 }
 /**
  * @function cancel delete the game of map
@@ -101,15 +107,16 @@ exports.cancel = function (id) {
  */
 exports.updateClient = async function (io, request) {
   const game = games.get(request.id)
-
-  game.handLength -= request.cards.length
+  console.log(game)
+  game.handLength[game.currrentPlayer] -= request.cards.length
 
   const emptyStack = checkSquare(game.stack.concat(request.cards))
 
+  const nextPlayerIndex = game.order.indexOf(game.currrentPlayer) + 1
   game.currrentPlayer =
-    game.order.indexOf(game.currrentPlayer) + 1 === game.order.length
-      ? game.order[0]
-      : game.order.indexOf(game.currrentPlayer) + 1
+     nextPlayerIndex === game.order.length
+       ? game.order[0]
+       : game.order[nextPlayerIndex]
 
   const response = {
     stack: request.cards,
