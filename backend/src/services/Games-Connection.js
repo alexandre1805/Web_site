@@ -166,7 +166,7 @@ async function handleStartGame (io, gameID, connectedUsers) {
  * @param {object} io  the instance of websocket
  */
 async function handleCancelGame (io, params) {
-  await GameModel.findByIdAndUpdate(convertID(params.id),
+  const game = await GameModel.findByIdAndUpdate(convertID(params.id),
     { $set: { state: 'Cancelled' } }
   )
   io.to(params.id).emit('GameConnection:update',
@@ -174,6 +174,7 @@ async function handleCancelGame (io, params) {
       state: 'Cancelled',
       message: 'Someone has been disconnected, game cancelled'
     })
+  if (game.name === 'Le président') { President.cancel(params.id) }
   await userMsg.updateGameMsg(io, params.id, 'Cancelled')
 }
 

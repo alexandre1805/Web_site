@@ -65,7 +65,7 @@
     }
     if (draw) game.winner = undefined
 
-    $socket.emit('Tic-tac-toe:Update-client', { id: $currentGame, game: game })
+    $socket.emit('Tic-tac-toe:UpdateClient', { id: $currentGame, game: game })
   }
 </script>
 

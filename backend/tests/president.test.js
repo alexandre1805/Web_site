@@ -92,6 +92,7 @@ describe('The President', () => {
               })
               expect(obj).toHaveProperty('cards')
               expect(obj).toHaveProperty('playZoneCards')
+              expect(obj).toHaveProperty('stack')
               done()
             })
             user1.socket.emit('GameConnection:start', args.game_id)

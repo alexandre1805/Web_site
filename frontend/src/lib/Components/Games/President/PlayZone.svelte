@@ -14,13 +14,16 @@
 
 <ul
   id="playZone"
-  class="w-1/3 h-48 border-2 border-black flex"
+  class="w-1/3 min-h-24 border-2 border-black flex"
   on:drop={drop}
   on:dragover={(e) => {
     e.preventDefault()
     return false
   }}
 >
+  {#if cards.length === 0}
+    <span></span>Drop here cards that you want to play !
+  {/if}
   {#each cards as card}
     <li>
       <Card {card} />

@@ -30,8 +30,9 @@ export type CardType = {
 }
 export type PresidentType = {
   cards: CardType[]
-  current_player: string,
+  currrentPlayer: string
   playZoneCards: CardType[]
+  stack: CardType[]
 }
 
 export type Connect4Type = {

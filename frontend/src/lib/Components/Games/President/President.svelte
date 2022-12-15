@@ -5,13 +5,11 @@
   import Connection_Box from '../ConnectionBox.svelte'
   import Hand from './Hand.svelte'
   import PlayZone from './PlayZone.svelte'
-  import { cards_sort } from './helper'
+  import { cards_sort, validateTurn } from './helper'
+  import Stack from './Stack.svelte'
 
-  let game: PresidentType = {
-    cards: [],
-    current_player: '',
-    playZoneCards: [],
-  }
+  let game: PresidentType
+  let userMsg: String
 
   if ($socket === null) {
     push('/dashboard')
@@ -24,6 +22,8 @@
     $socket.on('President:Create', (data: PresidentType) => {
       game = data
     })
+
+    $socket.on('President:Update', (data) => {})
   }
 
   function toggleCard(card: CardType) {
@@ -35,11 +35,18 @@
       game.cards.push(card)
       game.cards = cards_sort(game.cards)
     } else {
-      game.cards = game.cards.filter(
-        (e: CardType) => !isTheCard(e)
-      )
+      game.cards = game.cards.filter((e: CardType) => !isTheCard(e))
       game.playZoneCards.push(card)
     }
+  }
+
+  function play(type: string) {
+    if (type === 'pass') return
+    userMsg = validateTurn(game.stack, game.playZoneCards)
+    if (userMsg) return
+
+    $socket.emit('President:UpdateClient', game.playZoneCards)
+    game.playZoneCards = []
   }
 </script>
 
@@ -48,6 +55,22 @@
   id="board"
   class="w-full h-full flex items-center justify-center bg-poker flex-col"
 >
-  <PlayZone cards={game.playZoneCards} {toggleCard} />
-  <Hand cards={game.cards} {toggleCard} />
+  {#if game}
+    <Stack cards={game.stack} />
+    <PlayZone cards={game.playZoneCards} {toggleCard} />
+    {#if game.currrentPlayer === $username}
+      <div>
+        <button
+          class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
+          on:click={() => play('play')}>Play</button
+        >
+        <button
+          class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
+          on:click={() => play('pass')}>Play</button
+        >
+      </div>
+      {userMsg}
+    {/if}
+    <Hand cards={game.cards} {toggleCard} />
+  {/if}
 </div>
