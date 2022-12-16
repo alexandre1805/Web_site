@@ -22,10 +22,15 @@
     $socket.on('President:Create', (data: PresidentType) => {
       data.playZoneCards = []
       data.stack = []
+      data.emptyStack = false
       game = data
     })
 
-    $socket.on('President:Update', (data) => {})
+    $socket.on('President:Update', (data) => {
+      data.cards = game.stack
+      data.playZoneCards = game.playZoneCards
+      game = data
+    })
   }
 
   function toggleCard(card: CardType) {

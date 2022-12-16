@@ -107,7 +107,6 @@ exports.cancel = function (id) {
  */
 exports.updateClient = async function (io, request) {
   const game = games.get(request.id)
-  console.log(game)
   game.handLength[game.currrentPlayer] -= request.cards.length
 
   const emptyStack = checkSquare(game.stack.concat(request.cards))

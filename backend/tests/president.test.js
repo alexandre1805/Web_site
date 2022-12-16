@@ -136,7 +136,10 @@ describe('The President', () => {
               user.socket.once('President:Create', (obj) => {
                 if (obj.currrentPlayer === user.username) {
                   user.socket.once('President:Update', (data) => {
-                    console.log(data)
+                    expect(data.stack).toMatchObject([obj.cards[0]])
+                    expect(data.emptyStack).toBe(false)
+                    expect(data).toHaveProperty('currrentPlayer')
+                    expect(data).toHaveProperty('handLength')
                     done()
                   })
                   user.socket.emit('President:UpdateClient', {

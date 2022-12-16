@@ -32,7 +32,8 @@ export type PresidentType = {
   cards: CardType[]
   currrentPlayer: string
   playZoneCards: CardType[]
-  stack: CardType[]
+  stack: CardType[],
+  emptyStack: boolean
 }
 
 export type Connect4Type = {
