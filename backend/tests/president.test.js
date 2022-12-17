@@ -6,6 +6,7 @@ const RoomModel = require('../src/models/rooms')
 const messageModel = require('../src/models/messages')
 const helper = require('./lib/helper')
 const MemoryDatabaseServer = require('./lib/MemoryDatabaseServer')
+const { checkSquare } = require('../src/services/President')
 
 let server
 const port = 4006
@@ -70,9 +71,54 @@ afterEach(async () => {
 })
 
 describe('The President', () => {
-  test('Game start', (done) => {
-    user1.socket.once('Message:New', (args) => {
-      expect(args).toMatchObject({
+  describe('End-to-end tests', () => {
+    test('Game start', (done) => {
+      user1.socket.once('Message:New', (args) => {
+        expect(args).toMatchObject({
+          type: 'game',
+          room: roomID,
+          message: user1.username + ' want to start a game : ',
+          user: user1.username,
+          game: 'Le président',
+          state: 'Not started'
+        })
+        user1.socket.once('GameConnection:update', (_arg) => {
+          user2.socket.once('GameConnection:update', (_msg) => {
+            user3.socket.once('GameConnection:update', (msg) => {
+              expect(msg).toMatchObject({
+                state: 'Ready',
+                message: 'Waiting for other player ... (3/6)'
+              })
+              user2.socket.once('President:Create', (obj) => {
+                expect(obj).toHaveProperty('cards')
+                expect(obj).toHaveProperty('currrentPlayer')
+                expect(obj).toHaveProperty('handLength')
+                let totalCards = 0
+                for (const [, value] of Object.entries(obj.handLength)) {
+                  totalCards += value
+                }
+                expect(totalCards).toBe(52)
+                done()
+              })
+              user1.socket.emit('GameConnection:start', args.game_id)
+            })
+            user3.socket.emit('GameConnection:join', {
+              id: args.game_id,
+              username: user3.username
+            })
+          })
+
+          user2.socket.emit('GameConnection:join', {
+            id: args.game_id,
+            username: user2.username
+          })
+        })
+        user1.socket.emit('GameConnection:join', {
+          id: args.game_id,
+          username: user1.username
+        })
+      })
+      user1.socket.emit('Message:newClient', {
         type: 'game',
         room: roomID,
         message: user1.username + ' want to start a game : ',
@@ -80,99 +126,104 @@ describe('The President', () => {
         game: 'Le président',
         state: 'Not started'
       })
-      user1.socket.once('GameConnection:update', (_arg) => {
-        user2.socket.once('GameConnection:update', (_msg) => {
-          user3.socket.once('GameConnection:update', (msg) => {
-            expect(msg).toMatchObject({
-              state: 'Ready',
-              message: 'Waiting for other player ... (3/6)'
-            })
-            user2.socket.once('President:Create', (obj) => {
-              expect(obj).toHaveProperty('cards')
-              expect(obj).toHaveProperty('currrentPlayer')
-              expect(obj).toHaveProperty('handLength')
-              let totalCards = 0
-              for (const [, value] of Object.entries(obj.handLength)) {
-                totalCards += value
-              }
-              expect(totalCards).toBe(52)
-              done()
-            })
-            user1.socket.emit('GameConnection:start', args.game_id)
-          })
-          user3.socket.emit('GameConnection:join', {
-            id: args.game_id,
-            username: user3.username
-          })
-        })
-
-        user2.socket.emit('GameConnection:join', {
-          id: args.game_id,
-          username: user2.username
-        })
-      })
-      user1.socket.emit('GameConnection:join', {
-        id: args.game_id,
-        username: user1.username
-      })
     })
-    user1.socket.emit('Message:newClient', {
-      type: 'game',
-      room: roomID,
-      message: user1.username + ' want to start a game : ',
-      user: user1.username,
-      game: 'Le président',
-      state: 'Not started'
+
+    test('First move', (done) => {
+      user1.socket.once('Message:New', (args) => {
+        user1.socket.once('GameConnection:update', (_arg) => {
+          user2.socket.once('GameConnection:update', (_msg) => {
+            user3.socket.once('GameConnection:update', (_msg) => {
+              const users = [user1, user2, user3]
+              users.forEach((user) => {
+                user.socket.once('President:Create', (obj) => {
+                  if (obj.currrentPlayer === user.username) {
+                    user.socket.once('President:Update', (data) => {
+                      expect(data.cardsPlayed).toMatchObject([obj.cards[0]])
+                      expect(data.emptyStack).toBe(false)
+                      expect(data).toHaveProperty('currrentPlayer')
+                      expect(data).toHaveProperty('handLength')
+                      done()
+                    })
+                    user.socket.emit('President:UpdateClient', {
+                      id: args.game_id,
+                      cards: [obj.cards[0]]
+                    })
+                  }
+                })
+              })
+              user1.socket.emit('GameConnection:start', args.game_id)
+            })
+            user3.socket.emit('GameConnection:join', {
+              id: args.game_id,
+              username: user3.username
+            })
+          })
+          user2.socket.emit('GameConnection:join', {
+            id: args.game_id,
+            username: user2.username
+          })
+        })
+        user1.socket.emit('GameConnection:join', {
+          id: args.game_id,
+          username: user1.username
+        })
+      })
+      user1.socket.emit('Message:newClient', {
+        type: 'game',
+        room: roomID,
+        message: user1.username + ' want to start a game : ',
+        user: user1.username,
+        game: 'Le président',
+        state: 'Not started'
+      })
     })
   })
-
-  test('First move', (done) => {
-    user1.socket.once('Message:New', (args) => {
-      user1.socket.once('GameConnection:update', (_arg) => {
-        user2.socket.once('GameConnection:update', (_msg) => {
-          user3.socket.once('GameConnection:update', (_msg) => {
-            const users = [user1, user2, user3]
-            users.forEach((user) => {
-              user.socket.once('President:Create', (obj) => {
-                if (obj.currrentPlayer === user.username) {
-                  user.socket.once('President:Update', (data) => {
-                    expect(data.stack).toMatchObject([obj.cards[0]])
-                    expect(data.emptyStack).toBe(false)
-                    expect(data).toHaveProperty('currrentPlayer')
-                    expect(data).toHaveProperty('handLength')
-                    done()
-                  })
-                  user.socket.emit('President:UpdateClient', {
-                    id: args.game_id,
-                    cards: [obj.cards[0]]
-                  })
-                }
-              })
-            })
-            user1.socket.emit('GameConnection:start', args.game_id)
-          })
-          user3.socket.emit('GameConnection:join', {
-            id: args.game_id,
-            username: user3.username
-          })
-        })
-        user2.socket.emit('GameConnection:join', {
-          id: args.game_id,
-          username: user2.username
-        })
-      })
-      user1.socket.emit('GameConnection:join', {
-        id: args.game_id,
-        username: user1.username
-      })
+  describe('CheckSquare', () => {
+    test('isSquare', () => {
+      const cards = [{
+        suite: 'clubs',
+        value: '2',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'diamonds',
+        value: '2',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'spades',
+        value: '2',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'hearts',
+        value: '2',
+        file: '2_of_hearts.png'
+      }]
+      expect(checkSquare(cards)).toBe(true)
     })
-    user1.socket.emit('Message:newClient', {
-      type: 'game',
-      room: roomID,
-      message: user1.username + ' want to start a game : ',
-      user: user1.username,
-      game: 'Le président',
-      state: 'Not started'
+    test('isSquare', () => {
+      const cards = [{
+        suite: 'clubs',
+        value: '3',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'diamonds',
+        value: '2',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'spades',
+        value: '2',
+        file: '2_of_hearts.png'
+      },
+      {
+        suite: 'hearts',
+        value: '2',
+        file: '2_of_hearts.png'
+      }]
+      expect(checkSquare(cards)).toBe(false)
     })
   })
 })

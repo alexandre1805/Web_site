@@ -1,5 +1,6 @@
 const cards = require('../utils/cards.json')
 const helper = require('../utils/helper')
+const gameConnection = require('./Games-Connection')
 
 const games = new Map()
 
@@ -48,6 +49,7 @@ function checkSquare (cards) {
   }
   return emptyStack
 }
+exports.checkSquare = checkSquare
 
 /**
  * @function create Create the object game, distribute card and send cards to players
@@ -84,7 +86,6 @@ exports.create = function (io, id, users, connectedUsers) {
   })
 
   games.set(id, {
-    playZoneCards: [],
     currrentPlayer,
     handLength,
     order,
@@ -108,17 +109,21 @@ exports.cancel = function (id) {
 exports.updateClient = async function (io, request) {
   const game = games.get(request.id)
   game.handLength[game.currrentPlayer] -= request.cards.length
+  if (game.handLength[game.currrentPlayer] === 0) {
+    await gameConnection.finish(io, request.id,
+      `The winner is ${game.currrentPlayer}.`)
+  }
 
   const emptyStack = checkSquare(game.stack.concat(request.cards))
-
-  const nextPlayerIndex = game.order.indexOf(game.currrentPlayer) + 1
-  game.currrentPlayer =
+  if (!emptyStack) {
+    const nextPlayerIndex = game.order.indexOf(game.currrentPlayer) + 1
+    game.currrentPlayer =
      nextPlayerIndex === game.order.length
        ? game.order[0]
        : game.order[nextPlayerIndex]
-
+  }
   const response = {
-    stack: request.cards,
+    cardsPlayed: request.cards,
     currrentPlayer: game.currrentPlayer,
     handLength: game.handLength,
     emptyStack

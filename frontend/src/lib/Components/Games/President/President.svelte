@@ -1,7 +1,11 @@
 <script lang="ts">
   import { push } from 'svelte-spa-router'
   import { socket, currentGame, username } from '../../../store'
-  import type { CardType, PresidentType } from '../../../types'
+  import type {
+    CardType,
+    PresidentType,
+    PresidentUpdateType,
+  } from '../../../types'
   import Connection_Box from '../ConnectionBox.svelte'
   import Hand from './Hand.svelte'
   import PlayZone from './PlayZone.svelte'
@@ -26,10 +30,11 @@
       game = data
     })
 
-    $socket.on('President:Update', (data) => {
-      data.cards = game.stack
-      data.playZoneCards = game.playZoneCards
-      game = data
+    $socket.on('President:Update', (data: PresidentUpdateType) => {
+      game.handLength = data.handLength
+      game.currrentPlayer = data.currrentPlayer
+      game.emptyStack = data.emptyStack
+      if (data.cardsPlayed.length !== 0) game.stack = data.cardsPlayed
     })
   }
 
@@ -48,11 +53,20 @@
   }
 
   function play(type: string) {
-    if (type === 'pass') return
-    userMsg = validateTurn(game.stack, game.playZoneCards)
-    if (userMsg) return
+    userMsg = ''
+    if (type === 'pass') {
+      $socket.emit('President:UpdateClient', { id: $currentGame, cards: [] })
+      return
+    }
+    if (!game.emptyStack) {
+      userMsg = validateTurn(game.stack, game.playZoneCards)
+      if (userMsg) return
+    }
 
-    $socket.emit('President:UpdateClient', game.playZoneCards)
+    $socket.emit('President:UpdateClient', {
+      id: $currentGame,
+      cards: game.playZoneCards,
+    })
     game.playZoneCards = []
   }
 </script>
@@ -73,7 +87,7 @@
         >
         <button
           class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
-          on:click={() => play('pass')}>Play</button
+          on:click={() => play('pass')}>Pass</button
         >
       </div>
       {userMsg}
