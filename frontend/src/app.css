@@ -54,6 +54,21 @@
       rgba(0, 153, 51, 1) 100%
     );
   }
+
+  @keyframes spawn {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-stack-cards {
+    animation: spawn 1s linear;
+  }
 }
 
 @tailwind components;

@@ -29,9 +29,21 @@ export type CardType = {
   suite: CardType_suite
 }
 export type PresidentType = {
+  handLength: any
   cards: CardType[]
-  current_player: string,
+  currrentPlayer: string
   playZoneCards: CardType[]
+  stack: CardType[]
+  emptyStack: boolean
+  nbCards: number
+}
+
+export type PresidentUpdateType = {
+  handLength: any
+  currrentPlayer: string
+  emptyStack: boolean
+  cardsPlayed: CardType[]
+  nbCards: number
 }
 
 export type Connect4Type = {

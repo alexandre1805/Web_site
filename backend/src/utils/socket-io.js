@@ -1,9 +1,10 @@
-const connect4 = require('../controllers/Connect-4')
-const gameConnection = require('../controllers/Game-Connection')
-const message = require('../controllers/Message')
-const room = require('../controllers/Room')
-const ticTacToe = require('../controllers/Tic-Tac-Toe')
 const userData = require('../controllers/User-Data')
+const room = require('../controllers/Room')
+const message = require('../controllers/Message')
+const gameConnection = require('../controllers/Game-Connection')
+const connect4 = require('../controllers/Connect-4')
+const ticTacToe = require('../controllers/Tic-Tac-Toe')
+const president = require('../controllers/President')
 
 const roomService = require('../services/Room')
 const gameConnectionService = require('../services/Games-Connection')
@@ -14,12 +15,13 @@ exports.initIO = function (server) {
   io = require('socket.io')(server)
 
   function onConnection (socket, users) {
-    connect4.socketIO(io, socket, users)
-    gameConnection.socketIO(io, socket, users)
-    message.socketIO(io, socket, users)
-    room.socketIO(io, socket, users)
-    ticTacToe.socketIO(io, socket, users)
     userData.socketIO(io, socket, users)
+    room.socketIO(io, socket, users)
+    message.socketIO(io, socket, users)
+    gameConnection.socketIO(io, socket, users)
+    ticTacToe.socketIO(io, socket, users)
+    connect4.socketIO(io, socket, users)
+    president.socketIO(io, socket, users)
   }
 
   const users = new Map()
