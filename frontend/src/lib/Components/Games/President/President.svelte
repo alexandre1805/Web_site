@@ -13,7 +13,8 @@
   import Stack from './Stack.svelte'
 
   let game: PresidentType
-  let userMsg: String
+  let userMsg: String = ''
+  let stack = []
 
   if ($socket === null) {
     push('/dashboard')
@@ -25,8 +26,8 @@
 
     $socket.on('President:Create', (data: PresidentType) => {
       data.playZoneCards = []
-      data.stack = []
       data.emptyStack = false
+      data.nbCards = 0
       game = data
     })
 
@@ -34,7 +35,8 @@
       game.handLength = data.handLength
       game.currrentPlayer = data.currrentPlayer
       game.emptyStack = data.emptyStack
-      if (data.cardsPlayed.length !== 0) game.stack = data.cardsPlayed
+      game.nbCards = data.nbCards
+      if (data.cardsPlayed.length !== 0) stack = data.cardsPlayed
     })
   }
 
@@ -59,7 +61,7 @@
       return
     }
     if (!game.emptyStack) {
-      userMsg = validateTurn(game.stack, game.playZoneCards)
+      userMsg = validateTurn(stack, game.playZoneCards, game.nbCards)
       if (userMsg) return
     }
 
@@ -74,24 +76,26 @@
 <Connection_Box />
 <div
   id="board"
-  class="w-full h-full flex items-center justify-center bg-poker flex-col"
+  class="w-full h-full flex items-center bg-poker flex-col"
 >
   {#if game}
-    <Stack cards={game.stack} />
-    <PlayZone cards={game.playZoneCards} {toggleCard} />
-    {#if game.currrentPlayer === $username}
-      <div>
-        <button
-          class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
-          on:click={() => play('play')}>Play</button
-        >
-        <button
-          class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
-          on:click={() => play('pass')}>Pass</button
-        >
-      </div>
-      {userMsg}
-    {/if}
+    <div class="w-full h-fit flex items-center justify-center flex-col">
+      <Stack cards={stack} emptyStack={game.emptyStack} />
+      <PlayZone cards={game.playZoneCards} {toggleCard} />
+      {#if game.currrentPlayer === $username}
+        <div>
+          <button
+            class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
+            on:click={() => play('play')}>Play</button
+          >
+          <button
+            class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
+            on:click={() => play('pass')}>Pass</button
+          >
+        </div>
+        {userMsg}
+      {/if}
+    </div>
     <Hand cards={game.cards} {toggleCard} />
   {/if}
 </div>

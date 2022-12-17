@@ -39,7 +39,7 @@ function distribute (users) {
  */
 function checkSquare (cards) {
   let emptyStack = false
-  if (cards.length === 4) {
+  if (cards.length >= 4) {
     emptyStack = true
     for (let i = 1; i < cards.length; i++) {
       if (cards[i - 1].value !== cards[i].value) {
@@ -74,7 +74,7 @@ exports.create = function (io, id, users, connectedUsers) {
   order.unshift(currrentPlayer)
 
   const handLength = {}
-  users.forEach(user => {
+  users.forEach((user) => {
     handLength[user] = cards[user].length
   })
 
@@ -89,9 +89,11 @@ exports.create = function (io, id, users, connectedUsers) {
     currrentPlayer,
     handLength,
     order,
-    stack: []
+    stack: [],
+    pass: Array(order.length).fill(false)
   })
 }
+
 /**
  * @function cancel delete the game of map
  * @param {String} id the id of the game
@@ -109,26 +111,54 @@ exports.cancel = function (id) {
 exports.updateClient = async function (io, request) {
   const game = games.get(request.id)
   game.handLength[game.currrentPlayer] -= request.cards.length
+
+  // check if the player win
   if (game.handLength[game.currrentPlayer] === 0) {
-    await gameConnection.finish(io, request.id,
-      `The winner is ${game.currrentPlayer}.`)
+    await gameConnection.finish(
+      io,
+      request.id,
+      `The winner is ${game.currrentPlayer}.`
+    )
   }
 
-  const emptyStack = checkSquare(game.stack.concat(request.cards))
-  if (!emptyStack) {
+  let emptyStack = false
+  let allPass = false
+  if (request.cards.length === 0) {
+    game.pass[game.order.indexOf(game.currrentPlayer)] = true
+    if (game.pass.every((element) => element === true)) {
+      emptyStack = true
+      allPass = true
+      game.pass = Array(game.order.length).fill(false)
+    }
+  } else {
+    game.pass[game.order.indexOf(game.currrentPlayer)] = false
+    // check if the player uses a '2' or made a square
+    game.stack = game.stack.concat(request.cards)
+    emptyStack =
+      request.cards.length !== 0 && request.cards[0].value === '2'
+        ? true
+        : checkSquare(game.stack)
+  }
+
+  // check who will play the next turn
+  if (allPass || !emptyStack) {
     const nextPlayerIndex = game.order.indexOf(game.currrentPlayer) + 1
     game.currrentPlayer =
-     nextPlayerIndex === game.order.length
-       ? game.order[0]
-       : game.order[nextPlayerIndex]
-  }
-  const response = {
-    cardsPlayed: request.cards,
-    currrentPlayer: game.currrentPlayer,
-    handLength: game.handLength,
-    emptyStack
+      nextPlayerIndex === game.order.length
+        ? game.order[0]
+        : game.order[nextPlayerIndex]
   }
 
-  games.set(request.id, game)
+  // build the answer
+  const response = {
+    cardsPlayed: game.stack,
+    currrentPlayer: game.currrentPlayer,
+    handLength: game.handLength,
+    emptyStack,
+    nbCards: emptyStack ? 0 : request.cards.length
+  }
+
   io.to(request.id).emit('President:Update', response)
+  if (emptyStack) game.stack = []
+  games.set(request.id, game)
 }

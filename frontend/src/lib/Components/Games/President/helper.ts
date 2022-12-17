@@ -28,9 +28,9 @@ export function cards_sort(array: CardType[]) {
   })
 }
 
-export function validateTurn(stack: CardType[], turn: CardType[]): String {
-  if (stack.length !== 0 && stack.length !== turn.length) {
-    return `You must give exactly ${stack.length} cards`
+export function validateTurn(stack: CardType[], turn: CardType[], nbCards: number): String {
+  if (nbCards !== 0 && nbCards !== turn.length) {
+    return `You must give exactly ${nbCards} cards`
   }
 
   for (let i = 1; i < turn.length; i++) {
@@ -38,7 +38,7 @@ export function validateTurn(stack: CardType[], turn: CardType[]): String {
       return 'You must give cards with the same value in you turn'
   }
 
-  if(stack.length !== 0 && order.indexOf(turn[0].value) < order.indexOf(stack[0].value))
+  if(stack.length !== 0 && order.indexOf(turn[0].value) < order.indexOf(stack[stack.length - 1].value))
     return 'You must give cards with a value upper or equal to the stack value'
 
   return ''
