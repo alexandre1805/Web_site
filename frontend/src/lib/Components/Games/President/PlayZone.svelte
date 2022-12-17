@@ -25,8 +25,8 @@
     <span class="m-auto">Drop here cards that you want to play !</span>
   {/if}
   {#each cards as card}
-    <li>
-      <Card {card} />
+    <li on:dblclick={()  => {toggleCard(card)}}>
+      <Card {card}/>
     </li>
   {/each}
 </ul>

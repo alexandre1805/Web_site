@@ -24,8 +24,9 @@
   {#each cards as card}
     <li
       class="overflow-visible flex-grow w-8 last:w-24 last:grow-0 hover:-translate-y-7"
+      on:dblclick={()  => {toggleCard(card)}}
     >
-      <Card {card} />
+      <Card {card}/>
     </li>
   {/each}
 </ul>

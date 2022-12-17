@@ -38,7 +38,7 @@ export function validateTurn(stack: CardType[], turn: CardType[], nbCards: numbe
       return 'You must give cards with the same value in you turn'
   }
 
-  if(stack.length !== 0 && order.indexOf(turn[0].value) < order.indexOf(stack[stack.length - 1].value))
+  if(nbCards !== 0 && order.indexOf(turn[0].value) < order.indexOf(stack[stack.length - 1].value))
     return 'You must give cards with a value upper or equal to the stack value'
 
   return ''
