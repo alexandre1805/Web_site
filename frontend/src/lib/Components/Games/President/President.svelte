@@ -11,6 +11,7 @@
   import PlayZone from './PlayZone.svelte'
   import { cards_sort, validateTurn } from './helper'
   import Stack from './Stack.svelte'
+  import Information from './Information.svelte'
 
   let game: PresidentType
   let userMsg: String = ''
@@ -29,11 +30,12 @@
       data.playZoneCards = []
       data.emptyStack = false
       data.nbCards = 0
+      data.handLength = Object.entries(data.handLength)
       game = data
     })
 
     $socket.on('President:Update', (data: PresidentUpdateType) => {
-      game.handLength = data.handLength
+      game.handLength = Object.entries(data.handLength)
       game.currrentPlayer = data.currrentPlayer
       game.emptyStack = data.emptyStack
       game.nbCards = data.nbCards
@@ -42,8 +44,7 @@
 
       if (game.numberOrPass && game.currrentPlayer === $username)
         numberOrPassMsg = `You can only play a ${stack[stack.length - 1].value}`
-      else
-        numberOrPassMsg = ''
+      else numberOrPassMsg = ''
     })
   }
 
@@ -88,6 +89,7 @@
 <Connection_Box />
 <div id="board" class="w-full h-full flex items-center bg-poker flex-col">
   {#if game}
+    <Information userInformation={game.handLength} currrentPlayer={game.currrentPlayer}/>
     <div class="w-full h-fit flex items-center justify-center flex-col">
       <Stack cards={stack} emptyStack={game.emptyStack} />
       <PlayZone cards={game.playZoneCards} {toggleCard} />
