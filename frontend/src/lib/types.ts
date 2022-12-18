@@ -41,7 +41,7 @@ export type PresidentType = {
 
 export type PresidentUpdateType = {
   numberOrPass: boolean
-  handLength: any
+  handLength: [string, number][]
   currrentPlayer: string
   emptyStack: boolean
   cardsPlayed: CardType[]
