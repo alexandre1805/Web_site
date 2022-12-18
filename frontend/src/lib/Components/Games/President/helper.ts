@@ -1,19 +1,5 @@
 import type { CardType } from '../../../types'
-const order = [
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  'J',
-  'Q',
-  'K',
-  'A',
-  '2',
-]
+const order = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A', '2']
 
 export function cards_sort(array: CardType[]) {
   return array.sort((a, b) => {
@@ -28,7 +14,12 @@ export function cards_sort(array: CardType[]) {
   })
 }
 
-export function validateTurn(stack: CardType[], turn: CardType[], nbCards: number): String {
+export function validateTurn(
+  stack: CardType[],
+  turn: CardType[],
+  nbCards: number,
+  numberOrPass: boolean
+): String {
   if (nbCards !== 0 && nbCards !== turn.length) {
     return `You must give exactly ${nbCards} cards`
   }
@@ -37,8 +28,16 @@ export function validateTurn(stack: CardType[], turn: CardType[], nbCards: numbe
     if (turn[i - 1].value !== turn[i].value)
       return 'You must give cards with the same value in you turn'
   }
-
-  if(nbCards !== 0 && order.indexOf(turn[0].value) < order.indexOf(stack[stack.length - 1].value))
+  if (
+    numberOrPass &&
+    order.indexOf(turn[0].value) !==
+      order.indexOf(stack[stack.length - 1].value)
+  )
+    return `You must pass if you cannot play a ${stack[stack.length - 1].value}`
+  else if (
+    nbCards !== 0 &&
+    order.indexOf(turn[0].value) < order.indexOf(stack[stack.length - 1].value)
+  )
     return 'You must give cards with a value upper or equal to the stack value'
 
   return ''

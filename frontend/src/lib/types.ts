@@ -29,6 +29,7 @@ export type CardType = {
   suite: CardType_suite
 }
 export type PresidentType = {
+  numberOrPass: boolean
   handLength: any
   cards: CardType[]
   currrentPlayer: string
@@ -39,6 +40,7 @@ export type PresidentType = {
 }
 
 export type PresidentUpdateType = {
+  numberOrPass: boolean
   handLength: any
   currrentPlayer: string
   emptyStack: boolean

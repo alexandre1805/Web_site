@@ -123,6 +123,7 @@ exports.updateClient = async function (io, request) {
 
   let emptyStack = false
   let allPass = false
+  let numberOrPass = false
   if (request.cards.length === 0) {
     game.pass[game.order.indexOf(game.currrentPlayer)] = true
     if (game.pass.every((element) => element === true)) {
@@ -132,12 +133,20 @@ exports.updateClient = async function (io, request) {
     }
   } else {
     game.pass[game.order.indexOf(game.currrentPlayer)] = false
+
     // check if the player uses a '2' or made a square
     game.stack = game.stack.concat(request.cards)
     emptyStack =
-      request.cards.length !== 0 && request.cards[0].value === '2'
-        ? true
-        : checkSquare(game.stack)
+    request.cards.length !== 0 && request.cards[0].value === '2'
+      ? true
+      : checkSquare(game.stack)
+
+    // check if it a '_ or pass
+    numberOrPass =
+      !emptyStack &&
+      request.cards.length === 1 &&
+      game.stack.length >= 2 &&
+      game.stack[game.stack.length - 2].value === request.cards[0].value
   }
 
   // check who will play the next turn
@@ -155,7 +164,8 @@ exports.updateClient = async function (io, request) {
     currrentPlayer: game.currrentPlayer,
     handLength: game.handLength,
     emptyStack,
-    nbCards: emptyStack ? 0 : request.cards.length
+    nbCards: emptyStack ? 0 : request.cards.length,
+    numberOrPass
   }
 
   io.to(request.id).emit('President:Update', response)
