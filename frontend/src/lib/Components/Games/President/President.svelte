@@ -14,6 +14,7 @@
 
   let game: PresidentType
   let userMsg: String = ''
+  let numberOrPassMsg: String = ''
   let stack = []
 
   if ($socket === null) {
@@ -36,7 +37,13 @@
       game.currrentPlayer = data.currrentPlayer
       game.emptyStack = data.emptyStack
       game.nbCards = data.nbCards
+      game.numberOrPass = data.numberOrPass
       if (data.cardsPlayed.length !== 0) stack = data.cardsPlayed
+
+      if (game.numberOrPass && game.currrentPlayer === $username)
+        numberOrPassMsg = `You can only play a ${stack[stack.length - 1].value}`
+      else
+        numberOrPassMsg = ''
     })
   }
 
@@ -61,7 +68,12 @@
       return
     }
     if (!game.emptyStack) {
-      userMsg = validateTurn(stack, game.playZoneCards, game.nbCards)
+      userMsg = validateTurn(
+        stack,
+        game.playZoneCards,
+        game.nbCards,
+        game.numberOrPass
+      )
       if (userMsg) return
     }
 
@@ -74,15 +86,13 @@
 </script>
 
 <Connection_Box />
-<div
-  id="board"
-  class="w-full h-full flex items-center bg-poker flex-col"
->
+<div id="board" class="w-full h-full flex items-center bg-poker flex-col">
   {#if game}
     <div class="w-full h-fit flex items-center justify-center flex-col">
       <Stack cards={stack} emptyStack={game.emptyStack} />
       <PlayZone cards={game.playZoneCards} {toggleCard} />
       {#if game.currrentPlayer === $username}
+        {numberOrPassMsg}
         <div>
           <button
             class="text-white bg-blue-500 rounded-full p-2 my-3 hover:bg-slate-500"
