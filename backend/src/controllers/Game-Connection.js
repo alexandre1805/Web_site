@@ -53,7 +53,7 @@ exports.socketIO = function (io, socket, users) {
     return true
   }
 
-  socket.on('GameConnection:start', async (request) => {
+  socket.on('GameConnection:restart', async (request) => {
     if (!checkRestartGame(request)) return
     await gameConnection.start(io, users, request)
   })
