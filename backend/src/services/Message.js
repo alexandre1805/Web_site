@@ -58,18 +58,22 @@ exports.updateGameMsg = async function (io, gameID, state) {
 /**
  *
  * @param {object} data the data used to create the message
- * @param {string} data.author the author of the message
+ * @param {string} data.user the author of the message
  * @param {string} data.type the type of message (regular|game)
  * @param {string} data.message the message itself
+ * @param {string} data.room the id of room
  * @param {string}  [data.game] the name of the game
  * @param {string}  [data.state] the state of the game
  * @param {string}  [data.game_id] the id of the game
+ * @param {object} io the instance of socket io
  */
-exports.createAutomaticMessage = async function (data) {
+exports.createAutomaticMessage = async function (io, data) {
   const newMessage = new MessagesModel(data)
   newMessage.id = await newMessage.save().then((obj) => {
     return obj.id
   })
 
   await roomService.updateLastMessage(newMessage.room, newMessage.id)
+
+  io.to(newMessage.room).emit('Message:New', newMessage)
 }

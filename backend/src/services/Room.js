@@ -88,3 +88,7 @@ exports.updateLastMessage = async (roomID, msgID) => {
     { $set: { lastMessage: msgID } }
   )
 }
+
+exports.getUsersByRoomID = async (id) => {
+  return await RoomModel.findById(id).select('users -_id')
+}
