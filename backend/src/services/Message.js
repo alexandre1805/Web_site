@@ -54,3 +54,22 @@ exports.updateGameMsg = async function (io, gameID, state) {
 
   io.to(gameID).emit('Message:Update', msg)
 }
+
+/**
+ *
+ * @param {object} data the data used to create the message
+ * @param {string} data.author the author of the message
+ * @param {string} data.type the type of message (regular|game)
+ * @param {string} data.message the message itself
+ * @param {string}  [data.game] the name of the game
+ * @param {string}  [data.state] the state of the game
+ * @param {string}  [data.game_id] the id of the game
+ */
+exports.createAutomaticMessage = async function (data) {
+  const newMessage = new MessagesModel(data)
+  newMessage.id = await newMessage.save().then((obj) => {
+    return obj.id
+  })
+
+  await roomService.updateLastMessage(newMessage.room, newMessage.id)
+}

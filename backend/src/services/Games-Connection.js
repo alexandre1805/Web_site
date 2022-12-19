@@ -31,13 +31,20 @@ exports.checkRunningGame = async function (roomID) {
 
   return response.length
 }
-
-exports.createGame = async function (args) {
-  const curGameInfo = gameInfo.find((val) => val.name === args.game)
+/**
+ * @function create a game and save it in db
+ * @param {object} request data send by client
+ * @param {string} request.game the name of the game
+ * @param {string} request.state the state of the game, here 'Not started'
+ * @param {string} request.room the id of the room
+ * @returns {string} the id of the game created
+ */
+exports.createGame = async function (request) {
+  const curGameInfo = gameInfo.find((val) => val.name === request.game)
   const newGame = new GameModel({
-    name: args.game,
-    state: args.state,
-    room: args.room,
+    name: request.game,
+    state: request.state,
+    room: request.room,
     nb_players: 0,
     min_players: curGameInfo.min_players,
     max_players: curGameInfo.max_players
@@ -188,4 +195,23 @@ exports.start = async (io, id, connectedUsers) => {
   const game = await GameModel.findById(convertID(id))
   if (game.state !== 'Ready') return
   handleStartGame(io, id, connectedUsers)
+}
+
+exports.restart = async (io, gameID, username, connectedUsers) => {
+  const gameFinished = await GameModel.findById(convertID(gameID))
+
+  // create the game
+  const createArgs = {
+    game: gameFinished.name,
+    state: 'Not started',
+    room: gameFinished.room
+  }
+  const newGameID = this.createGame(createArgs)
+
+  // switch player to the new game
+  gameFinished.players.forEach(player => {
+    const socket = io.sockets.sockets.get(connectedUsers.get(player))
+    socket.leave(gameID)
+    socket.join(newGameID)
+  })
 }
