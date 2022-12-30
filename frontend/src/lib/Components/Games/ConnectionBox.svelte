@@ -8,6 +8,7 @@
   let replayButton = false
 
   $socket.on('GameConnection:update', (obj: GameMsgType) => {
+    console.log(obj)
     message = obj.message
     switch (obj.state) {
       case 'Running':
@@ -20,13 +21,20 @@
         startButton = true
         break
       case 'Finished':
-          replayButton = true
+        open = true
+        replayButton = true
+        break
       default:
         open = true
         startButton = false
         replayButton = false
         break
     }
+
+    $socket.on('GameConnection:sendNewId', (id: string) => {
+      currentGame.set(id)
+      replayButton = false
+    })
   })
 
   function handleLeaveGame() {

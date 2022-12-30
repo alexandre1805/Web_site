@@ -215,16 +215,18 @@ exports.restart = async (io, connectedUsers, request) => {
     state: 'Not started',
     room: gameFinished.room
   }
-  const newGameID = this.createGame(createArgs)
+  const newGameID = await this.createGame(createArgs)
+
+  io.to(request.id).emit('GameConnection:sendNewId', newGameID)
 
   // switch player to the new game
   gameFinished.players.forEach((player) => {
     const socket = io.sockets.sockets.get(connectedUsers.get(player))
-    if (socket.rooms.indexOf(request.id) >= 0) {
+    if (socket.rooms.has(request.id)) {
       socket.leave(request.id)
       this.leave(io, { id: request.id, username: player })
       socket.join(newGameID)
-      this.leave(io, { id: newGameID, username: player })
+      this.join(io, { id: newGameID, username: player })
     }
   })
 
@@ -239,5 +241,5 @@ exports.restart = async (io, connectedUsers, request) => {
     game_id: newGameID
   }
 
-  await messageService.createAutomaticMessage(messageArgs, io)
+  await messageService.createAutomaticMessage(io, messageArgs)
 }

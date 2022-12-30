@@ -69,6 +69,7 @@ exports.updateGameMsg = async function (io, gameID, state) {
  */
 exports.createAutomaticMessage = async function (io, data) {
   const newMessage = new MessagesModel(data)
+  console.log(data)
   newMessage.id = await newMessage.save().then((obj) => {
     return obj.id
   })
