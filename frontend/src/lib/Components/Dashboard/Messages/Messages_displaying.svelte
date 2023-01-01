@@ -63,7 +63,7 @@
             msg.user === $username ? "text-right bg-blue-500" : "bg-gray-400"
           } p-4 text-white leading-5 inline-block text-left over break-words rounded-lg relative text-lg`}
         >
-          {msg.message}
+          {@html msg.message}
         </div>
       {:else}
         <div
@@ -74,7 +74,7 @@
           <div class="text-lg font-bold uppercase text-left">
             {msg.game}
           </div>
-          <div class="text-left">{msg.message}</div>
+          <div class="text-left">{@html msg.message}</div>
           {#if msg.state === "Not started"}
             <button
               class="flex text-white bg-blue-500 rounded-full p-1 my-3 hover:bg-slate-500 border-2"

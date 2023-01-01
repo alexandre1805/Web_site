@@ -117,10 +117,15 @@ exports.updateClient = async function (io, request) {
   // check if the player win
   if (game.handLength[game.currrentPlayer] === 0) {
     game.winner.push(game.currrentPlayer)
+    game.pass.splice(game.order.indexOf(game.currrentPlayer), 1)
     game.order = game.order.filter((item) => item !== game.currrentPlayer)
     if (game.order.length === 1) {
       game.winner = game.winner.concat(game.order)
-      await gameConnection.finish(io, request.id, endMessage[game.winner])
+      let message = endMessage[game.winner.length]
+      game.winner.forEach((value, index) => {
+        message = message.replace('${' + index + '}', value)
+      })
+      await gameConnection.finish(io, request.id, message)
     }
   }
 

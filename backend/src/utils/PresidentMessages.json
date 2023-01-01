@@ -1,6 +1,6 @@
 {
-  "3": "${game.winner[0]} is the President.\n${game.winner[1]} is neutral.\n${game.winner[2]} is asshole.",
-  "4": "${game.winner[0]} is the President.\n${game.winner[1]} is the Vice-President.\n${game.winner[2]} is vice-asshole.\n${game.winner[3]} is asshole.",
-  "5": "${game.winner[0]} is the President.\n${game.winner[1]} is the Vice-President.\n${game.winner[2]} is neutral.\n${game.winner[3]} is vice-asshole.\n${game.winner[4]} is asshole.",
-  "6": "${game.winner[0]} is the President.\n${game.winner[1]} is the Vice-President.\n${game.winner[2]} is neutral.\n${game.winner[3]} is neutral.\n${game.winner[4]} is vice-asshole.\n${game.winner[5]} is asshole."
+  "3": "${0} is the President.<br/>${1} is neutral.<br/>${2} is asshole.",
+  "4": "${0} is the President.<br/>${1} is the Vice-President.<br/>${2} is vice-asshole.<br/>${3} is asshole.",
+  "5": "${0} is the President.<br/>${1} is the Vice-President.<br/>${2} is neutral.<br/>${3} is vice-asshole.<br/>${4} is asshole.",
+  "6": "${0} is the President.<br/>${1} is the Vice-President.<br/>${2} is neutral.<br/>${3} is neutral.<br/>${4} is vice-asshole.<br/>${5} is asshole."
 }
