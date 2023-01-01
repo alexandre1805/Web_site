@@ -11,6 +11,5 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "max-len": ["error", { "code": 80, "ignoreComments": true }]
     }
 }
