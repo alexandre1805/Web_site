@@ -54,7 +54,6 @@
     "value": "J",
     "file": "jack_of_spades.png"
   },
-
   {
     "suite": "spades",
     "value": "Q",
@@ -185,7 +184,6 @@
     "value": "J",
     "file": "jack_of_clubs.png"
   },
-
   {
     "suite": "clubs",
     "value": "Q",
