@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const UserData = require('../models/users')
+const bcrypt = require('bcrypt')
 
 exports.registerUser = async function (req, res) {
   const username = req.body.username
@@ -18,10 +19,23 @@ exports.registerUser = async function (req, res) {
     return
   }
 
+  const passwordHash = await new Promise((resolve, reject) => {
+    // eslint-disable-next-line n/handle-callback-err
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(password, salt, function (err, hash) {
+        if (err) {
+          console.log('[Encryption password] ERROR : ' + err)
+          reject(err)
+        }
+        resolve(hash)
+      })
+    })
+  })
+
   const newUser = new UserData({
     username,
     email: email.toLowerCase(),
-    password
+    password: passwordHash
   })
 
   await newUser.save()
@@ -35,11 +49,17 @@ exports.login = async function (req, res) {
 
   const user = await UserData.findOne({ username })
 
-  // check user credential
-  if (!user || user.password !== password) {
+  if (!user) {
     res.status(200).json({ message: 'Invalid login.' })
     return
   }
+
+  // check user credential
+  bcrypt.compareSync(password, user.password, function (_err, result) {
+    if (!result) {
+      res.status(200).json({ message: 'Invalid login.' })
+    }
+  })
 
   // generate token
   const token = jwt.sign({ username }, process.env.JWT_SECRET, {
