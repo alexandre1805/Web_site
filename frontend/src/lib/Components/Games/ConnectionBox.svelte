@@ -39,7 +39,7 @@
   {#if open}
     <div class="Dialog_box">
       <div class="Container">
-        {message}
+        {@html message}
         <div class="flex">
           {#if startButton}
             <button

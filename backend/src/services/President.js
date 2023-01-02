@@ -1,6 +1,7 @@
 const cards = require('../utils/cards.json')
 const helper = require('../utils/helper')
 const gameConnection = require('./Games-Connection')
+const endMessage = require('../utils/PresidentMessages.json')
 
 const games = new Map()
 
@@ -90,6 +91,7 @@ exports.create = function (io, id, users, connectedUsers) {
     handLength,
     order,
     stack: [],
+    winner: [],
     pass: Array(order.length).fill(false)
   })
 }
@@ -114,16 +116,24 @@ exports.updateClient = async function (io, request) {
 
   // check if the player win
   if (game.handLength[game.currrentPlayer] === 0) {
-    await gameConnection.finish(
-      io,
-      request.id,
-      `The winner is ${game.currrentPlayer}.`
-    )
+    game.winner.push(game.currrentPlayer)
+    game.pass.splice(game.order.indexOf(game.currrentPlayer), 1)
+    game.order = game.order.filter((item) => item !== game.currrentPlayer)
+    if (game.order.length === 1) {
+      game.winner = game.winner.concat(game.order)
+      let message = endMessage[game.winner.length]
+      game.winner.forEach((value, index) => {
+        message = message.replace('${' + index + '}', value)
+      })
+      await gameConnection.finish(io, request.id, message)
+    }
   }
 
   let emptyStack = false
   let allPass = false
   let numberOrPass = false
+
+  // check if all player pass to reset the stack
   if (request.cards.length === 0) {
     game.pass[game.order.indexOf(game.currrentPlayer)] = true
     if (game.pass.every((element) => element === true)) {
@@ -137,9 +147,9 @@ exports.updateClient = async function (io, request) {
     // check if the player uses a '2' or made a square
     game.stack = game.stack.concat(request.cards)
     emptyStack =
-    request.cards.length !== 0 && request.cards[0].value === '2'
-      ? true
-      : checkSquare(game.stack)
+      request.cards.length !== 0 && request.cards[0].value === '2'
+        ? true
+        : checkSquare(game.stack)
 
     // check if it a '_ or pass
     numberOrPass =
