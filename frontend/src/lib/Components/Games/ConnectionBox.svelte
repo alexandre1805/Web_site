@@ -5,20 +5,36 @@
   let message = 'Waiting for informations...'
   let open = true
   let startButton = false
+  let replayButton = false
 
   $socket.on('GameConnection:update', (obj: GameMsgType) => {
+    console.log(obj)
     message = obj.message
-
-    if (obj.state === 'Running') {
-      open = false
-      message = 'Waiting for informations...'
-      startButton = false
-    } else if (obj.state === 'Ready') {
-      startButton = true
-    } else {
-      open = true
-      startButton = false
+    switch (obj.state) {
+      case 'Running':
+        open = false
+        message = 'Waiting for informations...'
+        startButton = false
+        replayButton = false
+        break
+      case 'Ready':
+        startButton = true
+        break
+      case 'Finished':
+        open = true
+        replayButton = true
+        break
+      default:
+        open = true
+        startButton = false
+        replayButton = false
+        break
     }
+
+    $socket.on('GameConnection:sendNewId', (id: string) => {
+      currentGame.set(id)
+      replayButton = false
+    })
   })
 
   function handleLeaveGame() {
@@ -28,6 +44,13 @@
     })
     currentGame.set('')
     push('/dashboard')
+  }
+
+  function handleReplayGame() {
+    $socket.emit('GameConnection:restart', {
+      id: $currentGame,
+      username: $username,
+    })
   }
 
   function handleStartGame() {
@@ -46,6 +69,13 @@
               on:click={handleStartGame}
               class="text-white bg-blue-500 rounded-full p-1 my-3 mx-1 w-full hover:bg-slate-500"
               >Start</button
+            >
+          {/if}
+          {#if replayButton}
+            <button
+              on:click={handleReplayGame}
+              class="text-white bg-blue-500 rounded-full p-1 my-3 mx-1 w-full hover:bg-slate-500"
+              >Replay</button
             >
           {/if}
           <button

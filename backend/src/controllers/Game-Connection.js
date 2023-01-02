@@ -9,7 +9,7 @@ router.get('/getGames', async (req, res) => {
 exports.router = router
 
 exports.socketIO = function (io, socket, users) {
-  // =========================== JOIN GAME ===================================
+  // =========================== JOIN GAME =====================================
   const checkJoinGame = (args) => {
     if (args.id === '' || args.id === undefined) return false
     if (args.username === '' || args.username === undefined) return false
@@ -22,7 +22,7 @@ exports.socketIO = function (io, socket, users) {
     await gameConnection.join(io, args, users)
   })
 
-  // =========================== LEAVE GAME ===================================
+  // =========================== LEAVE GAME ====================================
   const checkLeaveGame = (args) => {
     if (args.id === '' || args.id === undefined) return false
     if (args.username === '' || args.username === undefined) return false
@@ -35,6 +35,7 @@ exports.socketIO = function (io, socket, users) {
     await gameConnection.leave(io, args)
   })
 
+  // =========================== START GAME ====================================
   const checkStartGame = (id) => {
     if (id === '' || id === undefined) return false
     return true
@@ -43,5 +44,17 @@ exports.socketIO = function (io, socket, users) {
   socket.on('GameConnection:start', async (id) => {
     if (!checkStartGame(id)) return
     await gameConnection.start(io, id, users)
+  })
+
+  // =========================== RESTART GAME ==================================
+  const checkRestartGame = (request) => {
+    if (request.id === '' || request.id === undefined) return false
+    if (request.username === '' || request.username === undefined) return false
+    return true
+  }
+
+  socket.on('GameConnection:restart', async (request) => {
+    if (!checkRestartGame(request)) return
+    await gameConnection.restart(io, users, request)
   })
 }

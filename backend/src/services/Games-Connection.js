@@ -1,4 +1,5 @@
 const GameModel = require('../models/games')
+const messageService = require('./Message')
 const Tictactoe = require('./Tic-tac-toe')
 const Connect4 = require('./Connect-4')
 const President = require('./President')
@@ -31,13 +32,20 @@ exports.checkRunningGame = async function (roomID) {
 
   return response.length
 }
-
-exports.createGame = async function (args) {
-  const curGameInfo = gameInfo.find((val) => val.name === args.game)
+/**
+ * @function create a game and save it in db
+ * @param {object} request data send by client
+ * @param {string} request.game the name of the game
+ * @param {string} request.state the state of the game, here 'Not started'
+ * @param {string} request.room the id of the room
+ * @returns {string} the id of the game created
+ */
+exports.createGame = async function (request) {
+  const curGameInfo = gameInfo.find((val) => val.name === request.game)
   const newGame = new GameModel({
-    name: args.game,
-    state: args.state,
-    room: args.room,
+    name: request.game,
+    state: request.state,
+    room: request.room,
     nb_players: 0,
     min_players: curGameInfo.min_players,
     max_players: curGameInfo.max_players
@@ -61,28 +69,28 @@ exports.join = async function (io, args, connectedUsers) {
   let game = await GameModel.findById(convertID(args.id))
 
   if (game.state !== 'Running') {
-    game = await GameModel.findByIdAndUpdate(convertID(args.id),
+    game = await GameModel.findByIdAndUpdate(
+      convertID(args.id),
       {
         $push: { players: args.username },
         $inc: { nb_players: 1 },
         $set: {
-          state: ((game.nb_players + 1) >= game.min_players)
-            ? 'Ready'
-            : 'Not started'
+          state:
+            game.nb_players + 1 >= game.min_players ? 'Ready' : 'Not started'
         }
       },
-      { new: true })
+      { new: true }
+    )
 
     if (game.nb_players === game.max_players) {
       handleStartGame(io, args.id, connectedUsers)
     } else {
-      io.to(args.id).emit('GameConnection:update',
-        {
-          state: game.state,
-          message:
+      io.to(args.id).emit('GameConnection:update', {
+        state: game.state,
+        message:
           // eslint-disable-next-line max-len
           `Waiting for other player ... (${game.nb_players}/${game.max_players})`
-        })
+      })
     }
   } else {
     console.error('Someone try to join but the game started')
@@ -99,25 +107,24 @@ exports.join = async function (io, args, connectedUsers) {
 exports.leave = async function (io, args) {
   let game = await GameModel.findById(convertID(args.id))
   if (game.state === 'Not started' || game.state === 'Ready') {
-    game = await GameModel.findByIdAndUpdate(convertID(args.id),
+    game = await GameModel.findByIdAndUpdate(
+      convertID(args.id),
       {
         $pull: { players: args.username },
         $inc: { nb_players: -1 },
         $set: {
-          state: ((game.nb_players - 1) >= game.min_players)
-            ? 'Ready'
-            : 'Not started'
+          state:
+            game.nb_players - 1 >= game.min_players ? 'Ready' : 'Not started'
         }
       },
       { new: true }
     )
-    io.to(args.id).emit('GameConnection:update',
-      {
-        state: game.state,
-        message:
-          // eslint-disable-next-line max-len
-          `Waiting for other player ... (${game.nb_players}/${game.max_players})`
-      })
+    io.to(args.id).emit('GameConnection:update', {
+      state: game.state,
+      message:
+        // eslint-disable-next-line max-len
+        `Waiting for other player ... (${game.nb_players}/${game.max_players})`
+    })
   } else if (game.state === 'Running') {
     await handleCancelGame(io, args)
   }
@@ -142,7 +149,8 @@ exports.finish = async function (io, id, msg) {
  * @param {Map} connectedUsers contains links between users and their socketIO ids
  */
 async function handleStartGame (io, gameID, connectedUsers) {
-  const game = await GameModel.findByIdAndUpdate(convertID(gameID),
+  const game = await GameModel.findByIdAndUpdate(
+    convertID(gameID),
     { $set: { state: 'Running' } },
     { new: true }
   )
@@ -151,8 +159,7 @@ async function handleStartGame (io, gameID, connectedUsers) {
   else if (game.name === 'Connect 4') Connect4.create(io, gameID, game.players)
   else President.create(io, gameID, game.players, connectedUsers)
 
-  io.to(gameID).emit('GameConnection:update',
-    { state: 'Running', message: '' })
+  io.to(gameID).emit('GameConnection:update', { state: 'Running', message: '' })
 
   await userMsg.updateGameMsg(io, gameID, 'Running')
 }
@@ -166,15 +173,16 @@ async function handleStartGame (io, gameID, connectedUsers) {
  * @param {object} io  the instance of websocket
  */
 async function handleCancelGame (io, params) {
-  const game = await GameModel.findByIdAndUpdate(convertID(params.id),
-    { $set: { state: 'Cancelled' } }
-  )
-  io.to(params.id).emit('GameConnection:update',
-    {
-      state: 'Cancelled',
-      message: 'Someone has been disconnected, game cancelled'
-    })
-  if (game.name === 'Le président') { President.cancel(params.id) }
+  const game = await GameModel.findByIdAndUpdate(convertID(params.id), {
+    $set: { state: 'Cancelled' }
+  })
+  io.to(params.id).emit('GameConnection:update', {
+    state: 'Cancelled',
+    message: 'Someone has been disconnected, game cancelled'
+  })
+  if (game.name === 'Le président') {
+    President.cancel(params.id)
+  }
   await userMsg.updateGameMsg(io, params.id, 'Cancelled')
 }
 
@@ -188,4 +196,50 @@ exports.start = async (io, id, connectedUsers) => {
   const game = await GameModel.findById(convertID(id))
   if (game.state !== 'Ready') return
   handleStartGame(io, id, connectedUsers)
+}
+
+/**
+ *
+ * @param {object} io the instance of socket IO
+ * @param {Map} connectedUsers link between users and their socket ID
+ * @param {object} request the request
+ * @param {string} request.id the id of the game finished
+ * @param {string} request.username the name of the player who trigger the request
+ */
+exports.restart = async (io, connectedUsers, request) => {
+  const gameFinished = await GameModel.findById(convertID(request.id))
+
+  // create the game
+  const createArgs = {
+    game: gameFinished.name,
+    state: 'Not started',
+    room: gameFinished.room
+  }
+  const newGameID = await this.createGame(createArgs)
+
+  io.to(request.id).emit('GameConnection:sendNewId', newGameID)
+
+  // switch player to the new game
+  gameFinished.players.forEach((player) => {
+    const socket = io.sockets.sockets.get(connectedUsers.get(player))
+    if (socket.rooms.has(request.id)) {
+      socket.leave(request.id)
+      this.leave(io, { id: request.id, username: player })
+      socket.join(newGameID)
+      this.join(io, { id: newGameID, username: player })
+    }
+  })
+
+  // create the message for users
+  const messageArgs = {
+    user: request.username,
+    type: 'game',
+    message: `${request.username} wants to start a new game`,
+    room: gameFinished.room,
+    game: gameFinished.name,
+    state: 'Not started',
+    game_id: newGameID
+  }
+
+  await messageService.createAutomaticMessage(io, messageArgs)
 }
