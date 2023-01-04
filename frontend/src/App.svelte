@@ -51,7 +51,7 @@
 {:else}
   <NavBarConnected />
 {/if}
-<div class="flex-auto">
+<div class="absolute w-full h-[calc(100%_-_5rem)] top-20">
   <Router
     routes={{
       '/': wrap({

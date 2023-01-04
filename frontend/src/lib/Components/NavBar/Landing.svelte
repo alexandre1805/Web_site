@@ -9,7 +9,7 @@
   ]
 </script>
 <div
-  class="absolute navbar bg-primary text-secondary flex-initial"
+  class="fixed navbar bg-primary h-20 z-10"
 >
   <div class="flex-1">
     <button
@@ -28,7 +28,7 @@
   </div>
   <ul
     id="menu"
-    class="absolute top-full w-full h-screen flex justify-center flex-col bg-primary left-0 hidden md:visible md:relative md:bg-white md:flex-row md:w-auto md:h-auto md:top-0 md:bg-transparent"
+    class="absolute top-full w-full h-screen flex justify-center flex-col bg-primary left-0 hidden md:flex md:relative md:bg-white md:flex-row md:w-auto md:h-auto md:top-0 md:bg-transparent"
   >
     {#each default_routes as page}
       <li class="my-4 mx-2">
