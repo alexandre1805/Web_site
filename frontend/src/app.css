@@ -55,6 +55,11 @@
     );
   }
 
+  .bg-home {
+    background: rgb(57,0,119);
+    background: linear-gradient(137deg, rgba(57,0,119,1) 0%, rgba(111,0,230,1) 100%);
+  }
+
   @keyframes spawn {
     from {
       transform: translateY(-100px);
