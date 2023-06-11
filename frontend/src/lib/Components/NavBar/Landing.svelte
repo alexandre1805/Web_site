@@ -28,7 +28,7 @@
   </div>
   <ul
     id="menu"
-    class="absolute top-full w-full h-screen flex justify-center flex-col bg-primary left-0 hidden md:flex md:relative md:bg-white md:flex-row md:w-auto md:h-auto md:top-0 md:bg-transparent"
+    class="absolute top-full w-full h-screen flex justify-center flex-col bg-primary left-0 hidden md:flex md:relative md:flex-row md:w-auto md:h-auto md:top-0 md:bg-transparent"
   >
     {#each default_routes as page}
       <li class="my-4 mx-2">

@@ -1,13 +1,14 @@
 <script>
     import { link } from 'svelte-spa-router'
+    import connect4 from '../../assets/slider/connect4.png'
 </script>
 
 <div class="block items-center">
     <div class="hero h-screen w-full bg-home">
         <div class="hero-content flex-col lg:flex-row-reverse">
-          <img src="https://placeimg.com/260/400/arch" class="rounded-lg shadow-2xl w-48 md:w-96" alt="animation"/>
+          <img src={connect4} class="rounded-lg shadow-2xl w-48 md:w-96" alt="animation"/>
           <div>
-            <h1 class="text-8xl font-bold">New Game Website!</h1>
+            <h1 class="md:text-8xl font-bold text-6xl">New Game Website!</h1>
             <p class="py-6 text-xl">Register here for free and join us to play many games</p>
             <a class="btn btn-secondary" use:link href="/register">Get Started</a>
           </div>
