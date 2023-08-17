@@ -1,6 +1,6 @@
 # Web application : chat and online video games
 
-This web app is able to play video games easily with your and even use this as a social network. The app has been built with the MERN stack and axios.
+This web app is able to play video games easily with your and even use this as a social network.
 
 ## Start the app
 
