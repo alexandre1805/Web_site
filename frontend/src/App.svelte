@@ -1,13 +1,14 @@
 <script lang="ts">
   import axios from 'axios'
-  import NavBar from './lib/Components/Landing/NavBar.svelte'
-  import { socket, username } from './lib/store'
-  import Router, { push } from 'svelte-spa-router'
-  import { wrap } from 'svelte-spa-router/wrap'
   import io from 'socket.io-client'
+  import { wrap } from 'svelte-spa-router/wrap'
+  import Router, { push } from 'svelte-spa-router'
+  import { socket, username } from './lib/store'
 
+  import NavBarConnected from './lib/Components/NavBar/Connected.svelte'
+  import NavBarLanding from './lib/Components/NavBar/Landing.svelte'
   import About from './lib/Components/Landing/About.svelte'
-  import Home from './lib/Components/Landing/Home.svelte'
+  import Home from './lib/pages/Home.svelte'
   import Register from './lib/Components/Landing/Register.svelte'
   import Login from './lib/Components/Landing/Login.svelte'
   import Dashboard from './lib/Components/Dashboard/Dashboard.svelte'
@@ -45,8 +46,12 @@
   }
 </script>
 
-<NavBar />
-<div class="absolute w-full h-[calc(100%_-_4rem)] top-16">
+{#if $username === ''}
+  <NavBarLanding />
+{:else}
+  <NavBarConnected />
+{/if}
+<div class="absolute w-full h-[calc(100%_-_5rem)] top-20">
   <Router
     routes={{
       '/': wrap({
