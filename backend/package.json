@@ -4,30 +4,30 @@
   "description": "It's my first nodejs application",
   "author": "Alexandre Bourcier",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.1",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.3.3",
-    "socket.io": "^4.5.4"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0",
+    "socket.io": "^4.7.5"
   },
   "scripts": {
     "start": "NODE_ENV=development  nodemon src/app.js",
     "test": "jest --verbose --testTimeout=5000"
   },
   "devDependencies": {
-    "eslint": "^8.31.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.6.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "jest": "^29.3.1",
-    "mongodb-memory-server": "^8.10.2",
-    "nodemon": "2.0.*",
-    "socket.io-client": "^4.5.4",
-    "supertest": "^6.3.3"
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.1.8",
+    "nodemon": "3.1.*",
+    "socket.io-client": "^4.7.5",
+    "supertest": "^6.3.4"
   }
 }
